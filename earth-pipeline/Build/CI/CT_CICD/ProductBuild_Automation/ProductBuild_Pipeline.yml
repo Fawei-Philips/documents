@@ -1,0 +1,98 @@
+trigger: none
+variables:
+  - group: "CTWorkspace_Var"
+  - name: TFS_AUTH
+    value: $[variables.PAT_ing07471]
+parameters:
+  - name: start_repo_name
+    displayName: "Start build from- (metion the exact repo name)"
+    type: string
+    default: "default"
+  - name: notificationemailId
+    displayName: Email List
+    type: string
+    default: 'dawei.feng@philips.com'
+
+pool:
+  name: "CT_CN_WorkSpace_Product"
+  demands: "TFSAgentPool -equals CT_WS_ProductBuild"
+stages:
+  - stage: configure
+    displayName: "Configure build"
+    jobs:
+      - job: lock
+        timeoutInMinutes: 0
+        displayName: "Lock CompReg branch"
+        steps:
+          - checkout: self
+          - task: PowerShell@2
+            inputs:
+              filePath: '$(Build.SourcesDirectory)/scripts/lock_unlock_branch.ps1'
+              arguments: '-RepoName "CT_CompRegistry" -Branch "master" -Lock $true -Auth "$(TFS_AUTH)"'
+              failOnStderr: true
+      - job: stop_ci
+        timeoutInMinutes: 0
+        displayName: "Pause CompReg CI"
+        steps:
+          - checkout: self
+          - task: PowerShell@2
+            inputs:
+              filePath: '$(Build.SourcesDirectory)/scripts/enable_disable_pipeline.ps1'
+              arguments: '-DefID "3014" -Enable $false -Auth "$(TFS_AUTH)"'
+              failOnStderr: true
+
+  - stage: trigger_builds
+    displayName: "Trigger Builds"
+    dependsOn: configure
+    jobs:
+      - job: trigger
+        variables:
+          start_repo_name: ${{ parameters.start_repo_name }}
+        timeoutInMinutes: 0
+        displayName: "Trigger"
+        steps:
+          - checkout: self
+          - task: PowerShell@2
+            inputs:
+              filePath: '$(Build.SourcesDirectory)/ProductBuild_Automation/RepoIterator.ps1'
+              arguments: '-RepoName "$(start_repo_name)" -Auth "$(TFS_AUTH)"'
+              failOnStderr: true
+
+  - stage: update_compregistry_tag
+    displayName: "Update CompRegistry Tag"
+    dependsOn: trigger_builds
+    jobs:
+      - job: update_tag
+        timeoutInMinutes: 0
+        displayName: "Update CompRegistry Tag"
+        steps:
+          - checkout: self
+          - task: PowerShell@2
+            inputs:
+              filePath: '$(Build.SourcesDirectory)/ProductBuild_Automation/UpdateCompRegistryTag.ps1'
+              failOnStderr: false
+    
+  - stage: UnLock_ComRegistry
+    displayName: "Unlock ComRegistry"
+    dependsOn: trigger_builds
+    jobs:
+      - job: unlock
+        timeoutInMinutes: 0
+        displayName: "Unlock CompReg branch"
+        steps:
+          - checkout: self
+          - task: PowerShell@2
+            inputs:
+              filePath: '$(Build.SourcesDirectory)/scripts/lock_unlock_branch.ps1'
+              arguments: '-RepoName "CT_CompRegistry" -Branch "master" -Lock $false -Auth "$(TFS_AUTH)"'
+              failOnStderr: true
+      - job: start_ci
+        timeoutInMinutes: 0
+        displayName: "Start CompReg CI"
+        steps:
+          - checkout: self
+          - task: PowerShell@2
+            inputs:
+              filePath: '$(Build.SourcesDirectory)/scripts/enable_disable_pipeline.ps1'
+              arguments: '-DefID "3014" -Enable $true -Auth "$(TFS_AUTH)"'
+              failOnStderr: true

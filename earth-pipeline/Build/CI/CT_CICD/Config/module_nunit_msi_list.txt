@@ -1,0 +1,7 @@
+Newtonsoft.Json
+Unity
+Unity.Interception
+CT_CommunicationFramework
+LoggingFramework
+CT_LoggingWrapper
+RegAsm

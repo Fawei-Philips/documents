@@ -1,0 +1,20 @@
+{
+  "hasModules": false,
+  "jscpdReports": "D:\\jscpdReportsLocal",
+  "jscpdServerFolder": "D:\\JSCPDReports",
+  "configurations": {
+    "reporters": [ "json", "console" ],
+    "format": [
+      "csharp",
+      "typescript",
+      "javascript",
+      "java",
+      "cpp",
+      "c"
+    ],
+    "ignore": [ "**/Debug/**", "**/Release/**", "**/Deployment/**" ],
+    "min-tokens": 100,
+    "absolute": true,
+    "gitignore": false
+  }
+}

@@ -1,0 +1,145 @@
+variables:
+
+#Branch Name
+  BranchName: 'main'
+
+#Agent variables   
+  PoolName: 'CT_CN_WorkSpace_PR'
+  DemandName: 'TFSAgentPool'
+  DemandValue: 'CTWS_PR_Build'
+  ADSURL: 'https://tfsemea1.ta.philips.com/tfs/'
+  artifactoryService: 'JfrogArtifactory'
+
+#Enable/Disable jobs
+  PDP_IAS: 'false'
+  PDP_EAS: 'false'
+  Build: 'true'
+  VSbuild: 'false'
+  Unit_Testing: 'false'
+  UnitTest_Coverage: 'false'
+  TICS: 'false'
+  Coverity: 'false'
+  Fortify: 'false'
+  SonarQube: 'false'
+  BlackDuck: 'false'
+  Project_Settings: 'false'
+  Compiler_Warnings: 'false'
+  Coding_Standards: 'false'
+  Code_Duplication: 'false'
+  Max_Cyclometric_Complexity: 'false'
+  3rdPartyRefCheck: 'false'
+  Coverage: 'false'
+  Resharper: 'false'
+  CodeScene: 'false'
+  ProjSpec_CompilerWarnings: 'false'
+  PRSizeVariableBypass: 'false'
+  PR_Size: 'false'
+  WIStatusCheck: 'false'
+  ComponentTests_Run: 'false'
+  Packaging: 'false'
+  Deployment: 'false'
+  Testing: 'false'
+  Finalize: 'false'
+  FanOut: 'false'
+  Abstract_interpretation: 'false'
+  Dead_Code: 'false' 
+  Update_Capability: 'false'
+  Build_Targets_Gate: 'false'
+  Build_Props_Gate: 'false'
+  IAP_Repo_Template_Gate: 'false'
+
+#Automated Gating Exception
+  ccpassgates: 'false'
+  ticspassgates: 'false'
+  ppspassgates: 'false'
+  resharpassgates: 'false'
+
+#Nuget cheking,creating and packaging variables    
+  artifactory_base_url: 'https://artifactory-china.ta.philips.com:443/artifactory'
+  validate_artifactory_base_url: 'https://artifactory-china.ta.philips.com:443/artifactory/api/storage'
+  upload_base_url: 'https://artifactory-china.ta.philips.com:443/artifactory/api/nuget'
+  artifactory_reponame: 'ct-workspace'
+  internal_folder_name: 'CT_Serviceability'
+  component_name: 'CT_ServiceabilityInf'
+  component_name2: 'CT_ServiceabilityImpl'
+  component_name3: 'CT_ServiceabilityPostActions'
+  component_name4: 'CT_ServiceabilityTest'
+  state: 'CT_ServiceabilityInf'
+  state2: 'CT_ServiceabilityImpl'
+  state3: 'CT_ServiceabilityPostActions'
+  state4: 'CT_ServiceabilityTest'
+  nuspec_source_path: '$(build.sourcesdirectory)/Build/Pkg/Nuget/CT_ServiceabilityInf.nuspec'
+  nuspec_source_path2: '$(build.sourcesdirectory)/Build/Pkg/Nuget/CT_ServiceabilityImpl.nuspec'
+  nuspec_source_path3: '$(build.sourcesdirectory)/Build/Pkg/Nuget/CT_ServiceabilityPostActions.nuspec'
+  nuspec_source_path4: '$(build.sourcesdirectory)/Build/Pkg/Nuget/CT_ServiceabilityTest.nuspec'
+  nupkg_source_path: '$(Build.ArtifactStagingDirectory)/$(state)'
+  nupkg_source_path2: '$(Build.ArtifactStagingDirectory)/$(state2)'
+  nupkg_source_path3: '$(Build.ArtifactStagingDirectory)/$(state3)'
+  nupkg_source_path4: '$(Build.ArtifactStagingDirectory)/$(state4)'
+  nuspec_checker_script_path: 'Build/Pipeline_Scripts/FullBuild_Scripts/nuspec_checker.ps1'
+  nuget_uploader_script_path: 'Build/Pipeline_Scripts/FullBuild_Scripts/nuget_uploader.ps1'
+
+
+#Solution paths.
+  MSBuildEngine: 'C:\VS2022\MSBuild\Current\Bin\MSBuild.exe'
+  SolutionPath: '*.sln'
+  ComponentName: 'CT_Serviceability'
+  ArtifactoryRepoName: 'ct-workspace'
+  3rdPartyPackagesPath: '$(build.sourcesdirectory)\Dependencies\Ref'
+  CustomTestAdapterpath: 'Ref\NUnit3TestAdapter\3.10.0\build\net35'
+  Maxtestfailureattempt: '3'
+  Maxtestfailedforrerun: '5'
+  Testdllpath: 'Source\**\Tst\**\bin\Release\*.Test.dll'
+  target_test_folder: 'D:\PCC\ChorusHost\Bin'
+  
+
+#Gating Solution Variables 
+  EGSbin: '$(build.sourcesdirectory)\Tools\Tools.$(Toolsversion)\EGS'
+  EGSconfigs: '$(build.sourcesdirectory)\Build\CI\EGSconfigs'
+  EGSbiu: 'CT'
+  EGSprogram: 'CT_Serviceability'
+  EGSprojectname: 'CT_Serviceability'
+  EGSDEVmainbranch: 'origin/main'
+
+
+
+#BUSpecific Variables 
+  UpdateCapability: '$(build.sourcesdirectory)\Build\Pipeline_Scripts\UpdateCapability.ps1'
+  platform: 'Any CPU'
+  configuration: 'Release'
+  TestAdapterPath: 'Ref\NUnit3TestAdapter\3.10.0\build\net35'
+  GatedBuild: 'false'
+  vsVersion: '15.0'
+  ThirdPartyRefCheck: './Build/Pipeline_Scripts/Gate_for_3rdparty_Reference.ps1'
+  SetVariablePRSize: 'Build/Pipeline_Scripts/PullRequestFiles_Gate_ByPass.ps1'
+  ProjectURL: 'https://tfsemea1.ta.philips.com/tfs/TPC_Region26/IAP'
+  ReposID: '6b2c1e5e-95e5-49a2-9558-ef4ff766e268'
+  PRfilepath: './Build/Pipeline_Scripts/PullrequestFiles.ps1'
+  PR_Scrips_package_name: 'PR_Gates_Scripts.zip'
+
+#Repo Template gate 
+  IAP_Repo_Template_Repo: 'https://tfsemea1.ta.philips.com/tfs/TPC_Region26/IAP/_git/Git_Auto_Template'
+
+# Download zip files variables
+  base_url: 'https://artifactory-china.ta.philips.com:443/artifactory'
+  repo_name: 'dinxgenhost-local-release'
+  internal_comp_name: 'DevOpsLibraries'
+  component_name_fullbuild: 'PR_Scripts'
+  package_name: 'PR_Gates_Scripts.zip'
+  destination_path: '"$(build.sourcesdirectory)\"'    
+  zip_download_Script_path: 'Build/Pipeline_Scripts/Download_FullBuild_Zip_File.ps1'
+  extract_scripts_destination_path: 'Build/Pipeline_Scripts/PR_Scripts'
+  
+#Packaging Variables 
+  MSBuild15: 'C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin'
+
+
+#TICS 
+  TICSURL: 'https://ticsapac1.ta.philips.com/tiobeweb/CT/api/cfg?name=WINDOWS'
+  TICSABSCountGates: './Build/Pipeline_Scripts/TICS_ABS_Count_Gates.ps1'
+#Codescene
+  codesceneusr: 'bot-85'
+  Codescene_Repo_name: 'CT_Serviceability'
+  codesceneURL: 'https://codescene.ta.philips.com/projects/2179/delta-analysis'
+  azure-repo: 'CT_Serviceability'
+  workingdir: '$(build.sourcesdirectory)\Tools\Tools.$(Toolsversion)\codescene\codescene-ci-cd.standalone.jar'

@@ -1,0 +1,25 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+  gateName: []
+  projectName: []
+ 
+jobs:
+- job: Fortify_Security_Gates
+  dependsOn: ${{ parameters.dependsOn }}
+  condition: and(succeeded(), eq(variables['Fortify_Gates'], 'true'))
+  timeoutInMinutes: 0
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none
+  - task: CmdLine@2
+    displayName: 'Fortify Gates'
+    condition: always()
+    inputs:
+      script: dotnet $(Gates_DLL_Path) -nightly $(Nightly_Config_Json_Path) -biu DI -program DI -d -n ${{ parameters.projectName }} -gateon ${{ parameters.gateName }}
+    enabled: 'true'
+    continueOnError: true

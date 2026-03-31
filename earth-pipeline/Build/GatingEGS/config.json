@@ -1,0 +1,20 @@
+{
+	
+	"TFS": {
+		"PREFIX_BRANCH_API_URI":"https://tfsemea1.ta.philips.com/tfs/TPC_Region26/CT-GlobalSW/_apis/",
+		"TFS_REPOSITORIES_URL": "prefix_branch_api_uri + 'git/repositories/'",
+		"TFS_PREFIX_URL" : "?api-version=4.0",
+		"TFS_REGION_URL": "https://tfsemea1.ta.philips.com/tfs/TPC_Region26/",
+		"REP_ID" : "d4101cb5-cd28-47d2-a57f-27ba6e00329e",
+		"EXCEPTION_APPROVERS":["Zhang, David Dw","Ren, Danny Nh"],
+		"CCEXCEPTION_STRING":"ccexception",
+		"TICSEXCEPTION_STRING":"ticsexception",
+		"RESHARPEXCEPTION_STRING":"resharperexception",
+		"PPSEXCEPTION_STRING":"ppsexception",
+		"CCSUPP_STRING":"CC Suppression Request",
+		"TICSSUPP_STRING":"Tics Suppression Request",
+		"RESHARPSUPP_STRING":"Resharper Suppression Request",
+		"PPSSUPP_STRING":"PPS Suppression Request"
+	}
+	
+}

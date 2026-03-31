@@ -1,0 +1,96 @@
+parameters:
+  dependsOn: []
+  #agentcapability: []
+  Capabilityname: []
+  agentDemand: []
+  Version: ''
+  ComponentName: ''
+  Solution: []
+ 
+jobs:
+- job: Angular_Build
+  dependsOn: ${{ parameters.dependsOn }}  
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }}
+  steps:
+  - checkout: self
+    clean: true
+    submodules: true
+
+  - script: |
+        $(Proxy_http)   
+    workingDirectory: $(Package_json_path)
+    displayName: 'Set proxy'
+    condition: eq(variables['Set_http_Proxy'], 'true')
+    enabled: 'true'
+
+  - script: |
+      $(Proxy_https)    
+    workingDirectory: $(Package_json_path)
+    displayName: 'Set proxy'
+    condition: eq(variables['Set_https_Proxy'], 'true')
+    enabled: 'true'
+           
+  - task: CmdLine@2  
+    inputs:
+      script: $(NPMRegistry)
+      workingDirectory: $(Package_json_path)
+    displayName: 'Set NPM registry'
+    condition: eq(variables['Set_NPM_registry'], 'true')
+    enabled: 'true'
+    
+  - task: PowerShell@2
+    displayName: 'set multiple registry'
+    inputs:
+       targetType: filePath
+       filePath: './Build/CI/CT_CICD/scripts/Angular/NpmRegistryset.ps1'
+       arguments: '$(Build.SourcesDirectory)'
+       failOnStderr: true
+       workingDirectory: '$(Build.SourcesDirectory)/Build/CI/CT_CICD/scripts/Angular'  
+    condition: eq(variables['Set_multiNPM_registry'], 'true')
+    enabled: 'true'
+    
+  - task: CmdLine@2  
+    inputs:
+      script: npm install --force
+      workingDirectory: $(Package_json_path)
+    displayName: 'install NPM Package'
+    condition: eq(variables['Install_NPM_Package'], 'true')
+    enabled: 'true'
+    continueOnError: false
+
+  - script: |
+      $(Remove_Proxy_http)
+    workingDirectory: $(Package_json_path)
+    displayName: 'Remove Proxy' 
+    condition: eq(variables['Remove_http_Proxy'], 'true')
+    enabled: 'true' 
+
+  - script: |
+      $(Remove_Proxy_https)  
+    workingDirectory: $(Package_json_path)
+    displayName: 'Remove Proxy' 
+    condition: eq(variables['Remove_https_Proxy'], 'true')
+    enabled: 'true' 
+
+  - task: CmdLine@2
+    displayName: 'Build_NPM_Modules'
+    inputs:
+       script: powershell.exe $(Build.SourcesDirectory)\Build\CI\CT_CICD\scripts\Angular\NPM_Build.ps1 $(Angular_Projects_Path)
+       workingDirectory: '$(Build.SourcesDirectory)/Build/CI/CT_CICD/scripts/Angular' 
+    condition: eq(variables['Build_NPM_Modules'], 'true')
+    enabled: 'true'
+    continueOnError: false
+    
+  - task: PowerShell@2
+    displayName: 'unset multiple registry'
+    inputs:
+       targetType: filePath
+       filePath: './Build/CI/CT_CICD/scripts/Angular/NpmRegistryremove.ps1'
+       arguments: '$(Build.SourcesDirectory)'
+       failOnStderr: true
+       workingDirectory: '$(Build.SourcesDirectory)/Build/CI/CT_CICD/scripts/Angular'  
+    condition: eq(variables['UnSet_multiNPM_registry'], 'true')
+    enabled: 'true'       

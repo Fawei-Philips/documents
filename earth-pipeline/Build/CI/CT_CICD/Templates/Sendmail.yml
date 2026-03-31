@@ -1,0 +1,22 @@
+parameters:
+  mailSubject: [] 
+  mailBody: []
+  notifymail: []
+  timestamp: []
+
+jobs:
+- job: SendMail
+  timeoutInMinutes: 0
+  steps:
+  - checkout: none
+  - task: SendEmail@1    
+    inputs:
+      To: '${{parameters.notifymail}}'
+      From: 'noreply-TFS@philips.com'
+      Subject: '${{parameters.mailSubject}}'
+      Body: '${{parameters.mailBody}}'
+      BodyAsHtml: true
+      AddAttachment: false
+      SmtpServer: '161.92.84.252'
+      SmtpPort: 
+      UseSSL: false   

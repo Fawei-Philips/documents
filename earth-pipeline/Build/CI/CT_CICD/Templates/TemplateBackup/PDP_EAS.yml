@@ -1,0 +1,14 @@
+jobs:
+- job: PDP_EAS
+  condition: and(succeeded(), eq(variables['PDP_EAS'], 'true'))
+  dependsOn: PDP_IAS
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - pdp -equals $(DemandValue)
+  steps:
+  - checkout: none
+  - task: CmdLine@2
+    displayName: PDP_EAS
+    inputs:
+     script: 'echo PDP_EAS'

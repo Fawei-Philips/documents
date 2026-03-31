@@ -1,0 +1,64 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+  inputs : []
+  Checkout : []
+  
+
+jobs:
+- job: PPSCheck
+  dependsOn: ${{ parameters.dependsOn }}
+  timeoutInMinutes: 0
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout:  ${{ parameters.Checkout }}
+    submodules: true
+
+  
+ # - ${{ each i in parameters.inputs }}:
+  #   - script: |
+   #      python build/get_pac.py
+     #    python pac_libraries/set_pac.py
+     #    python pac_libraries/master_libs/tics/tics.py --json_file=${{ i.path }}
+     #  displayName: 'Run tics devops lib'
+     #  enabled: true 
+
+
+  - task: JFrog.jfrog-artifactory-vsts-extension.artifactory-generic-download.ArtifactoryGenericDownload@3
+    displayName: 'Download Tools'
+    inputs:
+      connection: JfrogArtifactory
+      fileSpec: |
+       {
+         "files": [
+           {
+             "pattern": "ct-workspace/Tools/Tools.$(Toolsversion).nupkg",
+             "target": "$(Build.SourcesDirectory)/",
+             "flat": "true"
+           }
+         ]
+       }
+    enabled: true
+
+  - script: 'nuget install Tools -Source %cd% -OutputDirectory Tools'
+    workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: 'Install Tools'
+    failOnStderr: true
+
+  - script: 'dotnet $(EGSbin)\gates_main.dll $(EGSconfigs)\conf\sample-configuration\mainConfig.json -biu $(EGSbiu) -p $(System.PullRequest.PullRequestID) -d -w $(Build.SourcesDirectory) -gateon pscheck'
+    workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: 'Run EGS PPS Filewise' 
+    condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
+
+  - script: 'dotnet $(EGSbin)\gates_main.dll $(EGSconfigs)\conf\sample-configuration\mainConfig.json -biu $(EGSbiu) -dev -mainbranch $(EGSDEVmainbranch) -featurebranch $(Build.SourceBranchName) -d -w $(Build.SourcesDirectory) -gateon pscheck'
+    workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: 'Run EGS(DEV) PPS Filewise' 
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))   
+     
+      
+
+  

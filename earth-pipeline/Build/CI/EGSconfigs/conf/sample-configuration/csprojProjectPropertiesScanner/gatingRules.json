@@ -1,0 +1,23 @@
+{
+  "enabled": "yes",
+  "Low": {
+    "enabled": "yes",
+    "comparisonType": "server",
+    "threshold": 0
+  },
+  "Medium": {
+    "enabled": "yes",
+    "comparisonType": "server",
+    "threshold": 0
+  },
+  "High": {
+    "enabled": "yes",
+    "comparisonType": "server",
+    "threshold": 0
+  },
+  "Critical": {
+    "enabled": "yes",
+    "comparisonType": "server",
+    "threshold": 0
+  }
+}

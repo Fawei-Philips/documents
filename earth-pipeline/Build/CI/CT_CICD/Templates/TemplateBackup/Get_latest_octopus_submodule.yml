@@ -1,0 +1,28 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+
+jobs:
+- job: Get_latest_octopus_submodule
+  condition: and(succeeded(), eq(variables['Get_latest_octopus_submodule'], 'true'))
+  dependsOn: ${{ parameters.dependsOn }}
+  timeoutInMinutes: 0
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: self
+  - task: PowerShell@2
+    displayName: Get_latest_octopus_submodule
+    continueOnError: false
+    inputs:
+      targetType: 'inline'
+      script: |
+            Set-Location $(build.sourcesdirectory)\octopus
+            git config --global credential.helper wincred
+            git checkout develop
+            git pull
+            git checkout $(Submodule_Feature_Branchname)
+            git pull

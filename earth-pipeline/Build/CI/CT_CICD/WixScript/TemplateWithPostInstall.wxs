@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+    <Product Id="F4A2C41B-B17F-415D-8930-762F66E0D112" Name="$(var.ComponentName)" Language="1033" Version="$(var.ProductVersion)" Manufacturer="Philips Healthcare" UpgradeCode="">
+    <Package Id="*" Description="" InstallerVersion="300" Compressed="yes" />
+    <Media Id="1" Cabinet="" EmbedCab="yes" />
+    <Property Id="REINSTALLMODE">amus</Property>
+	
+	<!--MajorUpgrade element to remove previous msi -->
+    <MajorUpgrade
+      AllowSameVersionUpgrades="yes" 
+      DowngradeErrorMessage="A newer version of [ProductName] is already installed."
+      Schedule="afterInstallInitialize" />
+	
+    <Feature Id="OutInfFeature" Level="1">
+      <ComponentGroupRef Id="ctCommonOutInf" />
+    </Feature>
+    <Feature Id="OutImplFeature" Level="1">
+      <ComponentGroupRef Id="ctCommonOutImpl" />
+    </Feature>
+    <Feature Id="OutResFeature" Level="1">
+      <ComponentGroupRef Id="ctCommonOutRes" />
+    </Feature>
+    <Feature Id="OutCnfgFeature" Level="1">
+      <ComponentGroupRef Id="ctCommonOutCfg" />
+    </Feature>
+    <Feature Id="OutPostFeature" Level="1">
+      <ComponentGroupRef Id="ctPostIns" />
+    </Feature>
+	
+	<!--post-install custom action-->
+	<CustomAction Id="PostInstallAction" Execute="deferred" Impersonate="no" Directory="TARGETDIR" ExeCommand="[INSTALLFOLDER]post.bat" Return="check" /> 
+
+	<!--pre-uninstall custom action -->
+	<CustomAction Id="PreUninstallAction" Execute="deferred" Impersonate="no" Directory="TARGETDIR" ExeCommand="[INSTALLFOLDER]pre.bat" Return="check" /> 
+
+	<!--installation sequence -->
+	<InstallExecuteSequence>
+		<Custom Action="PostInstallAction" After="InstallFiles">NOT Installed</Custom>
+		<Custom Action="PreUninstallAction" Before="RemoveFiles">(REMOVE~="ALL") AND (UPGRADINGPRODUCTCODE)</Custom>
+	</InstallExecuteSequence>
+
+
+  </Product>
+  <Fragment>
+    
+    <Property Id="ROOTDRIVE"><![CDATA[D:\]]></Property>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="pcc" Name="PCC">
+        <Directory Id="chorushost" Name="ChorusHost">
+          <Directory Id="Bin" Name="Bin">
+	    <Component Id="Inf" Guid="{8cfe221e-a0b8-42c0-bda1-f51cee60c70d}" KeyPath="yes" Feature="OutInfFeature" />
+            <Component Id="Impl" Guid="{47d4f486-129f-4108-a095-7b5bcd990fc1}" KeyPath="yes" Feature="OutImplFeature" />
+          </Directory>
+        </Directory>
+      </Directory>
+      <Component Id="Res" Guid="{5546d9f7-3e9a-40a5-8cf8-0317355908df}" KeyPath="yes" Feature="OutResFeature" />
+      <Component Id="Cnfg" Guid="{0b4b51f8-d62e-42df-bd41-b6c19423ca2b}" KeyPath="yes" Feature="OutCnfgFeature" />
+      <Component Id="PosIns" Guid="{e89955f0-26fa-490c-8fcb-be037f7d23f0}" KeyPath="yes" Feature="OutPostFeature" />
+    </Directory>
+  </Fragment>
+</Wix>

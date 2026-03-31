@@ -1,0 +1,22 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+
+jobs:
+
+- job: IAP_Repo_Template_Gate
+  condition: and(succeeded(), eq(variables['IAP_Repo_Template_Gate'], 'true'))
+  dependsOn: ${{ parameters.dependsOn }}
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+
+  steps:
+  - checkout: none
+  - task: PowerShell@2
+    inputs:
+      filePath: Build/Pipeline_Scripts/PR_Scripts/Folder_Structure_Gate.ps1
+      arguments: '$(Build.ArtifactStagingDirectory) $(IAP_Repo_Template_Repo) $(Build.SourcesDirectory)' 
+    displayName: Repo_Template_Gate

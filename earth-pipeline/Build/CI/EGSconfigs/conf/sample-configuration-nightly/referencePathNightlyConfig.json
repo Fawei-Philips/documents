@@ -1,0 +1,13 @@
+{
+  "nightlyTicsGatingConfigLocation": "tics/nightlyGatingRules.json",
+  "ticsToolConfigLocation": "tics/toolConfig.json",
+
+  "nightlySonarGatingConfigLocation": "sonar/nightlyGatingRules.json",
+  "sonarToolConfigLocation": "sonar/toolConfig.json",
+  
+  "nightlyFortifyGatingConfigLocation": "fortify/nightlyGatingRules.json",
+  "fortifyToolConfigLocation": "fortify/toolConfig.json",
+  
+  "nightlyBlackduckGatingConfigLocation": "blackduck/nightlyGatingRules.json",
+  "blackduckToolConfigLocation": "blackduck/toolConfig.json"
+}

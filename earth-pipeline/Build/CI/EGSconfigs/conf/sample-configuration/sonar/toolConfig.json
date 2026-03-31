@@ -1,0 +1,19 @@
+{
+  "sonarHostUrl": "http://ingbtcpic6vw059:9000/",
+  "login": "<SonarQube-ACCESS-TOKEN>",
+  "sonarProjects": [
+    {
+      "sonarScannerPath": "C:\\sonar-scanner-msbuild-4.10.0.19059-net46",
+      "projectKey": "<SonarQube-ProjectKey>",
+      "sources": "",
+      "exclusions": "**/obj/**,**/bin/**,**/Properties/AssemblyInfo.cs,**/Scripts/jquery*,**/Scripts/modernizr*,**/Scripts/bootstrap.js,**/Scripts/respond.js,**/Areas/HelpPage/**",
+      "tests": "",
+      "testInclusions": "",
+      "buildCommands": [
+        "SonarScanner.MSBuild.exe begin",
+        "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Professional\\MSBuild\\15.0\\Bin\\MSBuild.exe\" \"C:\\path\\to\\Solution.sln\" /t:Rebuild",
+        "SonarScanner.MSBuild.exe end"
+      ]
+    }
+  ]
+}

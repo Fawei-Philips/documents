@@ -1,0 +1,38 @@
+parameters:
+  Solutionpath: []
+  dependsOn: []
+  agentcapability: []
+  Capabilityname: []
+  agentDemand: [] 
+ 
+jobs:
+- job: Cab_Generation_By_CabConfig
+  timeoutInMinutes: 0
+  condition: and(succeeded(), eq(variables['Cab_Generation_By_CabConfig'], 'true'))
+  dependsOn: ${{ parameters.dependsOn }}
+  variables:
+    sourcesdirectory: $(build.sourcesdirectory)
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none
+
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(AngularCabGenerationScriptPath)'
+       arguments: '$(Build.BuildID) $(Build.SourceBranchName) $(CabConfigFilePath) $(generate_cab_script_path) $(Angular_Projects_Dist_Path)'   
+    displayName: 'NPM_Cab_File_Generation'  
+   
+  - task: ArtifactoryNuGet@2
+    inputs:    
+      command: 'push'
+      artifactoryService: '$(artifactoryService)'
+      targetDeployRepo: '$(NPMPackagesDeployRepo)'
+      pathToNupkg: '$(pathToNPMCabFile)'
+      collectBuildInfo: false
+      buildName: '$(Build.DefinitionName)'
+      buildNumber: '$(Build.BuildNumber)'
+    continueOnError: false
+    displayName: Publish_NPM_Cab_File

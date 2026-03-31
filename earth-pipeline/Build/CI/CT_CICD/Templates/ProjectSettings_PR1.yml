@@ -1,0 +1,187 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+  inputs : []
+  Checkout : []
+  
+
+jobs:
+- job: PPSCheck
+  dependsOn: ${{ parameters.dependsOn }}
+  condition: and(succeeded(), ne(dependencies.Build.outputs['UpdateVar.ppspassgates'],True))
+  timeoutInMinutes: 0
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+
+  steps:
+  - checkout: self
+    clean: true
+    submodules: true
+    condition: and(succeeded(), eq(variables['GitDownloadMethod'], ''))
+
+  - checkout: self
+    clean: true
+    submodules: true
+    condition: and(succeeded(), eq(variables['GitDownloadMethod'], 'Clone'))
+
+  - checkout: none
+    clean: true
+    condition: and(succeeded(), eq(variables['GitDownloadMethod'], 'Pull'))
+
+  - powershell: |
+      Write-Host "Src: $(ADS_Backup_Repo_Path)\$(internal_folder_name)\*"
+      Write-Host "Dest: $(Build.Repository.LocalPath)\"
+      Copy-Item -Path "$(ADS_Backup_Repo_Path)\$(internal_folder_name)\*" -Destination "$(Build.Repository.LocalPath)\" -Recurse -Force
+      Set-Location "$(Build.Repository.LocalPath)"
+
+      $prId = $env:SYSTEM_PULLREQUEST_PULLREQUESTID
+      if(-not [string]::IsNullOrEmpty($prId)){
+        Write-Host "PR ID: $prId"
+        git reset --hard       
+        git clean -xdf
+        if (git branch --list pr_merge_tmp) {
+          git branch -D pr_merge_tmp
+        }
+        git pull --recurse-submodules
+        git fetch origin pull/$prId/merge:pr_merge_tmp
+        git checkout pr_merge_tmp
+        git submodule update --init --recursive
+      }
+      elseif ($env:BUILD_SOURCEBRANCH -match '^refs/heads/(.*)$') {
+        $branch = $matches[1]
+        Write-Host "branch name: $branch"
+        git reset --hard
+        git checkout $branch
+        git clean -xdf
+        git fetch origin $branch
+        git reset --hard origin/$branch
+        git submodule update --init --recursive
+      }
+      elseif ($env:BUILD_SOURCEBRANCH -match '^refs/tags/(.*)$') {
+        $tagName = $matches[1]
+        Write-Host "Tag name: $tagName"
+        $branch = "main"
+        Write-Host "default branch name: $branch"
+        git reset --hard
+        git checkout $branch
+        git clean -xdf
+        git fetch origin $branch
+        git reset --hard origin/$branch
+        git rest --hard $tagName
+        git submodule update --init --recursive
+
+      }else {
+        $branch = "main"
+        Write-Host "default branch name: $branch"
+        git reset --hard
+        git checkout $branch
+        git clean -xdf
+        git fetch origin $branch
+        git reset --hard origin/$branch
+        git submodule update --init --recursive
+      }
+    displayName: 'Copy code from shared path and git pull'
+    condition: and(succeeded(), eq(variables['GitDownloadMethod'], 'Pull'))
+
+
+  - task: JFrog.jfrog-artifactory-vsts-extension.artifactory-generic-download.ArtifactoryGenericDownload@3
+    displayName: 'Download Tools_Dev'
+    inputs:
+      connection: JfrogArtifactory
+      fileSpec: |
+       {
+         "files": [
+           {
+             "pattern": "ct-workspace/Tools_Dev/Tools_Dev.$(Tools_Dev_version).nupkg",
+             "target": "$(Build.SourcesDirectory)/",
+             "flat": "true"
+           }
+         ]
+       }
+    enabled: true
+
+  - script: 'nuget install Tools_Dev -Source %cd% -OutputDirectory Tools'
+    workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: 'Install Tools_Dev'
+    failOnStderr: true
+    
+  - task: JFrog.jfrog-artifactory-vsts-extension.artifactory-generic-download.ArtifactoryGenericDownload@3
+    displayName: 'Download Tools'
+    inputs:
+      connection: JfrogArtifactory
+      fileSpec: |
+       {
+         "files": [
+           {
+             "pattern": "ct-workspace/Tools/Tools.$(Toolsversion).nupkg",
+             "target": "$(Build.SourcesDirectory)/",
+             "flat": "true"
+           }
+         ]
+       }
+    enabled: true
+
+  - script: 'nuget install Tools -Source %cd% -OutputDirectory Tools'
+    workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: 'Install Tools'
+    failOnStderr: true
+
+
+  - script: 'dotnet $(EGSbin)\gates_main.dll $(EGSconfigs)\conf\sample-configuration\mainConfig.json -biu $(EGSbiu) -p $(System.PullRequest.PullRequestID) -d -w $(Build.SourcesDirectory) -gateon pps -repotoken $(EGSToken)'
+    workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: 'Run EGS PPS Filewise' 
+    condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
+
+  - script: 'dotnet $(EGSbin)\gates_main.dll $(EGSconfigs)\conf\sample-configuration\mainConfig.json -biu $(EGSbiu) -dev -mainbranch $(EGSDEVmainbranch) -featurebranch $(Build.SourceBranchName) -d -w $(Build.SourcesDirectory) -gateon pps -repotoken $(EGSToken)'
+    workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: 'Run EGS(DEV) PPS Filewise' 
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: $(Build.BuildNumber)'
+    inputs:
+      PathtoPublish: '$(Build.SourcesDirectory)\Tools\Tools.$(Toolsversion)\EGS\GatingReports'
+      ArtifactName: 'PPSReport'
+      publishLocation: FilePath
+      TargetPath: '$(PR_Shard_Path)\$(Build.DefinitionName)'
+    condition: succeededOrFailed()
+
+  - task: PowerShell@2
+    displayName: 'Copy cleanup script to temp'
+    inputs:
+      targetType: inline
+      script: |
+          Copy-Item "$(Build.SourcesDirectory)\Build\CI\CT_CICD\scripts\workspace_cleanup.ps1" "$(Agent.TempDirectory)\workspace_cleanup.ps1"
+          Copy-Item "$(Build.SourcesDirectory)\Build\CI\CT_CICD\Config\excluded_folders.txt" "$(Agent.TempDirectory)\excluded_folders.txt"
+    condition: always()
+
+  - task: PowerShell@2
+    displayName: 'Cleanup Logs folder'
+    inputs:
+      targetType: filePath
+      filePath: $(Build.SourcesDirectory)\Build\CI\CT_CICD\scripts\clean_up.ps1
+      arguments:  'D:\Logs'
+      failOnStderr: true
+      workingDirectory: $(Build.SourcesDirectory)
+
+  - task: PowerShell@2
+    displayName: 'Work Space Cleanup'
+    inputs:
+      targetType: filePath
+      filePath: $(Agent.TempDirectory)\workspace_cleanup.ps1
+      arguments:  '-Paths "$(Agent.BuildDirectory)"'
+      failOnStderr: true
+      workingDirectory: $(Agent.TempDirectory)
+    condition: always()
+
+  - task: PowerShell@2
+    displayName: 'D Drive Cleanup'
+    inputs:
+      targetType: filePath
+      filePath: $(Agent.TempDirectory)\workspace_cleanup.ps1
+      arguments: '-CleanDDrive $true'
+      failOnStderr: true
+      workingDirectory: $(Agent.TempDirectory)    

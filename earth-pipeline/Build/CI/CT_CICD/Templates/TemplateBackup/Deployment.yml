@@ -1,0 +1,15 @@
+
+jobs:
+- job: Deployment
+  condition: and(succeeded(), eq(variables['Deployment'], 'true'))
+  dependsOn: Packaging
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - pdp -equals $(DemandValue)
+  steps:
+  - checkout: none
+  - task: CmdLine@2
+    displayName: Deployment
+    inputs:
+     script: 'echo Deployment'

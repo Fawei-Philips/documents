@@ -1,0 +1,9 @@
+{
+  "BlackduckApiUrl": "https://ingbtcpic7vw002.code1.emi.philips.com:8196/blackduck/getLatestVersionResults/projectid/",
+  "services": [
+    {
+      "serviceName": "<BlackDuck-ProjectName>",
+      "projectId": "<BlackDuck-Project-ID>"
+    }
+  ]
+}

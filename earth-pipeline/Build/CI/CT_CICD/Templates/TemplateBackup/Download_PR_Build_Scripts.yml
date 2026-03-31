@@ -1,0 +1,25 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+
+jobs:
+- job: Download_PR_Build_Scripts
+  dependsOn: ${{ parameters.dependsOn }}
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none
+  - task: PowerShell@2
+    inputs:
+      filePath: '$(zip_download_Script_path)'
+      arguments: '$(base_url) $(repo_name) $(internal_comp_name) $(component_name_fullbuild) $(PR_Scrips_package_name) $(artifactory_PAT) $(destination_path)'
+    displayName: 'Download PR build scripts zip file'
+
+  - task: ExtractFiles@1
+    displayName: 'Extract PR build scripts zip file'
+    inputs:
+        archiveFilePatterns: '*.zip'
+        destinationFolder: '$(extract_scripts_destination_path)'

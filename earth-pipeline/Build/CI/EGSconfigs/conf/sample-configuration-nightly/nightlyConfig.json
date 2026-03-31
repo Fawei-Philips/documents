@@ -1,0 +1,5 @@
+{
+  "name": "CT_Serviceability",
+  "passGateonFailure": "no",
+  "referencePathConfig": "referencePathNightlyConfig.json"
+}

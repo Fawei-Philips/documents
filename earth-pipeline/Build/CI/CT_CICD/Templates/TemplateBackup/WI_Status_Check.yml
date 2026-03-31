@@ -1,0 +1,14 @@
+jobs:
+- job: WI_Status_Check
+  condition: and(succeeded(), eq(variables['WIStatusCheck'], 'true'))
+  dependsOn: PR_Size
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - pdp -equals $(DemandValue)
+  steps:
+  - checkout: none
+  - task: CmdLine@2
+    displayName: WIStatusCheck
+    inputs:
+     script: 'echo WIStatusCheck'

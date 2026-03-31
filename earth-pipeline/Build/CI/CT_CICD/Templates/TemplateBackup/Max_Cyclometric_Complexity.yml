@@ -1,0 +1,26 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+  
+
+jobs:
+- job: Max_Cyclometric_Complexity
+  timeoutInMinutes: 0
+  condition: and(succeeded(), eq(variables['Max_Cyclometric_Complexity'], 'true'))
+  dependsOn: ${{ parameters.dependsOn }}
+  variables:
+    sourcesdirectory: $[ dependencies.Build.outputs['setvarStep.sourcesdirectory'] ]
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none
+  - task: CmdLine@1
+    displayName: 'TICS Gate:Max_Cyclometric_Complexity'
+    inputs:
+     filename: '"$(EGS.filename)" '
+     arguments: '$(EGS.MainDll) $(EGS.Config) -p $(System.PullRequest.PullRequestId) -gateon tics_mcc -biu $(EGS.BIU) -w $(Build.sourcesdirectory) -d'
+    enabled: 'true'
+    

@@ -1,0 +1,175 @@
+#CT_Serviceability Variables_FullBuild.yml
+variables:
+
+#Branch Name
+  BranchName: 'main'
+
+#Agent variables   
+  PoolName: 'CT_CN_WorkSpace_Nightly'
+  DemandName: 'TFSAgentPool'
+  DemandValue: 'CTWS_Nightly_Build'
+  ADSURL: 'https://tfsemea1.ta.philips.com/tfs/'
+  artifactoryService: 'JfrogArtifactory'
+
+#Enable/Disable jobs
+  PDP_IAS: 'false'
+  PDP_EAS: 'false'
+  Build: 'true'  
+  VSbuild: 'false'
+  mSbuild: 'false'
+  Unit_testing: 'false'
+  UnitTest_Coverage: 'false'
+  Gated_TICS: 'false'
+  Project_Settings_Nightly: 'true'
+  CT_TICS_Nightly: 'true'   #CT PR gate to validate TICS values   
+  CT_Resharper_Nightly: 'true'   #CT PR gate to validate Resharper values  
+  CT_CyclomaticComplexity_Nightly: 'false'   #CT PR gate to validate Cyclomatic Complexity  
+  CT_Fortify_Nightly: 'true'   #CT PR gate to validate Cyclomatic Complexity  
+  CyclomaticComplexity: 'true' 
+  Resharper: 'false'
+  CodeScene: 'false'
+  WIStatusCheck: 'false'
+  Packaging: 'false'  #CT Nightly Packaging
+  Deployment: 'false'
+  Testing: 'false'
+  FanOut: 'false'
+  Abstract_interpretation: 'false'
+  Dead_Code: 'false' 
+  unit_test: 'false'
+  Analysis_TICS: 'false'
+  TICS: 'false'
+  Coverity: 'false'
+  Fortify: 'true'
+  SonarQube: 'false'
+  BlackDuck: 'true'
+  ComponentTests_Run: 'false'
+  PowerShellScriptsAnalyser: 'false'
+  PublishPackages: 'false'
+  NCover: 'false'
+
+#Nuget cheking,creating and packaging variables    
+  artifactory_base_url: 'https://artifactory-china.ta.philips.com:443/artifactory'
+  validate_artifactory_base_url: 'https://artifactory-china.ta.philips.com:443/artifactory/api/storage'
+  upload_base_url: 'https://artifactory-china.ta.philips.com:443/artifactory/api/nuget'
+  artifactory_reponame: 'ct-workspace'
+  artifactory_reponame_debug: 'ct-dev-workspace-generic'
+  internal_folder_name: 'CT_Serviceability'
+  component_name: 'CT_ServiceabilityInf'
+  component_name2: 'CT_ServiceabilityImpl'
+  component_name3: 'CT_ServiceabilityPostActions'
+  component_name4: 'CT_ServiceabilityTest'
+  state: 'CT_ServiceabilityInf'
+  state2: 'CT_ServiceabilityImpl'
+  state3: 'CT_ServiceabilityPostActions'
+  state4: 'CT_ServiceabilityTest'
+  nuspec_source_path: '$(build.sourcesdirectory)/Build/Pkg/Nuget/CT_ServiceabilityInf.nuspec'
+  nuspec_source_path2: '$(build.sourcesdirectory)/Build/Pkg/Nuget/CT_ServiceabilityImpl.nuspec'
+  nuspec_source_path3: '$(build.sourcesdirectory)/Build/Pkg/Nuget/CT_ServiceabilityPostActions.nuspec'
+  nuspec_source_path4: '$(build.sourcesdirectory)/Build/Pkg/Nuget/CT_ServiceabilityTest.nuspec'
+  nupkg_source_path: '$(Build.ArtifactStagingDirectory)/$(state)'
+  nupkg_source_path2: '$(Build.ArtifactStagingDirectory)/$(state2)'
+  nupkg_source_path3: '$(Build.ArtifactStagingDirectory)/$(state3)'
+  nupkg_source_path4: '$(Build.ArtifactStagingDirectory)/$(state4)'
+  nuspec_checker_script_path: 'Build/CI/Pipeline_Scripts/FullBuild_Scripts/nuspec_checker.ps1'
+  nuget_uploader_script_path: 'Build/CI/Pipeline_Scripts/FullBuild_Scripts/nuget_uploader.ps1'
+
+#CT_Fortify_Gate variables
+  CT_Fortify_Gate_agent: 'Fortify'
+  INF: '1'
+  IMPL: '1'
+
+#Fortify Variables
+  ApplicationVersion: 'CT_Serviceability'
+  FortifyBaseCritical: '0'
+  FortifyBaseHigh: '0'
+  FortifyCurrentCritical : ''
+  FortifyCurrentHigh: ''					   
+  FortifyInstallPath: 'c:\PROGRA~1\Fortify\Fortify_SCA_and_Apps_21.2.3\bin'
+  FortifyMetricsAPI: 'http://ingbtcpic7vw002:8098/api/Fortify?projectId=16831'
+  FortifyProject: 'CT_Workspace'
+  FortifyStatus: 'Null'
+  FortifyURL: 'https://fortify.philips.com/ssc'
+  Fortifysourceanalyzer: 'C:\Program Files\Fortify\Fortify_SCA_and_Apps_21.2.3\bin'
+  FortifApplicationName: 'CT-Workspace'
+  MSBuild15: 'C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin'
+
+
+#BlackDuck Variables
+  BlackduckAppVersion: 'ES_CT_Workspace'
+  BlackduckJAVABIN: 'C:\Progra~1\OpenJDK\jdk-11.0.18.10-hotspot\bin'
+  BlackduckURL: 'https://blackduck.philips.com/'
+  
+#Solution paths.
+  MSBuildEngine: 'C:\VS2022\MSBuild\Current\Bin\MSBuild.exe'
+  SolutionPath: '*.sln'
+  ComponentName: 'CT_Serviceability'
+  ArtifactoryRepoName: 'ct-workspace'
+  3rdPartyPackagesPath: '$(build.sourcesdirectory)\Dependencies\Ref'
+#  CustomTestAdapterpath: 'Ref\NUnit3TestAdapter\3.10.0\build\net35'
+  Maxtestfailureattempt: '3'
+  Maxtestfailedforrerun: '5'
+  Testdllpath: 'Source\**\Tst\**\bin\Release\*.Test.dll'
+  target_test_folder: 'D:\PCC\ChorusHost\Bin'
+
+#Solution paths
+  InterfacesPath: 'ExtInf/CT_ServiceabilityInf.sln'
+  ServicesPath: 'Src/CT_ServiceabilityImpl.sln'
+
+#Gating Solution Variables 
+  EGSbin: '$(build.sourcesdirectory)\Tools\Tools.$(Toolsversion)\EGS'
+  EGSconfigs: '$(build.sourcesdirectory)\Build\CI\EGSconfigs'
+  EGSbiu: 'CT'
+  EGSprogram: 'CT_Serviceability'
+  EGSprojectname: 'CT_Serviceability'
+  EGSppspr: '120154'
+
+
+#BUSpecific Variables 														 
+  platform: 'Any Cpu'
+  configuration: 'Release'  
+  debug_configuration: 'Debug'
+  warningThreshold: '2'
+  GatedBuild: 'false'
+
+#Testing 
+#  CustomTestAdapterpath: 'Ref\NUnit3TestAdapter\3.10.0\build\net35'
+#  Unit_Testing: 'true'
+#  ComponentTests_Run: 'true'		 
+
+  UpdateCapability: '$(build.sourcesdirectory)\Build\Pipeline_Scripts\UpdateCapability.ps1'
+#  platform: 'Any CPU'
+#  configuration: 'Release'
+  TestAdapterPath: 'Ref\NUnit3TestAdapter\3.10.0\build\net35'
+#  GatedBuild: 'false'
+  vsVersion: '15.0'
+  ThirdPartyRefCheck: './Build/Pipeline_Scripts/Gate_for_3rdparty_Reference.ps1'
+  SetVariablePRSize: 'Build/Pipeline_Scripts/PullRequestFiles_Gate_ByPass.ps1'
+  ProjectURL: 'https://tfsemea1.ta.philips.com/tfs/TPC_Region26/IAP'
+  ReposID: '6b2c1e5e-95e5-49a2-9558-ef4ff766e268'
+  PRfilepath: './Build/Pipeline_Scripts/PullrequestFiles.ps1'
+  PR_Scrips_package_name: 'PR_Gates_Scripts.zip'
+
+#NCover
+  NCoverTarget: '$(Build.Sourcesdirectory)/Source'
+  NCoverexe: 'C:\Program Files\NCover'
+  Results: 'D:\CollabLivePlugin_Ncov\CollabLivePlugin_testresult'
+  NCovResults: 'D:\CollabLivePlugin_Ncov\CollabLivePlugin_coverage'
+  NcoverAnalysis: './Build/Pipeline_Scripts/NCoverExec.ps1'
+
+#Nightly gating variables
+  Gates_DLL_Path: 'D:\Pipelines\GatingSolution_Nightly\gates_main.dll'
+  Nightly_Config_Json_Path: '$(build.sourcesdirectory)\Build\CodeQuality_Gates\nightlyConfig.json'
+
+#Enable/Disable jobs 
+  Tics_Gates: 'false'
+  Fortify_Gates: 'false'
+  BlackDuck_Gates: 'false'  
+#  Gated_TICS:'false'
+
+#Versioning variables
+  newVersion: 
+  FinalVersion: 
+
+#TICS 
+  TICSURL: 'https://ticsapac1.ta.philips.com/tiobeweb/CT/api/cfg?name=WINDOWS'
+  TICSABSCountGates: './Build/Pipeline_Scripts/TICS_ABS_Count_Gates.ps1'

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<Product Id="4418F5A6-1BBA-4E70-87C2-4C9556A74E4E" Name="Microsoft.Extensions.Configuration.Abstractions" Language="1033" Version="3.100.19" Manufacturer="Philips Healthcare" UpgradeCode="{CDB67190-22EA-4040-B9F7-B00C3BC18CC2}">
+		<Package Id="*" Description="Microsoft.Extensions.Configuration.Abstractions" InstallerVersion="300" Compressed="yes" />
+		<Media Id="1" Cabinet="Microsoft.Extensions.Configuration.Abstractions.cab" EmbedCab="yes" />
+		<Property Id="REINSTALLMODE">
+			amus
+		</Property>
+		<!-- MajorUpgrade element to remove previous msi -->
+		<MajorUpgrade AllowSameVersionUpgrades="yes" DowngradeErrorMessage="A newer version of [ProductName] is already installed." Schedule="afterInstallInitialize" />
+		<Feature Id="DefaultFeature" Title="Main Feature" Level="1">
+			<ComponentRef Id="Microsoft.Extensions.Configuration.Abstractions.dll" />
+			<ComponentRef Id="ReferDicomDlls.Microsoft.Extensions.Configuration.Abstractions.dll" />
+		</Feature>
+	</Product>
+	<Fragment>
+		<Property Id="ROOTDRIVE">
+			<![CDATA[D:\]]>
+		</Property>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="pcc" Name="PCC">
+				<Directory Id="chorushost" Name="ChorusHost">
+					<Directory Id="Bin" Name="Bin">
+						<Component Id="Microsoft.Extensions.Configuration.Abstractions.dll" Guid="{012D7782-320F-44F2-94A1-BFBA7972EF74}" KeyPath="yes">
+							<File Id="Microsoft.Extensions.Configuration.Abstractions.dll" Name="Microsoft.Extensions.Configuration.Abstractions.dll" Source="C:\320219077\MSIs\Microsoft.Extensions.Configuration.Abstractions\lib\net48\Microsoft.Extensions.Configuration.Abstractions.dll" />
+						</Component>
+						<Directory Id="ReferDicomDlls" Name="ReferDicomDlls">
+							<Component Id="ReferDicomDlls.Microsoft.Extensions.Configuration.Abstractions.dll" Guid="{4319D710-D6D4-41B3-BC7C-F99D58059682}" KeyPath="yes">
+								<File Id="ReferDicomDlls.Microsoft.Extensions.Configuration.Abstractions.dll" Name="Microsoft.Extensions.Configuration.Abstractions.dll" Source="C:\320219077\MSIs\Microsoft.Extensions.Configuration.Abstractions\lib\net48\Microsoft.Extensions.Configuration.Abstractions.dll" />
+							</Component>
+						</Directory>
+					</Directory>
+				</Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+</Wix>

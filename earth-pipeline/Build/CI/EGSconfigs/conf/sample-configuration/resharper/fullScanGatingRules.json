@@ -1,0 +1,18 @@
+{
+  "enabled": "yes",
+  "errors": {
+    "enabled": "yes",
+    "comparisonType": "server",
+    "threshold": "0"
+  },
+  "warnings": {
+    "enabled": "yes",
+    "comparisonType": "server",
+    "threshold": "0"
+  },
+  "suggestions": {
+    "enabled": "yes",
+    "comparisonType": "server",
+    "threshold": "0"
+  }
+}

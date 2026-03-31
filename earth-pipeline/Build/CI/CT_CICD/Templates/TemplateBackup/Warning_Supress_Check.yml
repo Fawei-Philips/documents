@@ -1,0 +1,14 @@
+jobs:
+- job: Warning_Supress_Check
+  condition: and(succeeded(), eq(variables['WarningSupressCheck'], 'true'))
+  dependsOn: Build
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - pdp -equals $(DemandValue)
+  steps:
+  - checkout: none
+  - task: CmdLine@2
+    displayName: WarningSupressCheck
+    inputs:
+     script: 'echo WarningSupressCheck'

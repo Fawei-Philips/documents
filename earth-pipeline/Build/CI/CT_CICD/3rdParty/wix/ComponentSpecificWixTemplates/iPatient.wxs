@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<Product Id="C681F4A2-B6DE-4767-8D81-5803BA2F45B9" Name="iPatient" Language="1033" Version="1.0.0" Manufacturer="Philips Healthcare" UpgradeCode="{8F3B393A-13A8-4F2B-9D81-2FDFD468D69E}">
+		<Package Id="*" Description="iPatient" Comments="Version: 1.0.0" InstallerVersion="300" Compressed="yes" />
+		<Media Id="1" Cabinet="iPatient.cab" EmbedCab="yes" />
+		<Property Id="REINSTALLMODE">
+			amus
+		</Property>
+		<!-- MajorUpgrade element to remove previous msi -->
+		<MajorUpgrade AllowSameVersionUpgrades="yes" DowngradeErrorMessage="A newer version of [ProductName] is already installed." Schedule="afterInstallInitialize" />
+		<Feature Id="DefaultFeature" Title="Main Feature" Level="1">
+			<ComponentRef Id="AsyncIO.dll" />
+			<ComponentRef Id="Base.dll" />
+			<ComponentRef Id="BridgeInfrastructure.BridgeServiceLocator.dll" />
+			<ComponentRef Id="BridgeInfrastructure.CommonServices.dll" />
+			<ComponentRef Id="BridgeInfrastructure.ComposerEngine.dll" />
+			<ComponentRef Id="CommunicationBus.dll" />
+			<ComponentRef Id="CommunicationBusProxy.xml" />
+			<ComponentRef Id="EventBus.dll" />
+			<ComponentRef Id="EventBus.EventsMap.dll" />
+			<ComponentRef Id="Framework.CodeAttributes.dll" />
+			<ComponentRef Id="Framework.TestAttributes.dll" />
+			<ComponentRef Id="HostLogModule.dll" />
+			<ComponentRef Id="Hostlogmodule.xmlserializers.dll" />
+			<ComponentRef Id="IvHwControls.HostSettingsService.dll" />
+			<ComponentRef Id="IvHwControls.HostSettingsServiceInterface.dll" />
+			<ComponentRef Id="IVMotionControlServiceContract.dll" />
+			<ComponentRef Id="NetMQ.dll" />
+			<ComponentRef Id="Philips.PmsCT.Logging.dll" />
+			<ComponentRef Id="PubSubProxy.Configuration.dll" />
+			<ComponentRef Id="Test.Infrastructure.Base.dll" />
+			<ComponentRef Id="Test.Infrastructure.Common.dll" />
+			<ComponentRef Id="Test.Infrastructure.Performance.dll" />
+			<ComponentRef Id="TimeCorrelationHandler.dll" />
+			<ComponentRef Id="UserManagementFramework.dll" />
+			<ComponentRef Id="Utility.dll" />
+			<ComponentRef Id="EventTopicMappingConfig.xml" />
+			<ComponentRef Id="HostLogModule.XML" />
+			<ComponentRef Id="HostLogModule.pdb" />
+			<ComponentRef Id="Philips.PmsCT.Logging.Tests.dll" />
+			<ComponentRef Id="Philips.PmsCT.Logging.dll.config" />
+			<ComponentRef Id="Philips.PmsCT.Logging.pdb" />
+			<ComponentRef Id="SyncAsyncFramework.dll" />
+			<ComponentRef Id="SyncAsyncFramework.xml" />
+			<ComponentRef Id="Test.Infrastructure.Base.xml" />
+			<ComponentRef Id="Test.Infrastructure.Common.xml" />
+			<ComponentRef Id="Test.Infrastructure.Performance.xml" />
+			<ComponentRef Id="CardiacPulmoCommon.dll" />
+			<ComponentRef Id="Dicom.dll" />
+			<ComponentRef Id="IBolusLib.dll" />
+			<ComponentRef Id="ISlice.dll" />
+			<ComponentRef Id="MduTypes.dll" />
+			<ComponentRef Id="MduMessage.dll" />
+			<ComponentRef Id="Rendering2D.dll" />
+			<ComponentRef Id="WifBase.dll" />
+			<ComponentRef Id="WifDataTypes.dll" />
+			<ComponentRef Id="WifOperators.dll" />
+		</Feature>
+		<Property Id="ROOTDRIVE">
+			<![CDATA[D:\]]>
+		</Property>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="PCC" Name="PCC">
+				<Directory Id="ChorusHost" Name="ChorusHost">
+					<Directory Id="Bin" Name="Bin">
+						<Directory Id="iPatient" Name="iPatient">
+							<Component Id="AsyncIO.dll" Guid="{E13F35EB-9264-4345-B5FF-9954968AA25A}" KeyPath="yes">
+								<File Id="AsyncIO.dll" Name="AsyncIO.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\AsyncIO.dll" />
+							</Component>
+							<Component Id="Base.dll" Guid="{90131DC6-DF97-4873-AB51-D12079C4056F}" KeyPath="yes">
+								<File Id="Base.dll" Name="Base.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\Base.dll" />
+							</Component>
+							<Component Id="BridgeInfrastructure.BridgeServiceLocator.dll" Guid="{5D866B61-B868-4852-A873-79A7DA665E98}" KeyPath="yes">
+								<File Id="BridgeInfrastructure.BridgeServiceLocator.dll" Name="BridgeInfrastructure.BridgeServiceLocator.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\BridgeInfrastructure.BridgeServiceLocator.dll" />
+							</Component>
+							<Component Id="BridgeInfrastructure.CommonServices.dll" Guid="{D114D257-1DF8-41C1-9CCC-C8D8EC31ABEF}" KeyPath="yes">
+								<File Id="BridgeInfrastructure.CommonServices.dll" Name="BridgeInfrastructure.CommonServices.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\BridgeInfrastructure.CommonServices.dll" />
+							</Component>
+							<Component Id="BridgeInfrastructure.ComposerEngine.dll" Guid="{CB5CAD52-9D87-4F73-B487-03DB8B5E3EED}" KeyPath="yes">
+								<File Id="BridgeInfrastructure.ComposerEngine.dll" Name="BridgeInfrastructure.ComposerEngine.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\BridgeInfrastructure.ComposerEngine.dll" />
+							</Component>
+							<Component Id="CommunicationBus.dll" Guid="{949923FC-6D46-4227-AAE8-D7AEB64D5452}" KeyPath="yes">
+								<File Id="CommunicationBus.dll" Name="CommunicationBus.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\CommunicationBus.dll" />
+							</Component>
+							<Component Id="CommunicationBusProxy.xml" Guid="{A0ADA62C-CA02-401B-A6A4-5D040C049519}" KeyPath="yes">
+								<File Id="CommunicationBusProxy.xml" Name="CommunicationBusProxy.xml" Source="C:\320219077\MSIs\iPatient\lib\net48\CommunicationBusProxy.xml" />
+							</Component>
+							<Component Id="EventBus.dll" Guid="{CAD1F5F8-5DDF-4C4F-BD03-8D69B0FB17FE}" KeyPath="yes">
+								<File Id="EventBus.dll" Name="EventBus.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\EventBus.dll" />
+							</Component>
+							<Component Id="EventBus.EventsMap.dll" Guid="{8051F157-4D77-4E0F-AA0F-E0AD2616A8B1}" KeyPath="yes">
+								<File Id="EventBus.EventsMap.dll" Name="EventBus.EventsMap.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\EventBus.EventsMap.dll" />
+							</Component>
+							<Component Id="Framework.CodeAttributes.dll" Guid="{B29E6345-830F-4935-99F6-AA3CD0F8CF61}" KeyPath="yes">
+								<File Id="Framework.CodeAttributes.dll" Name="Framework.CodeAttributes.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\Framework.CodeAttributes.dll" />
+							</Component>
+							<Component Id="Framework.TestAttributes.dll" Guid="{93BDB494-FF06-438A-9567-A8D4CCB85338}" KeyPath="yes">
+								<File Id="Framework.TestAttributes.dll" Name="Framework.TestAttributes.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\Framework.TestAttributes.dll" />
+							</Component>
+							<Component Id="HostLogModule.dll" Guid="{F631B717-DBE5-44C2-B7B6-108EB8074590}" KeyPath="yes">
+								<File Id="HostLogModule.dll" Name="HostLogModule.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\HostLogModule.dll" />
+							</Component>
+							<Component Id="Hostlogmodule.xmlserializers.dll" Guid="{32E44107-02FE-4896-8DE9-9117E97216F5}" KeyPath="yes">
+								<File Id="Hostlogmodule.xmlserializers.dll" Name="Hostlogmodule.xmlserializers.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\Hostlogmodule.xmlserializers.dll" />
+							</Component>
+							<Component Id="IvHwControls.HostSettingsService.dll" Guid="{D35C6D8B-BF20-4F21-830F-0D6B67651EF9}" KeyPath="yes">
+								<File Id="IvHwControls.HostSettingsService.dll" Name="IvHwControls.HostSettingsService.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\IvHwControls.HostSettingsService.dll" />
+							</Component>
+							<Component Id="IvHwControls.HostSettingsServiceInterface.dll" Guid="{25D2CA80-05ED-4DFB-B39D-6CC2E9718ACD}" KeyPath="yes">
+								<File Id="IvHwControls.HostSettingsServiceInterface.dll" Name="IvHwControls.HostSettingsServiceInterface.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\IvHwControls.HostSettingsServiceInterface.dll" />
+							</Component>
+							<Component Id="IVMotionControlServiceContract.dll" Guid="{537123A6-A8CD-49BF-8B61-0B9CD6E390C8}" KeyPath="yes">
+								<File Id="IVMotionControlServiceContract.dll" Name="IVMotionControlServiceContract.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\IVMotionControlServiceContract.dll" />
+							</Component>
+							<Component Id="NetMQ.dll" Guid="{C5D2A5BA-39BF-4D34-90E1-B306F4749848}" KeyPath="yes">
+								<File Id="NetMQ.dll" Name="NetMQ.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\NetMQ.dll" />
+							</Component>
+							<Component Id="Philips.PmsCT.Logging.dll" Guid="{AABC381B-E2A9-40A2-9F3D-1B768826DE90}" KeyPath="yes">
+								<File Id="Philips.PmsCT.Logging.dll" Name="Philips.PmsCT.Logging.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\Philips.PmsCT.Logging.dll" />
+							</Component>
+							<Component Id="PubSubProxy.Configuration.dll" Guid="{55D45DCC-54A9-49F6-AAC1-A2AF4EF0777E}" KeyPath="yes">
+								<File Id="PubSubProxy.Configuration.dll" Name="PubSubProxy.Configuration.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\PubSubProxy.Configuration.dll" />
+							</Component>
+							<Component Id="Test.Infrastructure.Base.dll" Guid="{33D647C8-51A9-4B1E-B238-FFEF7DDCAECF}" KeyPath="yes">
+								<File Id="Test.Infrastructure.Base.dll" Name="Test.Infrastructure.Base.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\Test.Infrastructure.Base.dll" />
+							</Component>
+							<Component Id="Test.Infrastructure.Common.dll" Guid="{05F3D3A2-E22E-401C-8617-DC3D074A1F22}" KeyPath="yes">
+								<File Id="Test.Infrastructure.Common.dll" Name="Test.Infrastructure.Common.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\Test.Infrastructure.Common.dll" />
+							</Component>
+							<Component Id="Test.Infrastructure.Performance.dll" Guid="{08F7899B-4121-4E19-AA39-A037FDB61550}" KeyPath="yes">
+								<File Id="Test.Infrastructure.Performance.dll" Name="Test.Infrastructure.Performance.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\Test.Infrastructure.Performance.dll" />
+							</Component>
+							<Component Id="TimeCorrelationHandler.dll" Guid="{144BDCED-1569-4C37-8562-51D882511C2E}" KeyPath="yes">
+								<File Id="TimeCorrelationHandler.dll" Name="TimeCorrelationHandler.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\TimeCorrelationHandler.dll" />
+							</Component>
+							<Component Id="UserManagementFramework.dll" Guid="{5968F3DA-D0C5-471C-88F7-7402D25E8E77}" KeyPath="yes">
+								<File Id="UserManagementFramework.dll" Name="UserManagementFramework.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\UserManagementFramework.dll" />
+							</Component>
+							<Component Id="Utility.dll" Guid="{3B6C5368-A08B-41CF-9DDC-7789ABF87B13}" KeyPath="yes">
+								<File Id="Utility.dll" Name="Utility.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\Utility.dll" />
+							</Component>
+							<Component Id="EventTopicMappingConfig.xml" Guid="{DC0F5374-96B0-422C-B189-A2E03C87F352}" KeyPath="yes">
+								<File Id="EventTopicMappingConfig.xml" Name="EventTopicMappingConfig.xml" Source="C:\320219077\MSIs\iPatient\lib\net48\EventTopicMappingConfig.xml" />
+							</Component>
+							<Component Id="HostLogModule.XML" Guid="{68792006-B2E2-400D-9454-8741E40714BE}" KeyPath="yes">
+								<File Id="HostLogModule.XML" Name="HostLogModule.XML" Source="C:\320219077\MSIs\iPatient\lib\net48\HostLogModule.XML" />
+							</Component>
+							<Component Id="HostLogModule.pdb" Guid="{B854D3A3-00BD-479D-AE3C-40490D295452}" KeyPath="yes">
+								<File Id="HostLogModule.pdb" Name="HostLogModule.pdb" Source="C:\320219077\MSIs\iPatient\lib\net48\HostLogModule.pdb" />
+							</Component>
+							<Component Id="Philips.PmsCT.Logging.Tests.dll" Guid="{789A52E2-3ADA-48B3-9A7B-F79CCDDFD2C9}" KeyPath="yes">
+								<File Id="Philips.PmsCT.Logging.Tests.dll" Name="Philips.PmsCT.Logging.Tests.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\Philips.PmsCT.Logging.Tests.dll" />
+							</Component>
+							<Component Id="Philips.PmsCT.Logging.dll.config" Guid="{0E921D52-764B-4220-A031-F5E277B2F3F9}" KeyPath="yes">
+								<File Id="Philips.PmsCT.Logging.dll.config" Name="Philips.PmsCT.Logging.dll.config" Source="C:\320219077\MSIs\iPatient\lib\net48\Philips.PmsCT.Logging.dll.config" />
+							</Component>
+							<Component Id="Philips.PmsCT.Logging.pdb" Guid="{203A240B-0D64-42F4-872A-CBFCDFA364E7}" KeyPath="yes">
+								<File Id="Philips.PmsCT.Logging.pdb" Name="Philips.PmsCT.Logging.pdb" Source="C:\320219077\MSIs\iPatient\lib\net48\Philips.PmsCT.Logging.pdb" />
+							</Component>
+							<Component Id="SyncAsyncFramework.dll" Guid="{10EC798A-FD41-461F-8B0B-F130DBDA0242}" KeyPath="yes">
+								<File Id="SyncAsyncFramework.dll" Name="SyncAsyncFramework.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\SyncAsyncFramework.dll" />
+							</Component>
+							<Component Id="SyncAsyncFramework.xml" Guid="{46E6FF51-5F9D-4CBC-ADC9-747B35348FDD}" KeyPath="yes">
+								<File Id="SyncAsyncFramework.xml" Name="SyncAsyncFramework.xml" Source="C:\320219077\MSIs\iPatient\lib\net48\SyncAsyncFramework.xml" />
+							</Component>
+							<Component Id="Test.Infrastructure.Base.xml" Guid="{461BE805-9C26-4E96-85A3-411105CEBF85}" KeyPath="yes">
+								<File Id="Test.Infrastructure.Base.xml" Name="Test.Infrastructure.Base.xml" Source="C:\320219077\MSIs\iPatient\lib\net48\Test.Infrastructure.Base.xml" />
+							</Component>
+							<Component Id="Test.Infrastructure.Common.xml" Guid="{1C56D39A-6626-442C-BD6B-4B48484A7A40}" KeyPath="yes">
+								<File Id="Test.Infrastructure.Common.xml" Name="Test.Infrastructure.Common.xml" Source="C:\320219077\MSIs\iPatient\lib\net48\Test.Infrastructure.Common.xml" />
+							</Component>
+							<Component Id="Test.Infrastructure.Performance.xml" Guid="{82B61849-2052-4D19-91FA-E9583710675A}" KeyPath="yes">
+								<File Id="Test.Infrastructure.Performance.xml" Name="Test.Infrastructure.Performance.xml" Source="C:\320219077\MSIs\iPatient\lib\net48\Test.Infrastructure.Performance.xml" />
+							</Component>
+							<Component Id="MduTypes.dll" Guid="{A7AFBB42-BFAC-4A02-9AE3-D2AD1EEBF920}" KeyPath="yes">
+								<File Id="MduTypes.dll" Name="MduTypes.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\MduTypes.dll" />
+							</Component>
+							<Component Id="MduMessage.dll" Guid="{1925BA05-1C3F-469E-B203-C702009DE51C}" KeyPath="yes">
+								<File Id="MduMessage.dll" Name="MduMessage.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\MduMessage.dll" />
+							</Component>
+						</Directory>
+						<Directory Id="PreBuilt" Name="PreBuilt">
+							<Component Id="CardiacPulmoCommon.dll" Guid="{E8FAA476-4282-470D-8D9C-A77D2B2AC365}" KeyPath="yes">
+								<File Id="CardiacPulmoCommon.dll" Name="CardiacPulmoCommon.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\CardiacPulmoCommon.dll" />
+							</Component>
+							<Component Id="Dicom.dll" Guid="{6EC930AF-EAA5-4A3F-9DD1-013E4F0319A6}" KeyPath="yes">
+								<File Id="Dicom.dll" Name="Dicom.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\Dicom.dll" />
+							</Component>
+							<Component Id="IBolusLib.dll" Guid="{0171EF18-EE17-4249-AF4F-DE868B3A8C8A}" KeyPath="yes">
+								<File Id="IBolusLib.dll" Name="IBolusLib.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\IBolusLib.dll" />
+							</Component>
+							<Component Id="ISlice.dll" Guid="{083B6488-A3FF-40D3-8CC6-3C3DB2953B37}" KeyPath="yes">
+								<File Id="ISlice.dll" Name="ISlice.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\ISlice.dll" />
+							</Component>
+							<Component Id="Rendering2D.dll" Guid="{E0FCC048-C324-41BB-B15F-BD0BE07A07C0}" KeyPath="yes">
+								<File Id="Rendering2D.dll" Name="Rendering2D.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\Rendering2D.dll" />
+							</Component>
+							<Component Id="WifBase.dll" Guid="{F319BBF9-7D51-4DCF-A496-64442DE7051D}" KeyPath="yes">
+								<File Id="WifBase.dll" Name="WifBase.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\WifBase.dll" />
+							</Component>
+							<Component Id="WifDataTypes.dll" Guid="{FFCAA471-FE52-46E5-B1A4-2DEC43A88528}" KeyPath="yes">
+								<File Id="WifDataTypes.dll" Name="WifDataTypes.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\WifDataTypes.dll" />
+							</Component>
+							<Component Id="WifOperators.dll" Guid="{043C0723-69AA-4195-984E-50DA74FB1AF5}" KeyPath="yes">
+								<File Id="WifOperators.dll" Name="WifOperators.dll" Source="C:\320219077\MSIs\iPatient\lib\net48\WifOperators.dll" />
+							</Component>
+						</Directory>
+					</Directory>
+				</Directory>
+			</Directory>
+		</Directory>
+	</Product>
+</Wix>

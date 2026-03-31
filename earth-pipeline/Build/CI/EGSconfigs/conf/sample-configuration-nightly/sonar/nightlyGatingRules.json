@@ -1,0 +1,71 @@
+{
+  "enabled": "no",
+  "measures": [
+    {
+      "enabled": true,
+      "measure": "bugs",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    },
+    {
+      "enabled": true,
+      "measure": "vulnerabilities",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    },
+    {
+      "enabled": true,
+      "measure": "code_smells",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    },
+    {
+      "enabled": true,
+      "measure": "duplicated_lines_density",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    },
+    {
+      "enabled": true,
+      "measure": "duplicated_blocks",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    }
+  ],
+  "issues": [
+    {
+      "enabled": true,
+      "severityLevel": "BLOCKER",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    },
+    {
+      "enabled": true,
+      "severityLevel": "CRITICAL",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    },
+    {
+      "enabled": true,
+      "severityLevel": "MAJOR",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    }
+  ]
+}

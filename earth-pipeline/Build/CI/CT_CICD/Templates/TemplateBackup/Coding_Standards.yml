@@ -1,0 +1,24 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+  
+jobs:
+- job: Coding_Standards
+  timeoutInMinutes: 0
+  condition: and(succeeded(), eq(variables['Coding_Standards'], 'true'))
+  dependsOn: ${{ parameters.dependsOn }}
+  variables:
+    sourcesdirectory: $[ dependencies.Build.outputs['setvarStep.sourcesdirectory'] ]
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none
+  - task: CmdLine@1
+    displayName: 'TICS Gate: Coding_Standards'
+    inputs:
+     filename: '"$(EGS.filename)" '
+     arguments: '$(EGS.MainDll) $(EGS.Config) -p $(System.PullRequest.PullRequestId) -gateon tics_cs -biu $(EGS.BIU) -w $(build.sourcesdirectory) -d'
+    enabled: 'true'

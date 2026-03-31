@@ -1,0 +1,85 @@
+{
+  "enabled": "no",
+  "categories": [
+    {
+      "enabled": "yes",
+      "category": "SecurityRiskCritical",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    },
+    {
+      "enabled": "yes",
+      "category": "SecurityRiskHigh",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    },
+    {
+      "enabled": "yes",
+      "category": "SecurityRiskMedium",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    },
+    {
+      "enabled": "yes",
+      "category": "SecurityRiskLow",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    },
+    {
+      "enabled": "yes",
+      "category": "LicenceRiskHigh",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    },
+    {
+      "enabled": "yes",
+      "category": "LicenceRiskMedium",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    },
+    {
+      "enabled": "yes",
+      "category": "LicenceRiskLow",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    },
+    {
+      "enabled": "yes",
+      "category": "OperationalRiskHigh",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    },
+    {
+      "enabled": "yes",
+      "category": "OperationalRiskMedium",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    },
+    {
+      "enabled": "yes",
+      "category": "OperationalRiskLow",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0"
+    }
+  ]
+}

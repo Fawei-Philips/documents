@@ -1,0 +1,66 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+  Version: ''
+
+jobs:
+- job: Cabinet_package_generation_for_dotnetcore
+  dependsOn: ${{ parameters.dependsOn }}
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none
+        
+  - task: MSBuild@1
+    displayName: 'Build solution: $(ComponentName)'    
+    inputs:
+      solution: $(SolutionPath) 
+      msbuildVersion: '16.0' 
+      msbuildArchitecture: 'x64' 
+      configuration: $(configuration)
+      clean: true 
+
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(collect_Binaries_script_path)'
+       arguments: '$(Build.SourcesDirectory) $(Cabinateinput)' 
+       ignoreLASTEXITCODE: true  
+    displayName: 'Collect binaries for cabinate file' 
+
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(Build.Sourcesdirectory)\Build\Pipeline_Scripts\FullBuild_Scripts\Manifest_XML_generator.ps1'
+       arguments: '"$(Cabinateinput)/$(ComponentName)_Manifest_File.xml" "$(Build.Sourcesdirectory)\Ext\" "$(Build.Sourcesdirectory)\Build\Pipeline_Scripts\FullBuild_Scripts\sample_manifest.xml"'   
+    displayName: 'Generate manifest XML file'
+    continueOnError: true
+
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(Build.Sourcesdirectory)\Build\Pipeline_Scripts\FullBuild_Scripts\Get_Nuget_location.ps1'
+       arguments: '$(artifactory_PAT) "$(Cabinateinput)/$(ComponentName)_Manifest_File.xml"'
+    displayName: 'Adding nuget location in manifest file'
+    continueOnError: true
+    condition: and(succeeded(), eq(variables['var.manifest_file_generator'], 'true'))
+
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(generate_cab_script_path)'
+       arguments: '$(Cabinateinput) $(Build.BuildID) $(Build.SourceBranch)'   
+    displayName: 'Generate Cabinet File'  
+   
+  - task: ArtifactoryNuGet@2
+    inputs:    
+      command: 'push'
+      artifactoryService: '$(artifactoryService)'
+      targetDeployRepo: '$(PackagesDeployRepo)'
+      pathToNupkg: '$(pathToCabFile)'
+      collectBuildInfo: true
+      buildName: '$(Build.DefinitionName)'
+      buildNumber: '$(Build.BuildNumber)'
+    continueOnError: false
+    displayName: Publish Cab File  
+
+

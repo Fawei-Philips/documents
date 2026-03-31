@@ -1,0 +1,39 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+  Version: ''
+
+jobs:
+- job: Env_Cabinet_package_generation
+  dependsOn: ${{ parameters.dependsOn }}
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(Env_collect_Binaries_script_path)'
+       arguments: '$(Build.ArtifactStagingDirectory) $(Build.SourcesDirectory) $(EnvCabinateinput)' 
+       ignoreLASTEXITCODE: true  
+    displayName: 'Collect binaries for cabinate file' 
+
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(generate_cab_script_path)'
+       arguments: '$(Build.ArtifactStagingDirectory)/$(EnvCabinateinput) $(Build.BuildID) $(Build.SourceBranch)'   
+    displayName: 'Generate Env Cabinet File'  
+   
+  - task: ArtifactoryNuGet@2
+    inputs:    
+      command: 'push'
+      artifactoryService: '$(artifactoryService)'
+      targetDeployRepo: '$(EnvPackagesDeployRepo)'
+      pathToNupkg: '$(Build.ArtifactStagingDirectory)/$(pathToEnvCabFile)'
+      collectBuildInfo: true
+      buildName: '$(Build.DefinitionName)'
+      buildNumber: '$(Build.BuildNumber)'
+    continueOnError: false
+    displayName: Publish Cab File

@@ -1,0 +1,22 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+
+jobs:
+- job: Code_Duplication
+  timeoutInMinutes: 0
+  condition: and(succeeded(), eq(variables['Code_Duplication'], 'true'))
+  dependsOn: ${{ parameters.dependsOn }}
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none
+  - task: CmdLine@1
+    displayName: 'TICS Gate: Duplicated_Code'
+    inputs:
+     filename: '"$(EGS.filename)" '
+     arguments: '$(EGS.MainDll) $(EGS.Config) -p $(System.PullRequest.PullRequestId) -gateon tics_dc -biu $(EGS.BIU) -w $(Build.sourcesdirectory) -d'
+    enabled: 'true'

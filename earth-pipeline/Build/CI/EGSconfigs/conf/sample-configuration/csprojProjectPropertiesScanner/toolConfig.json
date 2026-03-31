@@ -1,0 +1,9 @@
+{
+  "ScannerExePath": "../CSharpProjectPropertiesScanner/CSharpProjectPropertiesScanner.exe",
+  "ParametersXmlFilePath": "../CSharpProjectPropertiesScanner/ProjectPropertiesToCheck.xml",
+  "XmlReportsPath": "..\\a\\ProjectScanner",
+  "SolutionFilesToScan": [
+    "ExtInf/CT_CommonServicesInf.sln",
+	"Src/CT_CommonServicesImpl.sln"
+  ]
+}

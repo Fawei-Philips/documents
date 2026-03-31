@@ -1,0 +1,19 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+  
+jobs:
+- job: Dead_Code
+  condition: and(succeeded(), eq(variables['Dead_Code'], 'true'))
+  dependsOn: ${{ parameters.dependsOn }}
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none
+  - task: CmdLine@2
+    displayName: Dead_Code
+    inputs:
+     script: 'echo Dead_Code'

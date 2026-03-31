@@ -1,0 +1,102 @@
+{
+  "enabled": "yes",
+  "metrics": [
+    {
+      "metricName": "Average Cyclomatic Complexity",
+      "enabled": "yes",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "2.5",
+      "warningThreshold": "2.4",
+	  "hideAnnotations": "yes"
+    },
+    {
+      "metricName": "Maximum Cyclomatic Complexity",
+      "enabled": "no",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "12",
+      "warningThreshold": "10"
+    },
+    {
+      "metricName": "Compiler Warnings",
+      "enabled": "yes",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "100",
+      "warningThreshold": "100",
+	  "hideAnnotations": "yes",
+      "levelsToConsider": [
+		{ "level": "1", "threshold": "0" },
+		{ "level": "2", "threshold": "0" },
+		{ "level": "3", "threshold": "0" },
+		{ "level": "4", "threshold": "0" }
+	  ]
+    },
+    {
+      "metricName": "Coding Standard",
+      "enabled": "yes",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "100",
+      "warningThreshold": "100",
+	  "hideAnnotations": "yes",
+      "levelsToConsider": [
+        { "level": "1", "threshold": "0" },
+		{ "level": "2", "threshold": "0" },
+		{ "level": "3", "threshold": "0" },
+		{ "level": "4", "threshold": "0" },
+		{ "level": "5", "threshold": "0" },
+		{ "level": "6", "threshold": "0" },
+		{ "level": "7", "threshold": "0" },
+		{ "level": "8", "threshold": "0" },
+		{ "level": "9", "threshold": "0" },
+		{ "level": "10", "threshold": "0" }
+      ]
+    },
+    {
+      "metricName": "Fan Out",
+      "enabled": "no",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "10",
+      "warningThreshold": "10"
+    },
+    {
+      "metricName": "Statement Coverage",
+      "enabled": "no",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "20",
+      "warningThreshold": "60",
+	  "hideAnnotations": "yes"
+    },
+    {
+      "metricName": "Duplicated Code",
+      "enabled": "yes",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0",
+	  "hideAnnotations": "yes"
+    },
+    {
+      "metricName": "Dead Code",
+      "enabled": "yes",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0",
+	  "hideAnnotations": "yes"
+    },
+    {
+      "metricName": "ABSTRACTINTERPRETATION",
+      "enabled": "yes",
+      "passMetricOnFailure": "no",
+      "comparisonType": "previousGoodValue",
+      "threshold": "0",
+      "warningThreshold": "0",
+	  "hideAnnotations": "yes"
+    }
+  ]
+}

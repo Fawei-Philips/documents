@@ -1,0 +1,33 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+
+jobs:
+- job: Publish_Packages
+  timeoutInMinutes: 0
+  condition: and(succeeded(), eq(variables['PublishPackages'], 'true'))
+  dependsOn:  ${{ parameters.dependsOn }}
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none
+  - task: PowerShell@2
+    inputs:
+        filePath: '$(ZipMSIs)'
+        arguments: $(Build.BuildId) $(Build.StagingDirectory) "$(MSISharePath)"
+    displayName: ZipPackages
+
+  - task: ArtifactoryNuGet@2
+    inputs:
+      command: 'push'
+      artifactoryService: '$(artifactoryService)'
+      targetDeployRepo: '$(PackagesDeployRepo)'
+      pathToNupkg: '$(pathToNupkg)'
+      collectBuildInfo: true
+      buildName: '$(Build.DefinitionName)'
+      buildNumber: '$(Build.BuildNumber)'
+    continueOnError: true
+    displayName: PublishPackages

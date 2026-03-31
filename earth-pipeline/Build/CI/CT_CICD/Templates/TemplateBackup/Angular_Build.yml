@@ -1,0 +1,102 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+
+jobs:
+- job: Angular_Build
+  dependsOn: ${{ parameters.dependsOn }}
+  variables:
+      Angular_sln: $[ dependencies.Enable_Disable_Jobs.outputs['Angular_Value.Angular_sln'] ]  
+  condition: and(succeeded(), eq(variables['Angular_Build'], true))
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none
+
+  - script: |
+        $(Proxy_http)   
+    workingDirectory: $(Package_json_path)
+    displayName: 'Set proxy'
+    condition: eq(variables['Set_http_Proxy'], 'true')
+    enabled: 'true'
+
+  - script: |
+      $(Proxy_https)    
+    workingDirectory: $(Package_json_path)
+    displayName: 'Set proxy'
+    condition: eq(variables['Set_https_Proxy'], 'true')
+    enabled: 'true'
+
+  - task: CmdLine@2  
+    inputs:
+      script: $(NPMRegistry)
+      workingDirectory: $(Package_json_path)
+    displayName: 'Set NPM registry'
+    condition: eq(variables['Set_NPM_registry'], 'true')
+    enabled: 'true'             
+  - task: CmdLine@2  
+    inputs:
+      script: npm install --force
+      workingDirectory: $(Package_json_path)
+    displayName: 'install NPM Package'
+    condition: eq(variables['Install_NPM_Package'], 'true')
+    enabled: 'true'
+    continueOnError: false
+
+  - script: |
+      $(Remove_Proxy_http)
+    workingDirectory: $(Package_json_path)
+    displayName: 'Remove Proxy' 
+    condition: eq(variables['Remove_http_Proxy'], 'true')
+    enabled: 'true' 
+
+  - script: |
+      $(Remove_Proxy_https)  
+    workingDirectory: $(Package_json_path)
+    displayName: 'Remove Proxy' 
+    condition: eq(variables['Remove_https_Proxy'], 'true')
+    enabled: 'true' 
+
+  - task: CmdLine@2
+    inputs:
+      script: '$(PhilipsArtifactory)'
+      workingDirectory: $(Package_json_path)
+    displayName: 'install NPM pic Artifactory Package'
+    condition: eq(variables['PhilipsArtif_pkg_install'], 'true')
+    enabled: 'true' 
+
+  - task: CmdLine@2
+    inputs:
+      script: $(PhilipsRegistry)
+      workingDirectory: $(Package_json_path)
+    displayName: 'Set Philips ehv Artifactory'
+    condition: eq(variables['Set_ehv_Registry'], 'true')
+    enabled: 'true'
+  - task: CmdLine@2
+    inputs:
+      script: $(DLStoolkit)
+      workingDirectory: $(Package_json_path)
+    displayName: 'DLS Toolkit Installation'
+    condition: eq(variables['DLS_pkg_install'], 'true')
+    enabled: 'true'
+
+  - task: PowerShell@2
+    inputs:
+        filePath: '$(NPM_Build_Script_Path)'
+        arguments: '$(Angular_Projects_Path)'
+    displayName: 'Build_NPM_Modules'
+    condition: eq(variables['Build_NPM_Modules'], 'true')
+
+  - task: Npm@1
+    condition: eq(variables['Angular_tests'], 'true')  
+    inputs:
+      command: 'custom'
+      workingDir: $(Package_json_path)
+      customCommand: $(NPMTest)      
+    displayName: 'Angular Test'  
+    enabled: 'false' 
+
+

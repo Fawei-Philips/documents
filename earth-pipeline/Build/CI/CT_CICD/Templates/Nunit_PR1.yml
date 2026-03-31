@@ -1,0 +1,372 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+  Version: ''
+  ComponentName: ''
+  Solution: []
+  csproj: []
+
+jobs:
+- job: NUnitTesting
+  displayName: "Build and Nunit"
+  workspace:
+    clean: all
+  timeoutInMinutes: 0
+  dependsOn: ${{ parameters.dependsOn }}
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+
+  steps:
+  - checkout: self
+    clean: true
+    submodules: true
+    condition: and(succeeded(), eq(variables['GitDownloadMethod'], ''))
+
+  - checkout: self
+    clean: true
+    submodules: true
+    condition: and(succeeded(), eq(variables['GitDownloadMethod'], 'Clone'))
+
+  - checkout: none
+    clean: true
+    condition: and(succeeded(), eq(variables['GitDownloadMethod'], 'Pull'))
+
+  - powershell: |
+      Write-Host "Src: $(ADS_Backup_Repo_Path)\$(internal_folder_name)\*"
+      Write-Host "Dest: $(Build.Repository.LocalPath)\"
+      Copy-Item -Path "$(ADS_Backup_Repo_Path)\$(internal_folder_name)\*" -Destination "$(Build.Repository.LocalPath)\" -Recurse -Force
+      Set-Location "$(Build.Repository.LocalPath)"
+
+      $prId = $env:SYSTEM_PULLREQUEST_PULLREQUESTID
+      if(-not [string]::IsNullOrEmpty($prId)){
+        Write-Host "PR ID: $prId"
+        git reset --hard       
+        git clean -xdf
+        if (git branch --list pr_merge_tmp) {
+          git branch -D pr_merge_tmp
+        }
+        git pull --recurse-submodules
+        git fetch origin pull/$prId/merge:pr_merge_tmp
+        git checkout pr_merge_tmp
+        git submodule update --init --recursive
+      }
+      elseif ($env:BUILD_SOURCEBRANCH -match '^refs/heads/(.*)$') {
+        $branch = $matches[1]
+        Write-Host "branch name: $branch"
+        git reset --hard
+        git checkout $branch
+        git clean -xdf
+        git fetch origin $branch
+        git reset --hard origin/$branch
+        git submodule update --init --recursive
+      }
+      elseif ($env:BUILD_SOURCEBRANCH -match '^refs/tags/(.*)$') {
+        $tagName = $matches[1]
+        Write-Host "Tag name: $tagName"
+        $branch = "main"
+        Write-Host "default branch name: $branch"
+        $branch = "main"
+        git reset --hard
+        git checkout $branch
+        git clean -xdf
+        git fetch origin $branch
+        git reset --hard origin/$branch
+        git rest --hard $tagName
+        git submodule update --init --recursive
+
+      }else {
+        $branch = "main"
+        Write-Host "default branch name: $branch"
+        git reset --hard
+        git checkout $branch
+        git clean -xdf
+        git fetch origin $branch
+        git reset --hard origin/$branch
+        git submodule update --init --recursive
+      }
+    displayName: 'Copy code from shared path and git pull'
+    condition: and(succeeded(), eq(variables['GitDownloadMethod'], 'Pull'))
+    
+  - task: JFrog.jfrog-artifactory-vsts-extension.artifactory-generic-download.ArtifactoryGenericDownload@3
+    displayName: 'Download Tools_Dev'
+    inputs:
+      connection: JfrogArtifactory
+      fileSpec: |
+       {
+         "files": [
+           {
+             "pattern": "ct-workspace/Tools_Dev/Tools_Dev.$(Tools_Dev_version).nupkg",
+             "target": "$(Build.SourcesDirectory)/",
+             "flat": "true"
+           }
+         ]
+       }
+    enabled: true
+
+  - script: 'nuget install Tools_Dev -Source %cd% -OutputDirectory Tools'
+    workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: 'Install Tools_Dev'
+    failOnStderr: true
+
+  - task: JFrog.jfrog-artifactory-vsts-extension.artifactory-generic-download.ArtifactoryGenericDownload@3
+    displayName: 'Download Tools'
+    inputs:
+      connection: JfrogArtifactory
+      fileSpec: |
+       {
+         "files": [
+           {
+             "pattern": "ct-workspace/Tools/Tools.$(Toolsversion).nupkg",
+             "target": "$(Build.SourcesDirectory)/",
+             "flat": "true"
+           }
+         ]
+       }
+    enabled: true
+    
+  - script: 'nuget install Tools -Source %cd% -OutputDirectory Tools'
+    workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: 'Install Tools'
+    failOnStderr: true
+
+  - ${{ each sln in parameters.Solution }}:
+      - task: ArtifactoryNuGet@1
+        condition: and(succeeded(),eq(variables['dotnetcore'],''))
+        displayName: 'Restore: ${{ sln.solutionname }}'
+        inputs:
+          command: 'restore'
+          artifactoryService: '$(artifactoryService)'
+          targetResolveRepo: '$(ArtifactoryRepoName)'
+          solutionPath: ${{ sln.solutionPath }}
+          packagesDirectory: '$(3rdPartyPackagesPath)'
+        enabled: 'true'
+
+  - ${{ each proj in parameters.csproj }}:
+      - task: ArtifactoryNuGet@1
+        condition: and(succeeded(),eq(variables['dotnetcore'],True))
+        displayName: 'Nuget Restore: ${{ proj.cname }}'
+        inputs:
+          command: 'restore'
+          artifactoryService: '$(artifactoryService)'
+          targetResolveRepo: '$(ArtifactoryRepoName)'
+          solutionPath: ${{ proj.cPath }}
+          packagesDirectory: '$(3rdPartyPackagesPath)'
+        enabled: 'true'
+
+
+  - ${{ each sln in parameters.Solution }}:
+      - task: ArtifactoryDotnetCore@1
+        condition: and(succeeded(),eq(variables['dotnetcore'],True))
+        displayName: 'Dotnet Restore: ${{ sln.solutionname }}'
+        inputs:
+          command: "restore"
+          artifactoryService: "$(artifactoryService)"
+          targetResolveRepo: "$(ArtifactoryRepoName)"
+          noNuGetCache: true
+          rootPath: ${{ sln.solutionPath }}
+          packagesDirectory: '$(3rdPartyPackagesPath)'
+        enabled: 'true'
+
+  - task: bleddynrichards.Assembly-Info-Task.Assembly-Info-Task.Assembly-Info-NetFramework@2
+    displayName: ' File Versioning '
+    inputs:
+      FileNames: | 
+       **\AssemblyInfo.cs
+      Title: ${{ parameters.ComponentName }}
+      Product: ${{ parameters.ComponentName }}
+      Company: Philips
+      VersionNumber: 1.0.0.0
+      FileVersionNumber: 1.0.0.0
+      InformationalVersion: 1.0.0.0'
+      Copyright: 2023
+    enabled: 'True'
+
+  - task: MSBuild@1
+    displayName: 'Build solution: ${{ parameters.ComponentName }}Inf.sln'
+    condition: and(succeeded(), eq(variables['custom_build'], ''))
+    inputs:
+     solution: ExtInf/$(SolutionPath)
+     msbuildLocationMethod: location
+     msbuildLocation: '$(MSBuildEngine)'
+     platform: $(platform)
+     configuration: 'Debug'
+     clean: false
+    enabled: 'true'
+
+  - task: MSBuild@1
+    displayName: 'Build solution: ${{ parameters.ComponentName }}Impl.sln'
+    condition: and(succeeded(), eq(variables['custom_build'], ''))
+    inputs:
+     solution: Src/$(SolutionPath)
+     msbuildLocationMethod: location
+     msbuildLocation: '$(MSBuildEngine)'
+     platform: $(platform)
+     configuration: 'Debug'
+     clean: false
+    enabled: 'true' 
+
+  - task: PowerShell@2
+    displayName: "Custom Build"
+    name: "custom_build"
+    condition: ne(variables['custom_build'], '')
+    inputs:
+      targetType: 'inline'
+      script: |
+        Write-Host "Triggering custom build: $env:CUSTOM_BUILD"
+        $scriptPath = "$env:BUILD_SOURCESDIRECTORY\$env:CUSTOM_BUILD"
+        Invoke-Expression $scriptPath
+      failOnStderr: true
+      workingDirectory: "$(Build.SourcesDirectory)"
+
+  - task: PowerShell@2
+    displayName: 'Cleanup Nunit Deployment directories'
+    inputs:
+      targetType: filePath
+      filePath: $(Build.SourcesDirectory)\Build\CI\CT_CICD\scripts\clean_up.ps1
+      arguments:  'D:\Config,D:\PCC,D:\Database'
+      failOnStderr: true
+      workingDirectory: $(Build.SourcesDirectory)
+  
+  - task: PowerShell@2
+    displayName: 'Map Network Drives'
+    inputs:
+      targetType: filePath
+      filePath: $(Build.SourcesDirectory)\Build\CI\CT_CICD\scripts\mapNetworkDrive.ps1
+      arguments:  1 "E,Y"
+      failOnStderr: true
+      workingDirectory: $(Build.SourcesDirectory)
+
+  - task: PowerShell@2
+    displayName: "Ncover temp cleanup"
+    inputs:
+      filePath: '$(Build.SourcesDirectory)\Build\CI\CT_CICD\scripts\clean_up.ps1'
+      errorActionPreference: 'silentlyContinue'
+
+  - task: PowerShell@2
+    displayName: 'Nunit run'
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'), eq(variables['RunNCover'],False), eq(variables['dotnetcore'],'')) 
+    inputs:
+      targetType: filePath
+      filePath: $(Build.SourcesDirectory)\Build\CI\CT_CICD\scripts\NUnitTesting.ps1
+      arguments:  ' $(Build.SourcesDirectory) $(ComponentName) $(Build.BuildNumber) $(Toolsversion) 0'
+      failOnStderr: true
+      workingDirectory: $(Build.SourcesDirectory)
+
+  - task: DotNetCoreCLI@2
+    displayName: "Dotnet Nunit run"
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'), eq(variables['RunNCover'],False), ne(variables['dotnetcore'],''))
+    inputs:
+      command: "test"
+      projects: '**/*.sln'
+      publishTestResults: false
+      arguments: '--no-restore --test-adapter-path Dependencies\Ref\nunit\4.2.2 --logger "nunit;LogFilePath=$(Build.ArtifactStagingDirectory)\TestResults\{assembly}.test-results.xml'
+      workingDirectory: $(Build.SourcesDirectory)
+    enabled: "true"
+
+  - task: PowerShell@2
+    displayName: 'Run Coverage'
+    condition: and(succeeded(),or( eq(variables['Build.Reason'], 'Schedule'), eq(variables['RunNCover'],True)), eq(variables['dotnetcore'],''))
+    inputs:
+      targetType: filePath 
+      filePath: $(Build.SourcesDirectory)\Build\CI\CT_CICD\scripts\NUnitTesting.ps1
+      arguments:  '$(Build.SourcesDirectory) $(ComponentName) $(Build.BuildNumber) $(Toolsversion) 1 -SharedPath "$(NCover_Shared_Path)" -reportPath "$(Build.ArtifactStagingDirectory)"'
+      failOnStderr: true
+      workingDirectory: $(Build.SourcesDirectory)
+
+  - task: PowerShell@2
+    displayName: "Dotnet Coverage run"
+    condition: and(succeeded(),or( eq(variables['Build.Reason'], 'Schedule'), eq(variables['RunNCover'],True)), ne(variables['dotnetcore'],''))
+    inputs:
+      targetType: filePath 
+      filePath: $(Build.SourcesDirectory)\Build\CI\CT_CICD\scripts\NUnitTesting.ps1
+      arguments:  '$(Build.SourcesDirectory) $(ComponentName) $(Build.BuildNumber) $(Toolsversion) 1 -SharedPath "$(NCover_Shared_Path)" -reportPath "$(Build.ArtifactStagingDirectory)" -dotnetcore $True'
+      failOnStderr: true
+      workingDirectory: $(Build.SourcesDirectory)
+
+  - task: PowerShell@2
+    displayName: 'Disconnect Mapped Network Drives'
+    condition: always()
+    inputs:
+      targetType: filePath
+      filePath: $(Build.SourcesDirectory)\Build\CI\CT_CICD\scripts\mapNetworkDrive.ps1
+      arguments:  0 "E,Y"
+      failOnStderr: true
+      workingDirectory: $(Build.SourcesDirectory)
+
+  - task: CdiscountAlm.rest-call-build-task.custom-build-task.restCallBuildTask@0
+    inputs:
+      webserviceEndpoint: RESTAPI
+      httpVerb: 'POST'
+      body: |
+          {
+          "_id":"$(Build.BuildNumber)",
+          "_BuildName":"$(Build.DefinitionName)",
+          "_PipelineType":"$(Build.DefinitionName)",
+          "_RequestedBy":"$(Build.QueuedBy)",
+          "_RequestedOn":null,
+          "_QueuedAt":null,
+          "_StartedAt":null,
+          "_SourceVersion":"$(Build.SourceVersion)",
+          "_OverallSummary":"https://tfsemea1.ta.philips.com/tfs/TPC_Region26/CT-GlobalSW/_build/index?buildId=$(Build.BuildID)&_a=summary",
+          "_DevelopersContributed":["Null", "Null"],
+          "_WhoFailed":["$(Build.QueuedBy)", "Null"],
+                         "_AgentInfo":{
+                                   "_AgentId":"$(Agent.Id)",
+                                   "_AgentName":"$(Agent.Name)",
+                                   "_AgentMachineName":"$(Agent.MachineName)",
+                                   "_Status":"Active",
+                                   "_ServiceAccount":"code1/cnhsherdb1-sys4",
+                                   "_QueErr_Info":"null"
+                         },
+                         "_Steps":{
+                                 "_SequenceId":null,
+                                 "_StepName":null,
+                                 "_Status":null,
+                                 "_BriefInfo":null,
+                                 "_StepDetailedInfo":{
+                                 }
+                         }
+          }
+      saveResponseToFile: true
+      outputFilePath: '$(Build.ArtifactStagingDirectory)\apioutini.txt'
+    condition: false    
+
+  - task: PowerShell@2
+    displayName: 'Copy cleanup script to temp'
+    inputs:
+      targetType: inline
+      script: |
+          Copy-Item "$(Build.SourcesDirectory)\Build\CI\CT_CICD\scripts\workspace_cleanup.ps1" "$(Agent.TempDirectory)\workspace_cleanup.ps1"
+          Copy-Item "$(Build.SourcesDirectory)\Build\CI\CT_CICD\Config\excluded_folders.txt" "$(Agent.TempDirectory)\excluded_folders.txt"
+    condition: always()
+
+  - task: PowerShell@2
+    displayName: 'Cleanup Logs folder'
+    inputs:
+      targetType: filePath
+      filePath: $(Build.SourcesDirectory)\Build\CI\CT_CICD\scripts\clean_up.ps1
+      arguments:  'D:\Logs'
+      failOnStderr: true
+      workingDirectory: $(Build.SourcesDirectory)
+
+  - task: PowerShell@2
+    displayName: 'Work Space Cleanup'
+    inputs:
+      targetType: filePath
+      filePath: $(Agent.TempDirectory)\workspace_cleanup.ps1
+      arguments:  '-Paths "$(Agent.BuildDirectory)"'
+      failOnStderr: true
+      workingDirectory: $(Agent.TempDirectory)
+    condition: always()
+
+  - task: PowerShell@2
+    displayName: 'D Drive Cleanup'
+    inputs:
+      targetType: filePath
+      filePath: $(Agent.TempDirectory)\workspace_cleanup.ps1
+      arguments: '-CleanDDrive $true'
+      failOnStderr: true
+      workingDirectory: $(Agent.TempDirectory)

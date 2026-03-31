@@ -1,0 +1,24 @@
+parameters:
+  Capabilityname: []
+  agentDemand: []
+
+jobs:
+  - job: Versioning
+    workspace:
+      clean: all
+    displayName: Update Versions
+    pool:
+      name: "$(PoolName)"
+      demands:
+        - ${{ 'TFSAgentPool' }} -equals ${{ 'MainConsole_Hawk641' }}
+    steps:
+      - checkout: self
+        submodules: true
+        clean: true
+      - task: PowerShell@2
+        name: bump_version
+        displayName: Update Versions
+        inputs:
+          filePath: "Build/CI/CT_CICD/Version_Automation/bump_version.ps1"
+          arguments: '-Auth "$(TFS_PAT)" -BaseRepoPath "$(Build.SourcesDirectory)" -Repo "$(Build.Repository.Name)"'
+          failOnStderr: true

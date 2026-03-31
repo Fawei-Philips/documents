@@ -1,0 +1,147 @@
+variables:
+
+#Branch Name
+  BranchName: 'master'
+
+#Agent variables   
+  PoolName: 'Default'
+  PoolID: '104'
+  DemandName: 'PDP'
+  DemandValue: 'Build.BuildId'
+  DemandValue1: 'true'
+  ADSURL: 'https://tfsemea1.ta.philips.com/tfs/'
+
+#Enable/Disable jobs
+  PDP_IAS: 'false'
+  PDP_EAS: 'false'
+  Build: 'true'
+  Unit_testing: 'true'
+  UnitTest_Coverage: 'false'
+  TICS: 'true'
+  Coverity: 'false'
+  Fortify: 'false'
+  SonarQube: 'false'
+  BlackDuck: 'false'
+  ProjectSettings: 'true'
+  Compiler_Warnings: 'true'
+  Coding_Standards: 'true'
+  CodeDuplication: 'true'
+  Max_Cyclomatic_Complexicity: 'true'
+  3rdPartyRefCheck: 'true'
+  Coverage: 'false'
+  Resharper: 'false'
+  CodeScene: 'false'
+  ProjSpec_CompilerWarnings: 'true'
+  PRSizeVariableBypass: 'true'
+  PRSize: 'true'
+  WIStatusCheck: 'false'
+  ComponentTests_Run: 'false'
+  Packaging: 'false'
+  Deployment: 'false'
+  Testing: 'false'
+  Finalize: 'true'
+  FanOut: 'false'
+  Abstract_interpretation: 'false'
+  Dead_Code: 'false'
+
+#PDP IAS & EAS Variables
+  IAS.BU: 'MR'
+  IAS.Purpose : 'for PDP Test'
+  IAS.VCenterIP: '161.85.109.108'
+  IAS.Name: 'MR_Build'
+  IAS.OSTemplate: 'INGBTCPIC5VWC69_MR_Template'
+  IAS.CPUSizeInCore: '16'
+  IAS.RAMinGB: '16'
+  IAS.HDD: '100'
+  IAS.IP: '130.147.137.39'
+
+#Solution paths
+  InterfacesPath: 'Sources/Interfaces/Interfaces.sln'
+  ServicesPath: 'Sources/Services/Services.sln'
+  UWFPath: 'Sources/UserWorkflow/UserWorkflow.sln'
+  AutomationPath: 'Sources/UserWorkflow/tst/Automation/Automation.sln'
+  
+#Restoring Packages
+  3rdPartyPackagesPath: '$(build.sourcesdirectory)\3rdpartydlls'
+  ArtifactoryRepoName: 'dinxgenhost-virtual-nuget'
+  ArtifactoryServiceConnectionName: 'JfrogArtifactory'
+
+#Gating Solution Variables 
+  EGS.filename : 'C:\Program Files\dotnet\dotnet.exe'
+  EGS.MainDll : 'C:\TICS_GATE_$(Agent.Name)\GatingSolution_2020_08.01\gates_main.dll'
+  EGS.BIU: 'DI'
+  EGS.Config: '$(build.sourcesdirectory)\Build\CodeQuality_Gates\mainConfig.json'
+
+#BUSpecific Variables 
+  PRFileListGen: 'C:\TICS_GATE_$(Agent.Name)\FilesListCreator\FilesListCreator.exe'
+  FilesinPR: 'C:\TICS_GATE_$(Agent.Name)\6DT154.txt'
+  AgentPath: 'C:\TICS_GATE_$(Agent.Name)'
+  3rdPartyGateScript: 'Build/Pipeline_Scripts/Gate_for_3rdparty_Reference.ps1'
+  ModularBuildScript: 'Build/Pipeline_Scripts/SetVar_ModularBuildandTest.ps1'
+  UpdateCapability: '$(build.sourcesdirectory)\Build\Pipeline_Scripts\UpdateCapability.ps1'
+  DINxGenHostBuild: 'Build/DINxGenHostBuild.ps1'
+  platform: 'Any CPU'
+  configuration: 'Release'
+  TestAdapterPath: '3rdPartyDlls\NUnit3TestAdapter\3.10.0\build\net35'
+  warningThreshold: '2'
+  GatedBuild: 'false'
+  PowerShellScriptsAnalyser: 'true'
+  OnDemandMSIShare: '\\ingbtcpic6dt258\OnDemandMSI'
+  NightlyBuildShare: '\\ingbtcpic6dt258\NightlyMSI'
+#  vsVersion: '15.0'
+  vsVersion: '17.0'  
+  FLCreator: 'C:\TICS_GATE_$(Agent.Name)\FilesListCreator\FilesListCreator.exe'
+  Fileslist: 'C:\TICS_GATE_$(Agent.Name)\6DT154.txt'
+  ThirdPartyRefCheck: './Build/Pipeline_Scripts/Gate_for_3rdparty_Reference.ps1'
+  Agentname: 'C:\TICS_GATE_$(Agent.Name)'
+  SetVariablePRSize: 'Build/Pipeline_Scripts/PullRequestFiles_Gate_ByPass.ps1'
+  ZipMSIs: '$(build.sourcesdirectory)\Build\Pipeline_Scripts\ZipMSIs.ps1'
+
+#Fortify Variables 
+  Fortifysourceanalyzer: 'C:\Program Files\Fortify\Fortify_SCA_and_Apps_19.2.3\bin'
+  FortifyRpt: 'D:\Fortify\Report'
+
+#Coverity Variables 
+  CoverityStaticAnalysis: 'C:\Program Files\Coverity\Coverity Static Analysis\bin'
+  Coverity_Results: 'D:\Coverity_Results\DINxGenHost'
+
+#TICS Variables
+  TICSAnalysis: './Build/Pipeline_Scripts/TICS_Analysis.ps1'
+  TICSPercentageGates: './Build/Pipeline_Scripts/TICS_Percentage_Gates.ps1'
+  TICSABSCountGates: './Build/Pipeline_Scripts/TICS_ABS_Count_Gates.ps1'
+
+#NCover Variables 
+  NCoverexe: 'C:\Program Files\NCover'
+  ResultsServices: 'D:\DINxGenHost_NCov\Results-Services'
+  NCovResultsS: 'D:\DINxGenHost_NCov\DI_Services_Coverage'
+  Nunitexe: 'C:\Program Files (x86)\NUnit.org\nunit-console'
+  NCovResultsUWF: 'D:\DINxGenHost_NCov\DI_UserWorkflow_Coverage'
+  NCovResultsI: 'D:\DINxGenHost_NCov\DI_Interfaces_coverage'
+  ResultsUWF: 'D:\DINxGenHost_NCov\Results-UF'
+  Resultsinterfaces: 'D:\DINxGenHost_NCov\Results-Interfaces'
+
+#Packaging Variables 
+#  MSBuildScript: 'Build/Pipeline_Scripts/MSBuild.ps1'
+#  MSI_Generation: 'Build/Pipeline_Scripts/MSI_Generation.ps1'
+  MSBuildScript: 'Build/CI/Pipeline_Scripts/MSBuild.ps1'
+  MSI_Generation: 'Build/CI/Pipeline_Scripts/MSI_Generation.ps1'
+#  MSBuild15: 'C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin'
+  MSBuild15: 'C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin'
+
+#Deployment Variables
+  SCRIPT_PATH: 'E:\DI'
+  FILE_PATH: 'I:\TA_Scripts'
+  Source_FILE_PATH: 'E:\TA_Scripts'
+
+
+#Testing Variables
+  TestSuitIDs: '80983,66504,37827,36842,88006,87718,86771,86770,86769,83112,46157,83110,20785,17865,17917,19223,92257,41585,27202,20783'
+  TestPlanID: '3190'
+  CustomTestAdapterpath: '3rdPartyDlls\NUnit3TestAdapter\3.10.0\build\net35'
+
+#PostBuilddirectories deletion variable
+  directories: $(Build.SourcesDirectory)_$(Build.ArtifactStagingDirectory)
+
+  
+
+

@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<Product Id="070D7962-B850-4A6A-A01B-B5D839C5B32E" Name="ConsoleSupplementary" Language="1033" Version="1.0.0.2" Manufacturer="Philips Healthcare" UpgradeCode="{182C60FA-D745-443F-8950-E9E15F396A71}">
+		<Package Id="*" Description="ConsoleSupplementary" InstallerVersion="300" Compressed="yes" />
+		<Media Id="1" Cabinet="ConsoleSupplementary.cab" EmbedCab="yes" />
+		<Property Id="REINSTALLMODE">
+			amus
+		</Property>
+		<!-- MajorUpgrade element to remove previous msi -->
+		<MajorUpgrade AllowSameVersionUpgrades="yes" DowngradeErrorMessage="A newer version of [ProductName] is already installed." Schedule="afterInstallInitialize" />
+		<Feature Id="DefaultFeature" Title="Main Feature" Level="1">
+			<ComponentRef Id="Microsoft.Extensions.Configuration.Abstractions.dll" />
+			<ComponentRef Id="Prebuilt.Microsoft.Extensions.Configuration.Abstractions.dll" />
+			<ComponentRef Id="Microsoft.Extensions.Configuration.Binder.dll" />
+			<ComponentRef Id="Microsoft.Extensions.Configuration.dll" />
+			<ComponentRef Id="Microsoft.Extensions.Primitives.dll" />
+			<ComponentRef Id="CtService.Microsoft.Extensions.Primitives.dll" />
+			<ComponentRef Id="mkl_core.dll" />
+			<ComponentRef Id="mkl_def.dll" />
+			<ComponentRef Id="mkl_intel_thread.dll" />
+			<ComponentRef Id="mkl_rt.dll" />
+			<ComponentRef Id="msxml4.dll" />
+			<ComponentRef Id="msxml6.dll" />
+			<ComponentRef Id="NDicomDir.dll" />
+			<ComponentRef Id="pdfium.dll" />
+			<ComponentRef Id="PdfiumViewer.dll" />
+			<ComponentRef Id="AgentDiagnosticTool.exe" />
+			<ComponentRef Id="InstallUtil.exe" />
+			<ComponentRef Id="InstallUtil.exe.config" />
+			<ComponentRef Id="Lease.dll" />
+			<ComponentRef Id="libeay32.dll" />
+			<ComponentRef Id="libguide40.dll" />
+			<ComponentRef Id="LiverDetectorAPI.dll" />
+			<ComponentRef Id="Prebuilt.LiverDetectorAPI.dll" />
+			<ComponentRef Id="log4cplus.dll" />
+			<ComponentRef Id="Log4CPlusLogger.dll" />
+			<ComponentRef Id="ManagedOpenSsl.dll" />
+			<ComponentRef Id="BrainContrast.dll" />
+			<ComponentRef Id="Philips.PH.GCS.M2M.ADT.DiagnosticTests.dll" />
+			<ComponentRef Id="Philips.PH.Gcs.Psas.Pki.Server.XmlSerializers.dll" />
+			<ComponentRef Id="DeployConfig.ps1" />
+			<ComponentRef Id="Algorithms.dll" />
+			<ComponentRef Id="AllProcs.txt" />
+			<ComponentRef Id="AllSystem.txt" />
+			<ComponentRef Id="Base.dll" />
+			<ComponentRef Id="ClearCanvas.Common.dll" />
+			<ComponentRef Id="ClearCanvas.Dicom.dll" />
+			<ComponentRef Id="EntityFramework.dll" />
+			<ComponentRef Id="EntityFramework.SqlServer.dll" />
+			<ComponentRef Id="ICSharpCode.SharpZipLib.dll" />
+			<ComponentRef Id="Imaging2D.dll" />
+			<ComponentRef Id="Infrastructure.Crosscutting.dll" />
+			<ComponentRef Id="Infrastructure.Crosscutting.EnterpriseLibrary.dll" />
+			<ComponentRef Id="Infrastructure.DynamicCompositionFramework.dll" />
+			<ComponentRef Id="Infrastructure.DynamicCompositionFramework.MefExtensions.dll" />
+			<ComponentRef Id="Infrastructure.ExtensibleCommunicationFramework.dll" />
+			<ComponentRef Id="MathLib.dll" />
+			<ComponentRef Id="MefCompositionApplication.Shell.exe" />
+			<ComponentRef Id="Microsoft.Office.Interop.Access.Dao.dll" />
+			<ComponentRef Id="Microsoft.Office.Interop.Excel.dll" />
+			<ComponentRef Id="Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+			<ComponentRef Id="Microsoft.Practices.EnterpriseLibrary.Logging.dll" />
+			<ComponentRef Id="Microsoft.Practices.Prism.dll" />
+			<ComponentRef Id="Microsoft.Practices.Prism.Interactivity.dll" />
+			<ComponentRef Id="Microsoft.Practices.Prism.MefExtensions.dll" />
+			<ComponentRef Id="Microsoft.Practices.Prism.PubSubEvents.dll" />
+			<ComponentRef Id="Microsoft.Practices.Prism.UnityExtensions.dll" />
+			<ComponentRef Id="Microsoft.Practices.ServiceLocation.dll" />
+			<ComponentRef Id="Microsoft.Practices.Unity.Configuration.dll" />
+			<ComponentRef Id="Microsoft.Practices.Unity.Interception.Configuration.dll" />
+			<ComponentRef Id="Microsoft.Practices.Unity.Interception.dll" />
+			<ComponentRef Id="Microsoft.Practices.Unity.RegistrationByConvention.dll" />
+			<ComponentRef Id="Net.txt" />
+			<ComponentRef Id="Newtonsoft.Json.dll" />
+			<ComponentRef Id="NtcanNet.dll" />
+			<ComponentRef Id="PerfMon.bat" />
+			<ComponentRef Id="PerfMonReStart.bat" />
+			<ComponentRef Id="Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.MessageContract.dll" />
+			<ComponentRef Id="Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.Proxy.dll" />
+			<ComponentRef Id="Philips.NxGen.Serviceability.Interfaces.CollabLivePlugin.dll" />
+			<ComponentRef Id="Philips.NxGen.Services.FeatureManagement.FeatureDefinitionEncryptor.exe" />
+			<ComponentRef Id="Philips.NxGen.Services.FeatureManagement.Utility.dll" />
+			<ComponentRef Id="Philips.Platform.Presentation.dll" />
+			<ComponentRef Id="Philips.Platform.Presentation.resources.dll" />
+			<ComponentRef Id="Philips.Platform.Utilities.dll" />
+			<ComponentRef Id="RegAsm.exe" />
+			<ComponentRef Id="regsvr32.exe" />
+			<ComponentRef Id="Rendering2D.dll" />
+			<ComponentRef Id="System.Windows.Interactivity.dll" />
+			<ComponentRef Id="WifBase.dll" />
+			<ComponentRef Id="WifDataTypes.dll" />
+			<ComponentRef Id="WifOperators.dll" />
+			<ComponentRef Id="DataSourceInterface.dll" />
+			<ComponentRef Id="System.CodeDom.dll" />
+			<ComponentRef Id="System.Management.dll" />
+		</Feature>
+		<Property Id="ROOTDRIVE">
+			<![CDATA[D:\]]>
+		</Property>
+		<Property Id="D.PCC.ChorusHost.Bin.PreBuilt" Value="D:\PCC\ChorusHost\Bin\PreBuilt" />
+		<Property Id="D.PCC.ChorusHost.Bin.CtService" Value="D:\PCC\ChorusHost\Bin\CtService" />
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="PCC" Name="PCC">
+				<Directory Id="ChorusHost" Name="ChorusHost">
+					<Directory Id="Bin" Name="Bin">
+						<Component Id="DataSourceInterface.dll" Guid="{B5E34A44-73F7-4478-8276-D17DC40D11E7}" KeyPath="yes">
+							<File Id="DataSourceInterface.dll" Name="DataSourceInterface.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\DataSourceInterface.dll" />
+						</Component>
+						<Component Id="Microsoft.Extensions.Configuration.Abstractions.dll" Guid="{D3354E0C-FDE2-4EB6-B10D-1B4220839864}" KeyPath="yes">
+							<File Id="Microsoft.Extensions.Configuration.Abstractions.dll" Name="Microsoft.Extensions.Configuration.Abstractions.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Microsoft.Extensions.Configuration.Abstractions.dll" />
+						</Component>
+						<Component Id="Microsoft.Extensions.Configuration.Binder.dll" Guid="{58FE890A-9C5C-4C20-9D2E-7A64F196AC3C}" KeyPath="yes">
+							<File Id="Microsoft.Extensions.Configuration.Binder.dll" Name="Microsoft.Extensions.Configuration.Binder.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Microsoft.Extensions.Configuration.Binder.dll" />
+						</Component>
+						<Component Id="Microsoft.Extensions.Configuration.dll" Guid="{1D5B2CD6-585C-41C6-8A01-C3F5BD4BE6ED}" KeyPath="yes">
+							<File Id="Microsoft.Extensions.Configuration.dll" Name="Microsoft.Extensions.Configuration.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Microsoft.Extensions.Configuration.dll" />
+						</Component>
+						<Component Id="Microsoft.Extensions.Primitives.dll" Guid="{E119D5E8-021C-4104-A667-E65F6BE4106E}" KeyPath="yes">
+							<File Id="Microsoft.Extensions.Primitives.dll" Name="Microsoft.Extensions.Primitives.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Microsoft.Extensions.Primitives.dll" />
+						</Component>
+						<Component Id="mkl_core.dll" Guid="{351A3B2B-E17C-4235-A128-0D4E87861D38}" KeyPath="yes">
+							<File Id="mkl_core.dll" Name="mkl_core.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\mkl_core.dll" />
+						</Component>
+						<Component Id="mkl_def.dll" Guid="{C783A995-F675-4D56-9A68-32CE78E9FF24}" KeyPath="yes">
+							<File Id="mkl_def.dll" Name="mkl_def.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\mkl_def.dll" />
+						</Component>
+						<Component Id="mkl_intel_thread.dll" Guid="{2CCDA07C-2589-4DCA-BF99-9F2988771827}" KeyPath="yes">
+							<File Id="mkl_intel_thread.dll" Name="mkl_intel_thread.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\mkl_intel_thread.dll" />
+						</Component>
+						<Component Id="mkl_rt.dll" Guid="{5FC82521-0882-4702-8BC5-968649377520}" KeyPath="yes">
+							<File Id="mkl_rt.dll" Name="mkl_rt.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\mkl_rt.dll" />
+						</Component>
+						<Component Id="msxml4.dll" Guid="{A7F55F75-C9A9-47B1-B3D5-173DD6B5D167}" KeyPath="yes">
+							<File Id="msxml4.dll" Name="msxml4.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\msxml4.dll" />
+						</Component>
+						<Component Id="msxml6.dll" Guid="{60C8E66A-5E25-4FA2-8764-22CB14FF17E3}" KeyPath="yes">
+							<File Id="msxml6.dll" Name="msxml6.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\msxml6.dll" />
+						</Component>
+						<Component Id="NDicomDir.dll" Guid="{271BC7BB-AFA8-460F-ABFE-76C16A0675FB}" KeyPath="yes">
+							<File Id="NDicomDir.dll" Name="NDicomDir.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\NDicomDir.dll" />
+						</Component>
+						<Component Id="pdfium.dll" Guid="{C7CAD259-EB66-48D7-836A-18EF32251EA1}" KeyPath="yes">
+							<File Id="pdfium.dll" Name="pdfium.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\pdfium.dll" />
+						</Component>
+						<Component Id="PdfiumViewer.dll" Guid="{58AE4062-E0FB-4F33-80D9-0DD188A030A6}" KeyPath="yes">
+							<File Id="PdfiumViewer.dll" Name="PdfiumViewer.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\PdfiumViewer.dll" />
+						</Component>
+						<Component Id="AgentDiagnosticTool.exe" Guid="{78F8026B-0B81-47E9-83B4-18C19B6A4C95}" KeyPath="yes">
+							<File Id="AgentDiagnosticTool.exe" Name="AgentDiagnosticTool.exe" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\AgentDiagnosticTool.exe" />
+						</Component>
+						<Component Id="InstallUtil.exe" Guid="{4A034EF1-E56C-4616-A788-14946BC625B7}" KeyPath="yes">
+							<File Id="InstallUtil.exe" Name="InstallUtil.exe" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\InstallUtil.exe" />
+						</Component>
+						<Component Id="InstallUtil.exe.config" Guid="{34DE7E39-B2F9-4857-A60C-065D57F48421}" KeyPath="yes">
+							<File Id="InstallUtil.exe.config" Name="InstallUtil.exe.config" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\InstallUtil.exe.config" />
+						</Component>
+						<Component Id="Lease.dll" Guid="{CE16992C-6A6E-4DFB-8FD6-6BF0FCEB56F5}" KeyPath="yes">
+							<File Id="Lease.dll" Name="Lease.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Lease.dll" />
+						</Component>
+						<Component Id="libeay32.dll" Guid="{33359B9C-62D3-42D8-8EB3-198386F1D398}" KeyPath="yes">
+							<File Id="libeay32.dll" Name="libeay32.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\libeay32.dll" />
+						</Component>
+						<Component Id="libguide40.dll" Guid="{79482C27-6A56-4D8A-B021-F575B2675026}" KeyPath="yes">
+							<File Id="libguide40.dll" Name="libguide40.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\libguide40.dll" />
+						</Component>
+						<Component Id="LiverDetectorAPI.dll" Guid="{C1D303B3-D76A-4AFE-AC4D-DCBB98E97589}" KeyPath="yes">
+							<File Id="LiverDetectorAPI.dll" Name="LiverDetectorAPI.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\LiverDetectorAPI.dll" />
+						</Component>
+						<Component Id="log4cplus.dll" Guid="{8DFE4374-065D-457E-905D-0BE2F7DADBE7}" KeyPath="yes">
+							<File Id="log4cplus.dll" Name="log4cplus.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\log4cplus.dll" />
+						</Component>
+						<Component Id="Log4CPlusLogger.dll" Guid="{702CA63D-184E-4AD6-82C0-F0AA16998DF7}" KeyPath="yes">
+							<File Id="Log4CPlusLogger.dll" Name="Log4CPlusLogger.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Log4CPlusLogger.dll" />
+						</Component>
+						<Component Id="ManagedOpenSsl.dll" Guid="{243F41CF-ADE5-44EE-B949-C49D75C80149}" KeyPath="yes">
+							<File Id="ManagedOpenSsl.dll" Name="ManagedOpenSsl.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\ManagedOpenSsl.dll" />
+						</Component>
+						<Component Id="BrainContrast.dll" Guid="{7555E168-DD6B-42AF-B2E5-0B3E55FC19BB}" KeyPath="yes">
+							<File Id="BrainContrast.dll" Name="BrainContrast.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\BrainContrast.dll" />
+						</Component>
+						<Component Id="Philips.PH.GCS.M2M.ADT.DiagnosticTests.dll" Guid="{FDE6B0FB-D451-48AA-B566-D30B906819E9}" KeyPath="yes">
+							<File Id="Philips.PH.GCS.M2M.ADT.DiagnosticTests.dll" Name="Philips.PH.GCS.M2M.ADT.DiagnosticTests.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Philips.PH.GCS.M2M.ADT.DiagnosticTests.dll" />
+						</Component>
+						<Component Id="Philips.PH.Gcs.Psas.Pki.Server.XmlSerializers.dll" Guid="{96BAB3A9-C1D1-4BA0-A955-6C9DF4D85547}" KeyPath="yes">
+							<File Id="Philips.PH.Gcs.Psas.Pki.Server.XmlSerializers.dll" Name="Philips.PH.Gcs.Psas.Pki.Server.XmlSerializers.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Philips.PH.Gcs.Psas.Pki.Server.XmlSerializers.dll" />
+						</Component>
+						<Component Id="DeployConfig.ps1" Guid="{C67413DB-67CF-4CA6-BBD4-A140F65FD51D}" KeyPath="yes">
+							<File Id="DeployConfig.ps1" Name="DeployConfig.ps1" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\DeployConfig.ps1" />
+						</Component>
+						<Directory Id="CtService" Name="CtService">
+							<Component Id="CtService.Microsoft.Extensions.Primitives.dll" Guid="{133C56BF-FA1F-47A7-86A5-AD9B1386B335}" KeyPath="yes">
+								<File Id="CtService.Microsoft.Extensions.Primitives.dll" Name="Microsoft.Extensions.Primitives.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\CtService\Microsoft.Extensions.Primitives.dll" />
+							</Component>
+							<Component Id="System.Management.dll" Guid="{33779699-462E-4A1A-853E-9E814C0002BD}" KeyPath="yes">
+								<File Id="System.Management.dll" Name="System.Management.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\CtService\System.Management.dll" />
+							</Component>
+							<Component Id="System.CodeDom.dll" Guid="{6211AA8D-D1B1-4BD8-94E4-A63F43DF3F46}" KeyPath="yes">
+								<File Id="System.CodeDom.dll" Name="System.CodeDom.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\CtService\System.CodeDom.dll" />
+							</Component>
+						</Directory>
+						<Directory Id="Prebuilt" Name="Prebuilt">
+							<Component Id="Prebuilt.LiverDetectorAPI.dll" Guid="{622FBEE4-0145-45DD-88F0-2E3D44FD9742}" KeyPath="yes">
+								<File Id="Prebuilt.LiverDetectorAPI.dll" Name="LiverDetectorAPI.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\LiverDetectorAPI.dll" />
+							</Component>
+							<Component Id="Prebuilt.Microsoft.Extensions.Configuration.Abstractions.dll" Guid="{B80D6F8C-96E7-42B9-BF56-7E2ACD5C09F5}" KeyPath="yes">
+								<File Id="Prebuilt.Microsoft.Extensions.Configuration.Abstractions.dll" Name="Microsoft.Extensions.Configuration.Abstractions.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Microsoft.Extensions.Configuration.Abstractions.dll" />
+							</Component>
+							<Component Id="Algorithms.dll" Guid="{AEFBD142-C595-4716-8CD2-8857ACC32A84}" KeyPath="yes">
+								<File Id="Algorithms.dll" Name="Algorithms.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Algorithms.dll" />
+							</Component>
+							<Component Id="AllProcs.txt" Guid="{64D1ED61-3572-46FF-A79B-080DDB67A71F}" KeyPath="yes">
+								<File Id="AllProcs.txt" Name="AllProcs.txt" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\AllProcs.txt" />
+							</Component>
+							<Component Id="AllSystem.txt" Guid="{87B24051-44DA-406C-A488-AF2F8B6F8B86}" KeyPath="yes">
+								<File Id="AllSystem.txt" Name="AllSystem.txt" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\AllSystem.txt" />
+							</Component>
+							<Component Id="Base.dll" Guid="{9DBBFB67-E42A-4993-9707-363FB3C7D075}" KeyPath="yes">
+								<File Id="Base.dll" Name="Base.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Base.dll" />
+							</Component>
+							<Component Id="ClearCanvas.Common.dll" Guid="{53F573C7-E6BC-4220-8F89-5940C38F6481}" KeyPath="yes">
+								<File Id="ClearCanvas.Common.dll" Name="ClearCanvas.Common.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\ClearCanvas.Common.dll" />
+							</Component>
+							<Component Id="ClearCanvas.Dicom.dll" Guid="{66420AF2-9B99-42BE-9DC4-2222F81E86E0}" KeyPath="yes">
+								<File Id="ClearCanvas.Dicom.dll" Name="ClearCanvas.Dicom.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\ClearCanvas.Dicom.dll" />
+							</Component>
+							<Component Id="EntityFramework.dll" Guid="{E4DF9530-DFBD-4C3F-AA22-7E3A93945D4C}" KeyPath="yes">
+								<File Id="EntityFramework.dll" Name="EntityFramework.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\EntityFramework.dll" />
+							</Component>
+							<Component Id="EntityFramework.SqlServer.dll" Guid="{BA4F38AB-8A06-40A2-B980-ED15FC9EF9C9}" KeyPath="yes">
+								<File Id="EntityFramework.SqlServer.dll" Name="EntityFramework.SqlServer.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\EntityFramework.SqlServer.dll" />
+							</Component>
+							<Component Id="ICSharpCode.SharpZipLib.dll" Guid="{50D62D04-F5F8-4563-9C49-7EA93192AED2}" KeyPath="yes">
+								<File Id="ICSharpCode.SharpZipLib.dll" Name="ICSharpCode.SharpZipLib.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\ICSharpCode.SharpZipLib.dll" />
+							</Component>
+							<Component Id="Imaging2D.dll" Guid="{BABAEE26-E037-4304-960E-9B298D7351EB}" KeyPath="yes">
+								<File Id="Imaging2D.dll" Name="Imaging2D.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Imaging2D.dll" />
+							</Component>
+							<Component Id="Infrastructure.Crosscutting.dll" Guid="{1A4DED4F-9E3E-45EB-B027-2C1C3D7D3569}" KeyPath="yes">
+								<File Id="Infrastructure.Crosscutting.dll" Name="Infrastructure.Crosscutting.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Infrastructure.Crosscutting.dll" />
+							</Component>
+							<Component Id="Infrastructure.Crosscutting.EnterpriseLibrary.dll" Guid="{55E0D25F-AEC6-4361-9975-EAD200937A33}" KeyPath="yes">
+								<File Id="Infrastructure.Crosscutting.EnterpriseLibrary.dll" Name="Infrastructure.Crosscutting.EnterpriseLibrary.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Infrastructure.Crosscutting.EnterpriseLibrary.dll" />
+							</Component>
+							<Component Id="Infrastructure.DynamicCompositionFramework.dll" Guid="{E9367995-477A-4585-A473-BAC2C944E723}" KeyPath="yes">
+								<File Id="Infrastructure.DynamicCompositionFramework.dll" Name="Infrastructure.DynamicCompositionFramework.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Infrastructure.DynamicCompositionFramework.dll" />
+							</Component>
+							<Component Id="Infrastructure.DynamicCompositionFramework.MefExtensions.dll" Guid="{5B44E8CC-2E1B-4C78-B861-8368816A2250}" KeyPath="yes">
+								<File Id="Infrastructure.DynamicCompositionFramework.MefExtensions.dll" Name="Infrastructure.DynamicCompositionFramework.MefExtensions.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Infrastructure.DynamicCompositionFramework.MefExtensions.dll" />
+							</Component>
+							<Component Id="Infrastructure.ExtensibleCommunicationFramework.dll" Guid="{ABD94CA2-3212-4387-B323-6ABCF3C177C2}" KeyPath="yes">
+								<File Id="Infrastructure.ExtensibleCommunicationFramework.dll" Name="Infrastructure.ExtensibleCommunicationFramework.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Infrastructure.ExtensibleCommunicationFramework.dll" />
+							</Component>
+							<Component Id="MathLib.dll" Guid="{E40427B7-2170-4C9B-A665-43DFEBBAF931}" KeyPath="yes">
+								<File Id="MathLib.dll" Name="MathLib.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\MathLib.dll" />
+							</Component>
+							<Component Id="MefCompositionApplication.Shell.exe" Guid="{08C283EA-60D3-426B-B287-DE184BCF40D6}" KeyPath="yes">
+								<File Id="MefCompositionApplication.Shell.exe" Name="MefCompositionApplication.Shell.exe" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\MefCompositionApplication.Shell.exe" />
+							</Component>
+							<Component Id="Microsoft.Office.Interop.Access.Dao.dll" Guid="{5B0277E3-A614-4666-A2ED-5254B48B0BE8}" KeyPath="yes">
+								<File Id="Microsoft.Office.Interop.Access.Dao.dll" Name="Microsoft.Office.Interop.Access.Dao.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Microsoft.Office.Interop.Access.Dao.dll" />
+							</Component>
+							<Component Id="Microsoft.Office.Interop.Excel.dll" Guid="{1E5B4833-11FF-4453-9471-A38AF33289A0}" KeyPath="yes">
+								<File Id="Microsoft.Office.Interop.Excel.dll" Name="Microsoft.Office.Interop.Excel.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Microsoft.Office.Interop.Excel.dll" />
+							</Component>
+							<Component Id="Microsoft.Practices.EnterpriseLibrary.Common.dll" Guid="{C88359CE-57EB-4EC5-A08B-5DFB3EEF12A1}" KeyPath="yes">
+								<File Id="Microsoft.Practices.EnterpriseLibrary.Common.dll" Name="Microsoft.Practices.EnterpriseLibrary.Common.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+							</Component>
+							<Component Id="Microsoft.Practices.EnterpriseLibrary.Logging.dll" Guid="{10562752-33CD-446A-A896-866C4EB65E21}" KeyPath="yes">
+								<File Id="Microsoft.Practices.EnterpriseLibrary.Logging.dll" Name="Microsoft.Practices.EnterpriseLibrary.Logging.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Microsoft.Practices.EnterpriseLibrary.Logging.dll" />
+							</Component>
+							<Component Id="Microsoft.Practices.Prism.dll" Guid="{6D2F09FB-F35B-4B23-BC84-9BA647B18726}" KeyPath="yes">
+								<File Id="Microsoft.Practices.Prism.dll" Name="Microsoft.Practices.Prism.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Microsoft.Practices.Prism.dll" />
+							</Component>
+							<Component Id="Microsoft.Practices.Prism.Interactivity.dll" Guid="{779C82BB-2052-408D-8604-81159C9C89D6}" KeyPath="yes">
+								<File Id="Microsoft.Practices.Prism.Interactivity.dll" Name="Microsoft.Practices.Prism.Interactivity.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Microsoft.Practices.Prism.Interactivity.dll" />
+							</Component>
+							<Component Id="Microsoft.Practices.Prism.MefExtensions.dll" Guid="{C6C72720-BA21-432B-A411-DAD99279523B}" KeyPath="yes">
+								<File Id="Microsoft.Practices.Prism.MefExtensions.dll" Name="Microsoft.Practices.Prism.MefExtensions.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Microsoft.Practices.Prism.MefExtensions.dll" />
+							</Component>
+							<Component Id="Microsoft.Practices.Prism.PubSubEvents.dll" Guid="{D48BC108-991B-47FF-9D8E-6EF96F31EAB1}" KeyPath="yes">
+								<File Id="Microsoft.Practices.Prism.PubSubEvents.dll" Name="Microsoft.Practices.Prism.PubSubEvents.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Microsoft.Practices.Prism.PubSubEvents.dll" />
+							</Component>
+							<Component Id="Microsoft.Practices.Prism.UnityExtensions.dll" Guid="{44188C6A-9683-4210-891E-1E1E4BBBADAB}" KeyPath="yes">
+								<File Id="Microsoft.Practices.Prism.UnityExtensions.dll" Name="Microsoft.Practices.Prism.UnityExtensions.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Microsoft.Practices.Prism.UnityExtensions.dll" />
+							</Component>
+							<Component Id="Microsoft.Practices.ServiceLocation.dll" Guid="{088DE731-0C03-461C-B2EE-DF14F79F0BF3}" KeyPath="yes">
+								<File Id="Microsoft.Practices.ServiceLocation.dll" Name="Microsoft.Practices.ServiceLocation.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Microsoft.Practices.ServiceLocation.dll" />
+							</Component>
+							<Component Id="Microsoft.Practices.Unity.Configuration.dll" Guid="{0A25DB62-4804-45B5-ABCF-D062E6AA46A4}" KeyPath="yes">
+								<File Id="Microsoft.Practices.Unity.Configuration.dll" Name="Microsoft.Practices.Unity.Configuration.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Microsoft.Practices.Unity.Configuration.dll" />
+							</Component>
+							<Component Id="Microsoft.Practices.Unity.Interception.Configuration.dll" Guid="{567073B4-9AEE-4FA3-B12A-276F4407AF6E}" KeyPath="yes">
+								<File Id="Microsoft.Practices.Unity.Interception.Configuration.dll" Name="Microsoft.Practices.Unity.Interception.Configuration.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Microsoft.Practices.Unity.Interception.Configuration.dll" />
+							</Component>
+							<Component Id="Microsoft.Practices.Unity.Interception.dll" Guid="{88CDCCC5-7110-4493-9CE3-03F80D12396D}" KeyPath="yes">
+								<File Id="Microsoft.Practices.Unity.Interception.dll" Name="Microsoft.Practices.Unity.Interception.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Microsoft.Practices.Unity.Interception.dll" />
+							</Component>
+							<Component Id="Microsoft.Practices.Unity.RegistrationByConvention.dll" Guid="{102D621D-4A4D-4ED5-9A4B-0245DEDF307F}" KeyPath="yes">
+								<File Id="Microsoft.Practices.Unity.RegistrationByConvention.dll" Name="Microsoft.Practices.Unity.RegistrationByConvention.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Microsoft.Practices.Unity.RegistrationByConvention.dll" />
+							</Component>
+							<Component Id="Net.txt" Guid="{68FC790E-D004-4019-9993-DCBB6B935717}" KeyPath="yes">
+								<File Id="Net.txt" Name="Net.txt" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Net.txt" />
+							</Component>
+							<Component Id="Newtonsoft.Json.dll" Guid="{6E4DFB1B-1F2A-4003-A902-7D0C56701A24}" KeyPath="yes">
+								<File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Newtonsoft.Json.dll" />
+							</Component>
+							<Component Id="NtcanNet.dll" Guid="{EACF13DD-60CF-4349-9DFC-84DAF1934C6B}" KeyPath="yes">
+								<File Id="NtcanNet.dll" Name="NtcanNet.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\NtcanNet.dll" />
+							</Component>
+							<Component Id="PerfMon.bat" Guid="{859E53F3-8C23-455E-A121-EC1D87001200}" KeyPath="yes">
+								<File Id="PerfMon.bat" Name="PerfMon.bat" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\PerfMon.bat" />
+							</Component>
+							<Component Id="PerfMonReStart.bat" Guid="{2040FD0D-3CB6-4013-8679-109D7B2253B3}" KeyPath="yes">
+								<File Id="PerfMonReStart.bat" Name="PerfMonReStart.bat" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\PerfMonReStart.bat" />
+							</Component>
+							<Component Id="Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.MessageContract.dll" Guid="{E42611FB-EBD2-4861-9F83-AA554E0DF893}" KeyPath="yes">
+								<File Id="Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.MessageContract.dll" Name="Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.MessageContract.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.MessageContract.dll" />
+							</Component>
+							<Component Id="Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.Proxy.dll" Guid="{99E7FA0A-9EA3-4756-8D06-351AE385DFBD}" KeyPath="yes">
+								<File Id="Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.Proxy.dll" Name="Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.Proxy.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.Proxy.dll" />
+							</Component>
+							<Component Id="Philips.NxGen.Serviceability.Interfaces.CollabLivePlugin.dll" Guid="{1327092E-80BA-44D3-9F80-18D2C59B27E3}" KeyPath="yes">
+								<File Id="Philips.NxGen.Serviceability.Interfaces.CollabLivePlugin.dll" Name="Philips.NxGen.Serviceability.Interfaces.CollabLivePlugin.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Philips.NxGen.Serviceability.Interfaces.CollabLivePlugin.dll" />
+							</Component>
+							<Component Id="Philips.NxGen.Services.FeatureManagement.FeatureDefinitionEncryptor.exe" Guid="{DEBD10DE-C3DD-47DC-A093-879263B7F0FF}" KeyPath="yes">
+								<File Id="Philips.NxGen.Services.FeatureManagement.FeatureDefinitionEncryptor.exe" Name="Philips.NxGen.Services.FeatureManagement.FeatureDefinitionEncryptor.exe" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Philips.NxGen.Services.FeatureManagement.FeatureDefinitionEncryptor.exe" />
+							</Component>
+							<Component Id="Philips.NxGen.Services.FeatureManagement.Utility.dll" Guid="{800E7D42-FE4A-4FA4-B434-1FDC09ADCCFC}" KeyPath="yes">
+								<File Id="Philips.NxGen.Services.FeatureManagement.Utility.dll" Name="Philips.NxGen.Services.FeatureManagement.Utility.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Philips.NxGen.Services.FeatureManagement.Utility.dll" />
+							</Component>
+							<Component Id="Philips.Platform.Presentation.dll" Guid="{C9FA5044-732F-4501-954D-A8AFA6D8C1FD}" KeyPath="yes">
+								<File Id="Philips.Platform.Presentation.dll" Name="Philips.Platform.Presentation.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Philips.Platform.Presentation.dll" />
+							</Component>
+							<Component Id="Philips.Platform.Presentation.resources.dll" Guid="{F74EB429-31F2-4ECC-B4B8-049F2BCB63C6}" KeyPath="yes">
+								<File Id="Philips.Platform.Presentation.resources.dll" Name="Philips.Platform.Presentation.resources.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Philips.Platform.Presentation.resources.dll" />
+							</Component>
+							<Component Id="Philips.Platform.Utilities.dll" Guid="{CE6F14BE-C871-469C-BF1A-A87DBA43A33C}" KeyPath="yes">
+								<File Id="Philips.Platform.Utilities.dll" Name="Philips.Platform.Utilities.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Philips.Platform.Utilities.dll" />
+							</Component>
+							<Component Id="RegAsm.exe" Guid="{94BF088B-7698-498C-8060-8767659E96D9}" KeyPath="yes">
+								<File Id="RegAsm.exe" Name="RegAsm.exe" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\RegAsm.exe" />
+							</Component>
+							<Component Id="regsvr32.exe" Guid="{3983DE22-723D-4642-89F9-2FC465979134}" KeyPath="yes">
+								<File Id="regsvr32.exe" Name="regsvr32.exe" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\regsvr32.exe" />
+							</Component>
+							<Component Id="Rendering2D.dll" Guid="{3B1C63ED-1DB9-4E57-BAF4-46E78EF96577}" KeyPath="yes">
+								<File Id="Rendering2D.dll" Name="Rendering2D.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\Rendering2D.dll" />
+							</Component>
+							<Component Id="System.Windows.Interactivity.dll" Guid="{9F14CBDF-38BA-45B4-BCB1-4E9581217DE1}" KeyPath="yes">
+								<File Id="System.Windows.Interactivity.dll" Name="System.Windows.Interactivity.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\System.Windows.Interactivity.dll" />
+							</Component>
+							<Component Id="WifBase.dll" Guid="{0189B9F4-669D-42A6-B120-EB6A72554B75}" KeyPath="yes">
+								<File Id="WifBase.dll" Name="WifBase.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\WifBase.dll" />
+							</Component>
+							<Component Id="WifDataTypes.dll" Guid="{ABF03F4A-205C-4F2F-BDD7-9ABB930225DD}" KeyPath="yes">
+								<File Id="WifDataTypes.dll" Name="WifDataTypes.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\WifDataTypes.dll" />
+							</Component>
+							<Component Id="WifOperators.dll" Guid="{789D8ADA-6835-40B3-A928-E17D0AD70B4B}" KeyPath="yes">
+								<File Id="WifOperators.dll" Name="WifOperators.dll" Source="C:\320219077\MSIs\ConsoleSupplementary\lib\net48\Prebuilt\WifOperators.dll" />
+							</Component>
+						</Directory>
+					</Directory>
+				</Directory>
+			</Directory>
+		</Directory>
+		<!-- Custom Action to execute the DeployConfig.ps1 script -->
+		<CustomAction Id="RunPsScript" ExeCommand="&quot;C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe&quot; -ExecutionPolicy Unrestricted -NoLogo -NonInteractive -InputFormat None -NoProfile -File &quot;D:\PCC\ChorusHost\Bin\DeployConfig.ps1&quot;" Execute="deferred" Impersonate="no" Directory="TARGETDIR" Return="check" />
+		<!-- installation sequence -->
+		<InstallExecuteSequence>
+			<Custom Action="RunPsScript" After="InstallFiles">
+				NOT Installed
+			</Custom>
+		</InstallExecuteSequence>
+	</Product>
+</Wix>

@@ -1,0 +1,19 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+  Checkout: []
+
+jobs:
+- job: Blackduck_Integration
+  condition: and(succeeded(), eq(variables['BlackDuck'], 'true'))
+  dependsOn: ${{ parameters.dependsOn }}
+#  timeoutInMinutes: 0
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: ${{ parameters.Checkout }}
+  - script: '$(BlackduckJAVABIN)\Java -jar $(Build.SourcesDirectory)\Tools\Tools.1.0.0\synopsys-detect-8.3.0.jar --detect.project.name=$(BlackduckAppVersion) --detect.project.version.name=$(ApplicationVersion) --detect.source.path=$(Build.Repository.LocalPath) --blackduck.url=$(BlackduckURL) --blackduck.trust.cert=true --blackduck.api.token=$(BlackduckAuthToken)'
+    displayName: 'Run Blackduck'

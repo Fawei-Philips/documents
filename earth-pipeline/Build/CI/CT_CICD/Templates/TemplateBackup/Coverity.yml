@@ -1,0 +1,66 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+  inputs : []
+  Project : []
+  Checkout: []
+  csproj: []
+
+jobs:
+- job: Coverity
+  dependsOn: ${{ parameters.dependsOn }}
+  timeoutInMinutes: 0
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: ${{ parameters.Checkout }}
+
+  - task: ArtifactoryNuGet@1
+    displayName: 'Restoring packages'
+    condition: and(succeeded(),eq(variables['dotnetcore'],''))
+    inputs:
+      command: 'restore'
+      artifactoryService: '$(artifactoryService)'
+      targetResolveRepo: '$(ArtifactoryRepoName)'
+      solutionPath: ${{ parameters.Project }}
+      packagesDirectory: '$(3rdPartyPackagesPath)'
+    enabled: 'true'
+
+  - ${{ each proj in parameters.csproj }}:
+      - task: ArtifactoryNuGet@1
+        condition: and(succeeded(),eq(variables['dotnetcore'],True))
+        displayName: 'Nuget Restore: ${{ proj.cname }}'
+        inputs:
+          command: 'restore'
+          artifactoryService: '$(artifactoryService)'
+          targetResolveRepo: '$(ArtifactoryRepoName)'
+          solutionPath: ${{ proj.cPath }}
+          packagesDirectory: '$(3rdPartyPackagesPath)'
+        enabled: 'true'
+
+  - ${{ each sln in parameters.Solution }}:
+      - task: ArtifactoryDotnetCore@1
+        condition: and(succeeded(),eq(variables['dotnetcore'],True))
+        displayName: 'Dotnet Restore: ${{ sln.solutionname }}'
+        inputs:
+          command: 'restore'
+          artifactoryService: '$(artifactoryService)'
+          targetResolveRepo: '$(ArtifactoryRepoName)'
+          noNuGetCache: true
+          rootPath: ${{ sln.solutionPath }}
+          packagesDirectory: '$(3rdPartyPackagesPath)'
+        enabled: 'true'
+
+  - ${{ each i in parameters.inputs }}:
+    - script: |
+        python build/get_pac.py
+        python pac_libraries/set_pac.py
+        python pac_libraries/master_libs/coverity/coverity.py --json_file ${{ i.path }} --coverity_user $(IAP_FA_user) --coverity_password $(IAP_FA_password)
+      displayName: 'Run Coverity devops lib'
+      enabled: true  
+      
+
+  

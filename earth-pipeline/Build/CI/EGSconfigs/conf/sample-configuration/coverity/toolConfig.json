@@ -1,0 +1,13 @@
+{
+  "whereIsMsBuild": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Professional\\MSBuild\\15.0\\Bin\\MSBuild.exe\"",
+  "config": [
+    {
+      "filePathIncludes": "",
+      "stream": "pdp_main",
+      "buildCommands": [
+        "\"C:\\Program Files\\Coverity\\Coverity Static Analysis\\bin\\cov-run-desktop.exe\" --dir C:\\EGS\\idir5_PDP_PRBuild --url https://swabstractanalysis.ta.philips.com --user 310303097 --password taXXXXXXXXXXXXX --stream <Coverity-Project-Stream-Name> --build <whereIsMsBuild> /t:Rebuild C:\\path\\to\\Solution.sln"
+      ],
+      "desktopAnalysisCommandWithoutFile": "\"C:\\Program Files\\Coverity\\Coverity Static Analysis\\bin\\cov-run-desktop.exe\" --dir C:\\EGS\\idir5_PDP_PRBuild --url https://swabstractanalysis.ta.philips.com --user 310303097 --password taXXXXXXXXXXXXX --stream <Coverity-Project-Stream-Name>"
+    }
+  ]
+}

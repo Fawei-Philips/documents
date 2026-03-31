@@ -1,0 +1,8 @@
+{
+  "excludedWarnings": [
+    {
+      "warningCode": "MSB3276",
+      "totalExcludeCount": 2
+    }
+  ]
+}

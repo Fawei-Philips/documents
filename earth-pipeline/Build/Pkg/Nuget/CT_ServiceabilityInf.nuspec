@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>CT_ServiceabilityInf</id>
+    <version>1.14.10000</version>
+    <authors>Philips Medical Systems</authors>
+    <owners>Philips Medical Systems</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Contains all interfaces for CT_Serviceability</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2023</copyright>
+    <dependencies>
+      <group targetFramework=".NetFramework4.8">
+        <dependency id="CT_CommonservicesInf" version="1.171.10000" />
+        <dependency id="CT_DeviceAbsServicesInf" version="1.29.10000" />
+        <dependency id="CT_SecurityInf" version="1.5.10000" />
+        <dependency id="CT_OrchDomainServicesInf" version="1.115.10000" />
+        <dependency id="CT_RulesSystemInf" version="1.38.10000" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\..\..\Output\OutInf\**" target="lib/net48" />
+  </files>
+</package>

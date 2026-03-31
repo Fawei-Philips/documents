@@ -1,0 +1,21 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+
+jobs: 
+- job: PS_Script_Analyzer
+  timeoutInMinutes: 360
+  dependsOn: ${{ parameters.dependsOn }}
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - task: PowerShell@2
+    displayName: 'PowerShell Scripts Analyser & Gates '
+    inputs:
+      targetType: filePath
+      filePath: '$(PSScriptAnalyzer)'
+      arguments: '$(build.sourcesdirectory)'
+    continueOnError: true

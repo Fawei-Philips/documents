@@ -1,0 +1,10 @@
+{
+  "enabled": "no",
+  "minOneReviewPerLinesOfCode": "100",
+  "minNoOfWordsToBePresentInAReview": "3",
+  "considerFileTypes": [
+    ".cs",
+    ".ts",
+    ".js"
+  ]
+}

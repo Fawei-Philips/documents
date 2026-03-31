@@ -1,0 +1,9 @@
+{
+  "name": "CT_Serviceability",
+  "workspaceFolder": "",
+  "modifiedFilesFromFile": "",
+  "excludeFolders": ["AssemblyInfo.cs"],
+  "referencePathConfig": "referencePathConfig.json",
+  "customScript" : [ {} ],
+  "emailRecipients": []
+}

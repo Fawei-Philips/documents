@@ -1,0 +1,30 @@
+{
+  "overall": {
+    "duplicatedLines": {
+      "enabled": "yes",
+      "comparisonType": "static|server",
+      "threshold": "500",
+      "deltaException": "0"
+    },
+    "percentage": {
+      "enabled": "yes",
+      "comparisonType": "static|server",
+      "threshold": "6",
+      "deltaException": "0"
+    }
+  },
+  "fileLevel": {
+    "duplicatedLines": {
+      "enabled": "yes",
+      "comparisonType": "static|server",
+      "threshold": "0",
+      "deltaException": "0"
+    },
+    "percentage": {
+      "enabled": "yes",
+      "comparisonType": "static|server",
+      "threshold": "0",
+      "deltaException": "0"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+variables:
+  - template: Variables_ProductBuild.yml
+  - group: "CTWorkspace_Var"
+  - name: TFS_AUTH
+    value: $[variables.PAT_ing07471]
+
+resources:
+  repositories:
+    - repository: CT_CICD
+      type: git
+      name: CT_CICD
+      ref: refs/heads/master
+
+trigger: none
+
+pool:
+  name: $(PoolName)
+  demands: "TFSAgentPool -equals $(DemandValue)"
+
+stages:
+  - template: Templates/ProductBuild.yml@CT_CICD
+    parameters:
+      agentPool: $(PoolName)
+      agentcapability: ${{ Variables.DemandValue }}
+      agentDemand: ${{ Variables.DemandName }}
+      ComponentName: ${{ Variables.internal_folder_name }}
+      Version: $(vsVersion)

@@ -1,0 +1,36 @@
+variables:
+  - template: Variables_FullBuild.yml
+  - group: "CTWorkspace_Var"
+parameters:
+  - name: debug_mode
+    displayName: Include Debug Mode
+    type: boolean
+    default: true
+  - name: pub_ct_ws
+    displayName: Publish DEV artifacts to CT_Workspace Artifactory?
+    type: boolean
+    default: false
+resources:
+  repositories:
+    - repository: CT_CICD
+      type: git
+      name: CT_CICD
+      ref: refs/heads/master
+trigger: none
+
+pool:
+  name: $(PoolName)
+  demands: "TFSAgentPool -equals CTWS_Nightly_Build"
+
+name: ${{ Variables.internal_folder_name }}_Nightly_$(Date:yyyyMMdd)$(Rev:.r)
+stages:
+  - template: Templates/Nightly.yml@CT_CICD
+    parameters:
+      agentcapability: ${{ Variables.DemandValue }}
+      agentDemand: ${{ Variables.DemandName }}
+      ComponentName: ${{ Variables.internal_folder_name }}
+      Version: $(vsVersion)
+      TargetTestFolder: ${{ Variables.target_test_folder }}
+      DebugMode: ${{ parameters.debug_mode }}
+      Publish: ${{ parameters.pub_ct_ws }}
+      RunModuleTest: "true"

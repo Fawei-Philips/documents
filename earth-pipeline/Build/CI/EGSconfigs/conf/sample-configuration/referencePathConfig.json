@@ -1,0 +1,17 @@
+{
+  "repoConfigLocation": "repoConfig.json",
+  "ticsGatingConfigLocation": "tics/gatingRules.json",
+  "ticsToolConfigLocation": "tics/toolConfig.json",
+  "resharperGatingConfigLocation": "resharper/gatingRules.json",
+  "resharperToolConfigLocation": "resharper/toolConfig.json",
+  "coverityGatingConfigLocation": "coverity/gatingRules.json",
+  "coverityToolConfigLocation": "coverity/toolConfig.json",
+  "resharperFullScanGatingConfigLocation": "resharper/fullScanGatingRules.json",
+  "csprojCompilerWarningsGatingConfigLocation": "csprojCompilerWarningsSettings/gatingRules.json",
+  "csprojCompilerWarningsSuppressionConfigLocation": "csprojCompilerWarningsSettings/suppressionRules.json",
+  "csprojCompilerWarningsToolConfigLocation": "csprojCompilerWarningsSettings/toolConfig.json",
+  "csprojProjectSettingsGatingConfigLocation": "csprojProjectSettings/gatingRules.json",
+  "csprojProjectSettingsSuppressionConfigLocation": "csprojProjectSettings/suppressionRules.json",
+  "csprojProjectPropertiesScannerGatingConfigLocation": "csprojProjectPropertiesScanner/gatingRules.json",
+  "csprojProjectPropertiesScannerToolConfigLocation": "csprojProjectPropertiesScanner/toolConfig.json"
+}

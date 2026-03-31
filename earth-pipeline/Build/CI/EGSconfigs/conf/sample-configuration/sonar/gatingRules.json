@@ -1,0 +1,31 @@
+{
+  "enabled": "no",
+  "measures": [
+    {
+      "enabled": true,
+      "measure": "bug"
+    },
+    {
+      "enabled": true,
+      "measure": "vulnerability"
+    },
+    {
+      "enabled": true,
+      "measure": "code_smell"
+    }
+  ],
+  "issues": [
+    {
+      "enabled": true,
+      "severityLevel": "BLOCKER"
+    },
+    {
+      "enabled": true,
+      "severityLevel": "CRITICAL"
+    },
+    {
+      "enabled": true,
+      "severityLevel": "MAJOR"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "considerFileTypes": [
+    ".cs",
+    ".xml",
+    ".xaml",
+    ".info"
+  ]
+}

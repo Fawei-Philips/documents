@@ -1,0 +1,92 @@
+parameters: 
+  agentcapability: []
+  agentDemand: []
+  Version: ''
+  ComponentName: ''
+  TargetTestFolder: ''
+  csproj: []
+  RunModuleTest: 'false'
+
+
+jobs:
+- template: GatedException.yml
+  parameters:
+      agentcapability: ${{ parameters.agentcapability }}
+      agentDemand: ${{ parameters.agentDemand }}
+      Version: ${{ parameters.Version }}
+      ComponentName: ${{ parameters.ComponentName }}
+      Solution:
+        - solutionname: ${{ parameters.ComponentName }}
+          solutionPath: 'ExtInf/${{ parameters.ComponentName }}Inf.sln'     
+        - solutionname: ${{ parameters.ComponentName }}
+          solutionPath: 'Src/${{ parameters.ComponentName }}Impl.sln'  
+
+- ${{ if eq(parameters.RunModuleTest, 'true') }}:
+  - template: Module_Nunit_PR.yml
+    parameters:      
+        agentcapability: ${{ parameters.agentcapability }}
+        agentDemand: ${{ parameters.agentDemand }}
+        Version: ${{ parameters.Version }}
+        ComponentName: ${{ parameters.ComponentName }}
+        TargetTestFolder : ${{ parameters.TargetTestFolder }}
+        csproj: ${{ parameters.csproj }}
+        Solution:
+          - solutionname: ${{ parameters.ComponentName }}
+            solutionPath: 'ExtInf/${{ parameters.ComponentName }}Inf.sln'     
+          - solutionname: ${{ parameters.ComponentName }}
+            solutionPath: 'Src/${{ parameters.ComponentName }}Impl.sln'
+
+- ${{ if eq(parameters.RunModuleTest, 'false') }}:
+  - template: Nunit_PR1.yml     
+    parameters:      
+        agentcapability: ${{ parameters.agentcapability }}
+        agentDemand: ${{ parameters.agentDemand }}
+        Version: ${{ parameters.Version }}
+        ComponentName: ${{ parameters.ComponentName }}
+        TargetTestFolder : ${{ parameters.TargetTestFolder }}
+        csproj: ${{ parameters.csproj }}
+        Solution:
+          - solutionname: ${{ parameters.ComponentName }}
+            solutionPath: 'ExtInf/${{ parameters.ComponentName }}Inf.sln'     
+          - solutionname: ${{ parameters.ComponentName }}
+            solutionPath: 'Src/${{ parameters.ComponentName }}Impl.sln'
+
+- template: TICS1.yml
+  parameters:
+      dependsOn: Build
+      timeoutInMinutes: 0
+      agentcapability: ${{ parameters.agentcapability }}
+      agentDemand: ${{ parameters.agentDemand }}
+      Checkout: self
+      Version: ${{ parameters.Version }}
+      ComponentName: ${{ parameters.ComponentName }}
+      csproj: ${{ parameters.csproj }}
+      Solution:
+        - solutionname: ${{ parameters.ComponentName }}
+          solutionPath: 'ExtInf/${{ parameters.ComponentName }}Inf.sln'     
+        - solutionname: ${{ parameters.ComponentName }}
+          solutionPath: 'Src/${{ parameters.ComponentName }}Impl.sln'
+
+- template: ResharperPR1.yml
+  parameters:
+      dependsOn: Build
+      timeoutInMinutes: 0
+      agentcapability: ${{ parameters.agentcapability }}
+      agentDemand: ${{ parameters.agentDemand }}
+      Checkout: self
+      Version: ${{ parameters.Version }}
+      ComponentName: ${{ parameters.ComponentName }}
+      csproj: ${{ parameters.csproj }}
+      Solution:
+        - solutionname: ${{ parameters.ComponentName }}
+          solutionPath: 'ExtInf/${{ parameters.ComponentName }}Inf.sln'     
+        - solutionname: ${{ parameters.ComponentName }}
+          solutionPath: 'Src/${{ parameters.ComponentName }}Impl.sln'
+
+- template: ProjectSettings_PR1.yml
+  parameters:
+      dependsOn: Build
+      timeoutInMinutes: 0
+      agentcapability: ${{ parameters.agentcapability }}
+      agentDemand: ${{ parameters.agentDemand }}
+      Checkout: self

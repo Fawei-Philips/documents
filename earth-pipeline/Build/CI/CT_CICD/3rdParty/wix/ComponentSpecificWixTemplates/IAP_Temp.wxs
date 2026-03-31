@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<Product Id="FC51B282-604D-4439-9E04-F338B4E9488C" Name="IAP_Temp" Language="1033" Version="1.0.0" Manufacturer="Philips Healthcare" UpgradeCode="{9D569605-EB9E-46A0-8ACD-6FFF62421F0C}">
+		<Package Id="*" Description="IAP_Temp" Comments="Version: 1.0.0" InstallerVersion="300" Compressed="yes" />
+		<Media Id="1" Cabinet="IAP_Temp.cab" EmbedCab="yes" />
+		<Property Id="REINSTALLMODE">
+			amus
+		</Property>
+		<!-- MajorUpgrade element to remove previous msi -->
+		<MajorUpgrade AllowSameVersionUpgrades="yes" DowngradeErrorMessage="A newer version of [ProductName] is already installed." Schedule="afterInstallInitialize" />
+		<Feature Id="DefaultFeature" Title="Main Feature" Level="1">
+			<ComponentRef Id="Philips.PH.Gcs.Psas.PSUS.Common.dll" />
+			<ComponentRef Id="Philips.PH.Gcs.Psas.Poll.Common.dll" />
+			<ComponentRef Id="Philips.PH.Gcs.Psas.Poll.Common.xml" />
+			<ComponentRef Id="Philips.PH.Gcs.Psas.Status.Client.dll" />
+			<ComponentRef Id="Philips.PH.Gcs.Psas.Status.Client.xml" />
+			<ComponentRef Id="Philips.PH.Gcs.Psas.PSUS.dll" />
+			<ComponentRef Id="Philips.MedicalSystems.M2M.LOTS.ExternalPlugin.dll" />
+			<ComponentRef Id="Philips.PH.Gcs.Psas.Poll.Client.dll" />
+			<ComponentRef Id="Philips.PH.Gcs.Psas.Status.Common.dll" />
+			<ComponentRef Id="Philips.PH.Gcs.Psas.Status.Common.xml" />
+			<ComponentRef Id="Philips.PH.GCS.M2M.ADT.DFL.dll" />
+			<ComponentRef Id="Philips.PH.GCS.M2M.ADT.Interfaces.Common.dll" />
+			<ComponentRef Id="Philips.PmsMip.Private.Services.FSF.Security.SecurityPlugin.dll" />
+			<ComponentRef Id="Philips.PmsMip.Private.Interfaces.Services.PortForwarder.dll" />
+			<ComponentRef Id="Philips.PmsMip.Private.Interfaces.dll" />
+			<ComponentRef Id="Philips.PH.Gcs.Psas.Pki.Common.dll" />
+			<ComponentRef Id="Philips.PH.Gcs.Psas.Pki.Client.dll" />
+			<ComponentRef Id="Philips.PH.Gcs.Psas.Pki.Client.xml" />
+			<ComponentRef Id="Philips.PH.Gcs.Psas.Common.dll" />
+			<ComponentRef Id="Philips.PH.Gcs.Psas.Common.xml" />
+			<ComponentRef Id="Philips.PH.Gcs.Psas.Pki.Common.xml" />
+			<ComponentRef Id="Philips.Service.Common.TraceUtility.dll" />
+			<ComponentRef Id="Philips.Service.Common.LoggerToolKit.dll" />
+			<ComponentRef Id="Philips.Service.PSCUIComponents.dll" />
+			<ComponentRef Id="Philips.ServiceTools.Rdp.Toolkit.dll" />
+			<ComponentRef Id="Philips.ServiceTools.UserAuthentication.Toolkit.dll" />
+			<ComponentRef Id="Philips.NxGen.UW.SPMBridge.DataModel.dll" />
+			<ComponentRef Id="Philips.NxGen.UW.SPMBridge.PluginContracts.dll" />
+			<ComponentRef Id="Philips.PH.GCS.M2M.ADT.DFL.DFLConfig.xml" />
+			<ComponentRef Id="Philips.NxGen.Services.LicenseManagement.Interface.dll" />
+			<ComponentRef Id="Philips.NxGen.Services.LicenseManagement.Proxy.dll" />
+			<ComponentRef Id="Philips.NxGen.Services.LicenseManagement.Proxy.dll.config" />
+			<ComponentRef Id="Philips.NxGen.Services.LicenseSwitchManagement.Interface.dll" />
+			<ComponentRef Id="Philips.NxGen.Services.LicenseSwitchManagement.Proxy.dll" />
+			<ComponentRef Id="Philips.NxGen.Services.LicenseSwitchManagement.Proxy.dll.config" />
+			<ComponentRef Id="Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.Proxy.dll" />
+			<ComponentRef Id="Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.MessageContract.dll" />
+			<ComponentRef Id="Philips.NxGen.Serviceability.Interfaces.CollabLivePlugin.dll" />
+			<ComponentRef Id="Philips.NxGen.Services.FeatureManagement.FeatureDefinitionEncryptor.exe" />
+			<ComponentRef Id="Philips.NxGen.Services.FeatureManagement.Proxy.dll" />
+			<ComponentRef Id="Philips.NxGen.Services.FeatureManagement.Utility.dll" />
+			<ComponentRef Id="Philips.DI.Interfaces.Services.Logging.dll" />
+			<ComponentRef Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll" />
+			<ComponentRef Id="Philips.ServiceTools.RSD.Toolkit.dll" />
+			<ComponentRef Id="Philips.Service.RemoteTools.Alerting.AlertingToolkit.dll" />
+			<ComponentRef Id="Philips.Service.RemoteTools.DeviceProfileUpdate.DeviceProfileUpdateToolkit.dll" />
+			<ComponentRef Id="Philips.Service.RemoteTools.MonitoringFrameworkToolkit.dll" />
+			<ComponentRef Id="Philips.ServiceTools.SIDSConfiguration.dll" />
+			<ComponentRef Id="Philips.ServiceTools.ToolKit.dll" />
+			<ComponentRef Id="Philips.Service.SIDSConfiguration.Toolkit.dll" />
+			<ComponentRef Id="Philips.ServiceTools.RCT.ToolKit.dll" />
+			<ComponentRef Id="Philips.NxGen.DependencyProvider.dll" />
+			<ComponentRef Id="Philips.Service.Common.Utilities.dll" />
+			<ComponentRef Id="Philips.ServicePlatform.Common.Toolkit.dll" />
+			<ComponentRef Id="Philips.PH.GCS.M2M.ADT.DiagnosticTests.dll" />
+			<ComponentRef Id="Philips.PH.Gcs.Psas.Pki.Server.XmlSerializers.dll" />
+			<ComponentRef Id="Philips.NxGen.HealthSuiteConnect.Plugin.Interface.dll" />
+			<ComponentRef Id="Philips.NxGen.Services.FeatureManagement.Proxy.dll.config" />
+			<ComponentRef Id="Philips.DI.Interfaces.Services.Logging.dll.config" />
+		</Feature>
+		<Property Id="ROOTDRIVE">
+			<![CDATA[D:\]]>
+		</Property>
+		<Property Id="Philips.NxGen.Services.FeatureManagement.Proxy.dll.config" Value="D:\PCC\ChorusHost\PSC\Base\Ref" />
+		<Property Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll" Value="D:\PCC\ChorusHost\PSC\Base\Ref" />
+		<Property Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll1" Value="D:\PCC\ChorusHost\Bin\PSC\Base\Ref" />
+		<Property Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll2" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\Alerting" />
+		<Property Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll3" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\BackupAndRestore" />
+		<Property Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll4" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\CommonServerHost" />
+		<Property Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll5" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DeviceProfileUpdate" />
+		<Property Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll6" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DeviceRegistration" />
+		<Property Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll7" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DeviceRegistration\_PublishedWebsites\DeviceRegistrationWebApi\bin" />
+		<Property Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll8" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DirectoryWatcher" />
+		<Property Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll9" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\FileTransfer" />
+		<Property Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll10" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\LogExport" />
+		<Property Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll11" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\MonitoringRules" />
+		<Property Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll12" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteAccessConfiguration" />
+		<Property Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll13" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteSoftwareDistribution" />
+		<Property Id="Philips.Service.RemoteTools.Alerting.AlertingToolkit.dll1" Value="D:\PCC\ChorusHost\PSC\Base\Ref" />
+		<Property Id="Philips.Service.RemoteTools.Alerting.AlertingToolkit.dll2" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\Altering" />
+		<Property Id="Philips.Service.RemoteTools.Alerting.AlertingToolkit.dll3" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\CommonServerHost" />
+		<Property Id="Philips.Service.RemoteTools.Alerting.AlertingToolkit.dll4" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteSoftwareDistribution" />
+		<Property Id="Philips.Service.RemoteTools.DeviceProfileUpdate.DeviceProfileUpdateToolkit.dll1" Value="D:\PCC\ChorusHost\PSC\Base\Ref" />
+		<Property Id="Philips.Service.RemoteTools.DeviceProfileUpdate.DeviceProfileUpdateToolkit.dll2" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\CommonServerHost" />
+		<Property Id="Philips.Service.RemoteTools.DeviceProfileUpdate.DeviceProfileUpdateToolkit.dll3" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DeviceProfileUpdate" />
+		<Property Id="Philips.Service.RemoteTools.MonitoringFrameworkToolkit.dll1" Value="D:\PCC\ChorusHost\PSC\Base\Ref" />
+		<Property Id="Philips.Service.RemoteTools.MonitoringFrameworkToolkit.dll2" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\MonitoringRules" />
+		<Property Id="Philips.Service.RemoteTools.MonitoringFrameworkToolkit.dll3" Value="D:\PCC\ChorusHost\Bin\PSC\Base\Ref" />
+		<Property Id="Philips.ServiceTools.SIDSConfiguration.dll1" Value="D:\PCC\ChorusHost\PSC\Base\Ref" />
+		<Property Id="Philips.ServiceTools.SIDSConfiguration.dll2" Value="D:\PCC\ChorusHost\Bin\PSC\Base\Ref" />
+		<Property Id="Philips.ServiceTools.SIDSConfiguration.dll3" Value="D:\PCC\ChorusHost\PSC\Base\Install\SIDS" />
+		<Property Id="Philips.ServiceTools.ToolKit.dll1" Value="D:\PCC\ChorusHost\PSC\Base\Ref" />
+		<Property Id="Philips.ServiceTools.ToolKit.dll2" Value="D:\PCC\ChorusHost\Bin\PSC\Base\Ref" />
+		<Property Id="Philips.ServiceTools.ToolKit.dll3" Value="D:\PCC\ChorusHost\PSC\Base\Install\PSC" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll1" Value="D:\PCC\ChorusHost\PSC\Base\Ref" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll2" Value="D:\PCC\ChorusHost\PSC\Base\Install\PSC" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll3" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\AppTunnel" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll4" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\Alerting" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll5" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\BackupAndRestore" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll6" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\CommonServerHost" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll7" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DeviceProfileUpdate" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll8" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DeviceRegistration" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll9" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DeviceRegistration\_PublishedWebsites\DeviceRegistrationWebApi\bin" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll10" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DirectoryWatcher" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll11" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\FileTransfer" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll12" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\MonitoringRules" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll13" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\PMMode" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll14" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\PropertyTransfer" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll15" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteCommandService" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll16" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteServiceController" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll17" Value="D:\PCC\ChorusHost\PSC\Base\Install\SIDS" />
+		<Property Id="Philips.Service.SIDSConfiguration.Toolkit.dll18" Value="D:\PCC\ChorusHost\Bin\PSC\Base\Ref" />
+		<Property Id="D.PCC.ChorusHost.Bin.LicenseManagement.Ref" Value="D:\PCC\ChorusHost\Bin\LicenseManagement\Ref" />
+		<Property Id="Philips.NxGen.UW.SPMBridge.DataModel.dll" Value="D:\PCC\ChorusHost\Bin\SPM" />
+		<Property Id="Philips.NxGen.UW.SPMBridge.PluginContracts.dll1" Value="D:\PCC\ChorusHost\Bin\SPM" />
+		<Property Id="Philips.NxGen.UW.SPMBridge.PluginContracts.dll2" Value="D:\PCC\ChorusHost\Bin\MIC" />
+		<Property Id="Philips.PH.GCS.M2M.ADT.DFL.DFLConfig.xml" Value="D:\PCC\ChorusHost\Bin\config" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll1" Value="D:\PCC\ChorusHost\Bin\PSC" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll2" Value="D:\PCC\ChorusHost\PSC\Base\Ref" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll3" Value="D:\PCC\ChorusHost\Bin\PSC\Base\Ref" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll4" Value="D:\PCC\ChorusHost\PSC\Base\Install\IntegrationTools" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll5" Value="D:\PCC\ChorusHost\PSC\Base\Install\IntegrationTools\PSCConfigEditor" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll6" Value="D:\PCC\ChorusHost\PSC\Base\Install\PSC" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll7" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\AppTunnel" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll8" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\Alerting" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll9" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\BackupAndRestore" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll10" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\CommonServerHost" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll11" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DeviceProfileUpdate" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll12" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DeviceRegistration" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll13" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DeviceRegistration\_PublishedWebsites\DeviceRegistrationWebApi\bin" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll14" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DirectoryWatcher" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll15" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\FileTransfer" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll16" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\LogExport" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll17" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\MonitoringRules" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll18" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\PMMode" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll19" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\PropertyTransfer" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll20" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteCommandService" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll21" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteConnectionDiagnosis" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll22" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteServiceController" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll23" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteServiceHost" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll24" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteAccessConfiguration" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll25" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteSoftwareDistribution" />
+		<Property Id="Philips.Service.Common.LoggerToolKit.dll26" Value="D:\PCC\ChorusHost\Bin\RSD\" />
+		<Property Id="Philips.Service.PSCUIComponents.dll1" Value="D:\PCC\ChorusHost\Bin\PSC" />
+		<Property Id="Philips.Service.PSCUIComponents.dll2" Value="D:\PCC\ChorusHost\PSC\Base\Ref" />
+		<Property Id="Philips.Service.PSCUIComponents.dll3" Value="D:\PCC\ChorusHost\Bin\PSC\Base\Ref" />
+		<Property Id="Philips.Service.PSCUIComponents.dll4" Value="D:\PCC\ChorusHost\PSC\Base\Install\PSC" />
+		<Property Id="Philips.Service.PSCUIComponents.dll5" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\CommonServerHost" />
+		<Property Id="Philips.Service.PSCUIComponents.dll6" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteConnectionDiagnosis" />
+		<Property Id="Philips.Service.PSCUIComponents.dll7" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteServiceController" />
+		<Property Id="Philips.Service.PSCUIComponents.dll8" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteServiceHost" />
+		<Property Id="Philips.Service.PSCUIComponents.dll9" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DeviceRegistration" />
+		<Property Id="Philips.Service.PSCUIComponents.dll10" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\LogExport" />
+		<Property Id="Philips.Service.PSCUIComponents.dll11" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteAccessConfiguration" />
+		<Property Id="Philips.Service.PSCUIComponents.dll12" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteSoftwareDistribution" />
+		<Property Id="Philips.ServiceTools.Rdp.Toolkit.dll1" Value="D:\PCC\ChorusHost\Bin\PSC" />
+		<Property Id="Philips.ServiceTools.Rdp.Toolkit.dll2" Value="D:\PCC\ChorusHost\PSC\Base\Ref" />
+		<Property Id="Philips.ServiceTools.Rdp.Toolkit.dll3" Value="D:\PCC\ChorusHost\Bin\PSC\Base\Ref" />
+		<Property Id="Philips.ServiceTools.Rdp.Toolkit.dll4" Value="D:\PCC\ChorusHost\PSC\Base\Install\PSC" />
+		<Property Id="Philips.ServiceTools.Rdp.Toolkit.dll5" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\CommonServerHost" />
+		<Property Id="Philips.ServiceTools.Rdp.Toolkit.dll6" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteAccessConfiguration" />
+		<Property Id="Philips.ServiceTools.UserAuthentication.Toolkit.dll1" Value="D:\PCC\ChorusHost\Bin\PSC" />
+		<Property Id="Philips.ServiceTools.UserAuthentication.Toolkit.dll2" Value="D:\PCC\ChorusHost\PSC\Base\Ref" />
+		<Property Id="Philips.ServiceTools.UserAuthentication.Toolkit.dll3" Value="D:\PCC\ChorusHost\Bin\PSC\Base\Ref" />
+		<Property Id="Philips.ServiceTools.UserAuthentication.Toolkit.dll4" Value="D:\PCC\ChorusHost\PSC\Base\Install\PSC" />
+		<Property Id="Philips.ServiceTools.UserAuthentication.Toolkit.dll5" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DeviceRegistration" />
+		<Property Id="Philips.NxGen.DependencyProvider.dll" Value="C:\Program Files (x86)\PMS\NxGen\FeatureManagement" />
+		<Property Id="D.PCC.ChorusHost.Bin.PKI" Value="D:\PCC\ChorusHost\Bin\PKI" />
+		<Property Id="D.PCC.ChorusHost.Bin" Value="D:\PCC\ChorusHost\Bin" />
+		<Property Id="D.PCC.ChorusHost.Bin.PSC" Value="D:\PCC\ChorusHost\Bin\PSC" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Ref" Value="D:\PCC\ChorusHost\PSC\Base\Ref" />
+		<Property Id="D.PCC.ChorusHost.Bin.PSC.Base.Ref" Value="D:\PCC\ChorusHost\Bin\PSC\Base\Ref" />
+		<Property Id="D.PCC.ChorusHost.Bin.PSC.ConfigurationGenerator.ExternalDependencies" Value="D:\PCC\ChorusHost\Bin\PSC\ConfigurationGenerator\ExternalDependencies" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.IntegrationTools" Value="D:\PCC\ChorusHost\PSC\Base\Install\IntegrationTools" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.IntegrationTools.PSCConfigEditor" Value="D:\PCC\ChorusHost\PSC\Base\Install\IntegrationTools\PSCConfigEditor" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.PSC" Value="D:\PCC\ChorusHost\PSC\Base\Install\PSC" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.Alerting" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\Alerting" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.CommonServerHost" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\CommonServerHost" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceProfileUpdate" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DeviceProfileUpdate" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceRegistration" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DeviceRegistration" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceRegistration._PublishedWebsites.DeviceRegistrationWebApi.bin" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DeviceRegistration\_PublishedWebsites\DeviceRegistrationWebApi\bin" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DirectoryWatcher" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\DirectoryWatcher" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.FileTransfer" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\FileTransfer" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteCommandService" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteCommandService" />
+		<Property Id="D.PCC.ChorusHost.PSC.ConfigurationGenerator.ConfigurationGenerator.bin.Debug" Value="D:\PCC\ChorusHost\PSC\ConfigurationGenerator\ConfigurationGenerator\bin\Debug" />
+		<Property Id="D.PCC.ChorusHost.PSC.ConfigurationGenerator.ConfigurationGeneratorTests.bin.Debug" Value="D:\PCC\ChorusHost\PSC\ConfigurationGenerator\ConfigurationGeneratorTests\bin\Debug" />
+		<Property Id="D.PCC.ChorusHost.PSC.ConfigurationGenerator.ExternalDependencies" Value="D:\PCC\ChorusHost\PSC\ConfigurationGenerator\ExternalDependencies" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.LogExport" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\LogExport" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.AppTunel" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\AppTunel" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.BackupAndRestore" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\BackupAndRestore" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.MonitoringRules" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\MonitoringRules" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.PMMode" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\PMMode" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.PropertyTransfer" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\PropertyTransfer" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteAccessConfiguration" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteAccessConfiguration" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteConnectionDiagnosis" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteConnectionDiagnosis" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteServiceController" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteServiceController" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteServiceHost" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteServiceHost" />
+		<Property Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteSoftwareDistribution" Value="D:\PCC\ChorusHost\PSC\Base\Install\RemoteSuite\RemoteSoftwareDistribution" />
+		<Property Id="D.PCC.ChorusHost.Bin.PreBuilt" Value="D:\PCC\ChorusHost\Bin\PreBuilt" />
+		<Property Id="D.PCC.ChorusHost.Bin.CloudHook.CloudHookService.ConfigurationTool" Value="D:\PCC\ChorusHost\Bin\CloudHook\CloudHookService\ConfigurationTool" />
+		<Property Id="D.PCC.ChorusHost.Bin.CloudHook.CloudHookService.DicomRepositoryPlugin" Value="D:\PCC\ChorusHost\Bin\CloudHook\CloudHookService\DicomRepositoryPlugin" />
+		<Property Id="D.PCC.ChorusHost.Bin.CloudHook.CloudHookService.NotificationService" Value="D:\PCC\ChorusHost\Bin\CloudHook\CloudHookService\NotificationService" />
+		<Property Id="D.PCC.ChorusHost.Bin.CloudHook.CloudHookService.ProxyClient" Value="D:\PCC\ChorusHost\Bin\CloudHook\CloudHookService\ProxyClient" />
+		<Property Id="D.PCC.ChorusHost.Bin.CloudHook.CloudHookService.ProxyService" Value="D:\PCC\ChorusHost\Bin\CloudHook\CloudHookService\ProxyService" />
+		<SetDirectory Id="CDrive" Value="C:\Program Files (x86)\PMS\NxGen\FeatureManagement" Sequence="both" />
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="PCC" Name="PCC">
+				<Directory Id="ChorusHost" Name="ChorusHost">
+					<Directory Id="Bin" Name="Bin">
+						<Directory Id="CloudHook" Name="CloudHook">
+							<Component Id="Philips.NxGen.HealthSuiteConnect.Plugin.Interface.dll" Guid="{3135D69C-F235-4F46-9D1C-78F40F158235}" KeyPath="yes">
+								<File Id="Philips.NxGen.HealthSuiteConnect.Plugin.Interface.dll" Name="Philips.NxGen.HealthSuiteConnect.Plugin.Interface.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.NxGen.HealthSuiteConnect.Plugin.Interface.dll">
+									<CopyFile Id="Philips.NxGen.HealthSuiteConnect.Plugin.Interface.dll1" DestinationProperty="D.PCC.ChorusHost.Bin.CloudHook.CloudHookService.ConfigurationTool" />
+									<CopyFile Id="Philips.NxGen.HealthSuiteConnect.Plugin.Interface.dll2" DestinationProperty="D.PCC.ChorusHost.Bin.CloudHook.CloudHookService.DicomRepositoryPlugin" />
+									<CopyFile Id="Philips.NxGen.HealthSuiteConnect.Plugin.Interface.dll3" DestinationProperty="D.PCC.ChorusHost.Bin.CloudHook.CloudHookService.NotificationService" />
+									<CopyFile Id="Philips.NxGen.HealthSuiteConnect.Plugin.Interface.dll4" DestinationProperty="D.PCC.ChorusHost.Bin.CloudHook.CloudHookService.ProxyClient" />
+									<CopyFile Id="Philips.NxGen.HealthSuiteConnect.Plugin.Interface.dll5" DestinationProperty="D.PCC.ChorusHost.Bin.CloudHook.CloudHookService.ProxyService" />
+								</File>
+							</Component>
+						</Directory>
+						<Component Id="Philips.PH.Gcs.Psas.PSUS.Common.dll" Guid="{0FC4A212-46BF-4845-A5A9-21A5763C48DB}" KeyPath="yes">
+							<File Id="Philips.PH.Gcs.Psas.PSUS.Common.dll" Name="Philips.PH.Gcs.Psas.PSUS.Common.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.Gcs.Psas.PSUS.Common.dll" />
+						</Component>
+						<Component Id="Philips.PH.Gcs.Psas.Poll.Common.dll" Guid="{EBAA990B-F62C-49AB-AAA2-26B56296A92F}" KeyPath="yes">
+							<File Id="Philips.PH.Gcs.Psas.Poll.Common.dll" Name="Philips.PH.Gcs.Psas.Poll.Common.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.Gcs.Psas.Poll.Common.dll" />
+						</Component>
+						<Component Id="Philips.PH.Gcs.Psas.Poll.Common.xml" Guid="{14A9E610-7E07-4E80-A09A-F7E066F7B2D3}" KeyPath="yes">
+							<File Id="Philips.PH.Gcs.Psas.Poll.Common.xml" Name="Philips.PH.Gcs.Psas.Poll.Common.xml" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.Gcs.Psas.Poll.Common.xml" />
+						</Component>
+						<Component Id="Philips.PH.Gcs.Psas.Status.Client.dll" Guid="{A108C363-10D9-4B38-9ED3-E1B431022D94}" KeyPath="yes">
+							<File Id="Philips.PH.Gcs.Psas.Status.Client.dll" Name="Philips.PH.Gcs.Psas.Status.Client.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.Gcs.Psas.Status.Client.dll" />
+						</Component>
+						<Component Id="Philips.PH.Gcs.Psas.Status.Client.xml" Guid="{E56B15D2-493C-4962-92CA-CCB917C4F3D0}" KeyPath="yes">
+							<File Id="Philips.PH.Gcs.Psas.Status.Client.xml" Name="Philips.PH.Gcs.Psas.Status.Client.xml" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.Gcs.Psas.Status.Client.xml" />
+						</Component>
+						<Component Id="Philips.PH.Gcs.Psas.PSUS.dll" Guid="{9FB38FA6-FFCB-4189-9CE1-5BE1BEAEA237}" KeyPath="yes">
+							<File Id="Philips.PH.Gcs.Psas.PSUS.dll" Name="Philips.PH.Gcs.Psas.PSUS.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.Gcs.Psas.PSUS.dll" />
+						</Component>
+						<Component Id="Philips.MedicalSystems.M2M.LOTS.ExternalPlugin.dll" Guid="{9D9B1618-04C1-4FAD-BB7F-2D48A13414B5}" KeyPath="yes">
+							<File Id="Philips.MedicalSystems.M2M.LOTS.ExternalPlugin.dll" Name="Philips.MedicalSystems.M2M.LOTS.ExternalPlugin.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.MedicalSystems.M2M.LOTS.ExternalPlugin.dll" />
+						</Component>
+						<Component Id="Philips.PH.Gcs.Psas.Poll.Client.dll" Guid="{914EA2B5-F061-4DF8-8337-DECC3515C7AE}" KeyPath="yes">
+							<File Id="Philips.PH.Gcs.Psas.Poll.Client.dll" Name="Philips.PH.Gcs.Psas.Poll.Client.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.Gcs.Psas.Poll.Client.dll" />
+						</Component>
+						<Component Id="Philips.PH.Gcs.Psas.Status.Common.dll" Guid="{DC92760C-7870-459E-87D6-39B10869C9AB}" KeyPath="yes">
+							<File Id="Philips.PH.Gcs.Psas.Status.Common.dll" Name="Philips.PH.Gcs.Psas.Status.Common.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.Gcs.Psas.Status.Common.dll" />
+						</Component>
+						<Component Id="Philips.PH.Gcs.Psas.Status.Common.xml" Guid="{31BD6C82-6EF2-481E-9EE8-A4B3D5E8DEC7}" KeyPath="yes">
+							<File Id="Philips.PH.Gcs.Psas.Status.Common.xml" Name="Philips.PH.Gcs.Psas.Status.Common.xml" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.Gcs.Psas.Status.Common.xml" />
+						</Component>
+						<Component Id="Philips.PH.GCS.M2M.ADT.DFL.dll" Guid="{554BF7DE-215B-4D89-97A9-D89C864346D6}" KeyPath="yes">
+							<File Id="Philips.PH.GCS.M2M.ADT.DFL.dll" Name="Philips.PH.GCS.M2M.ADT.DFL.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.GCS.M2M.ADT.DFL.dll" />
+						</Component>
+						<Component Id="Philips.PH.GCS.M2M.ADT.Interfaces.Common.dll" Guid="{3FF44C55-2DE2-4895-BC94-9FDE28F8785F}" KeyPath="yes">
+							<File Id="Philips.PH.GCS.M2M.ADT.Interfaces.Common.dll" Name="Philips.PH.GCS.M2M.ADT.Interfaces.Common.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.GCS.M2M.ADT.Interfaces.Common.dll" />
+						</Component>
+						<Component Id="Philips.PmsMip.Private.Services.FSF.Security.SecurityPlugin.dll" Guid="{11065689-8217-4917-B5FC-94A4D58F6459}" KeyPath="yes">
+							<File Id="Philips.PmsMip.Private.Services.FSF.Security.SecurityPlugin.dll" Name="Philips.PmsMip.Private.Services.FSF.Security.SecurityPlugin.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PmsMip.Private.Services.FSF.Security.SecurityPlugin.dll" />
+						</Component>
+						<Component Id="Philips.PmsMip.Private.Interfaces.Services.PortForwarder.dll" Guid="{339055E4-3A82-40A0-A434-4516B6EA5BED}" KeyPath="yes">
+							<File Id="Philips.PmsMip.Private.Interfaces.Services.PortForwarder.dll" Name="Philips.PmsMip.Private.Interfaces.Services.PortForwarder.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PmsMip.Private.Interfaces.Services.PortForwarder.dll" />
+						</Component>
+						<Component Id="Philips.PmsMip.Private.Interfaces.dll" Guid="{D6741190-4ADA-47BA-AF64-8C23ECC17D6F}" KeyPath="yes">
+							<File Id="Philips.PmsMip.Private.Interfaces.dll" Name="Philips.PmsMip.Private.Interfaces.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PmsMip.Private.Interfaces.dll" />
+						</Component>
+						<Component Id="Philips.PH.GCS.M2M.ADT.DiagnosticTests.dll" Guid="{0C53C88C-CDE3-4F1F-A20F-071BD108B011}" KeyPath="yes">
+							<File Id="Philips.PH.GCS.M2M.ADT.DiagnosticTests.dll" Name="Philips.PH.GCS.M2M.ADT.DiagnosticTests.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.GCS.M2M.ADT.DiagnosticTests.dll" />
+						</Component>
+						<Component Id="Philips.PH.Gcs.Psas.Pki.Server.XmlSerializers.dll" Guid="{0EB3D78D-BCD5-4E42-AF1F-7F7810B158B2}" KeyPath="yes">
+							<File Id="Philips.PH.Gcs.Psas.Pki.Server.XmlSerializers.dll" Name="Philips.PH.Gcs.Psas.Pki.Server.XmlSerializers.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.Gcs.Psas.Pki.Server.XmlSerializers.dll" />
+						</Component>
+						<Component Id="Philips.PH.Gcs.Psas.Pki.Common.dll" Guid="{47B317EF-512E-47A8-B342-0C7E7D792D68}" KeyPath="yes">
+							<File Id="Philips.PH.Gcs.Psas.Pki.Common.dll" Name="Philips.PH.Gcs.Psas.Pki.Common.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.Gcs.Psas.Pki.Common.dll">
+								<CopyFile Id="Philips.PH.Gcs.Psas.Pki.Common.dll" DestinationProperty="D.PCC.ChorusHost.Bin.PKI" />
+							</File>
+						</Component>
+						<Component Id="Philips.PH.Gcs.Psas.Pki.Client.dll" Guid="{909C725E-B4CA-4B6C-8C22-3D1410DC2F70}" KeyPath="yes">
+							<File Id="Philips.PH.Gcs.Psas.Pki.Client.dll" Name="Philips.PH.Gcs.Psas.Pki.Client.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.Gcs.Psas.Pki.Client.dll">
+								<CopyFile Id="Philips.PH.Gcs.Psas.Pki.Client.dll" DestinationProperty="D.PCC.ChorusHost.Bin.PKI" />
+							</File>
+						</Component>
+						<Component Id="Philips.PH.Gcs.Psas.Pki.Client.xml" Guid="{07C0D367-5BD7-42BA-8103-725DC86A0683}" KeyPath="yes">
+							<File Id="Philips.PH.Gcs.Psas.Pki.Client.xml" Name="Philips.PH.Gcs.Psas.Pki.Client.xml" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.Gcs.Psas.Pki.Client.xml">
+								<CopyFile Id="Philips.PH.Gcs.Psas.Pki.Client.xml" DestinationProperty="D.PCC.ChorusHost.Bin.PKI" />
+							</File>
+						</Component>
+						<Component Id="Philips.PH.Gcs.Psas.Pki.Common.xml" Guid="{F6C803A5-754E-461C-8473-801B820B4BC6}" KeyPath="yes">
+							<File Id="Philips.PH.Gcs.Psas.Pki.Common.xml" Name="Philips.PH.Gcs.Psas.Pki.Common.xml" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.Gcs.Psas.Pki.Common.xml">
+								<CopyFile Id="Philips.PH.Gcs.Psas.Pki.Common.xml" DestinationProperty="D.PCC.ChorusHost.Bin.PKI" />
+							</File>
+						</Component>
+						<Component Id="Philips.PH.Gcs.Psas.Common.dll" Guid="{F4AF9B27-5408-46CB-B350-ECB5C48D639C}" KeyPath="yes">
+							<File Id="Philips.PH.Gcs.Psas.Common.dll" Name="Philips.PH.Gcs.Psas.Common.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.Gcs.Psas.Common.dll">
+								<CopyFile Id="Philips.PH.Gcs.Psas.Common.dll" DestinationProperty="D.PCC.ChorusHost.Bin.PKI" />
+							</File>
+						</Component>
+						<Component Id="Philips.PH.Gcs.Psas.Common.xml" Guid="{F8F6BE55-A8E5-401D-94BE-0422048FA9BD}" KeyPath="yes">
+							<File Id="Philips.PH.Gcs.Psas.Common.xml" Name="Philips.PH.Gcs.Psas.Common.xml" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.Gcs.Psas.Common.xml">
+								<CopyFile Id="Psas.Common.D.PCC.ChorusHost.Bin.PKI" DestinationProperty="D.PCC.ChorusHost.Bin.PKI" />
+							</File>
+						</Component>
+						<Component Id="Philips.Service.Common.Utilities.dll" Guid="{F88933D2-73EB-4FE1-84B6-2E71CD0E9EF6}" KeyPath="yes">
+							<File Id="Philips.Service.Common.Utilities.dll" Name="Philips.Service.Common.Utilities.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.Service.Common.Utilities.dll">
+								<CopyFile Id="Common.Utilities.D.PCC.ChorusHost.Bin.PSC" DestinationProperty="D.PCC.ChorusHost.Bin.PSC" />
+								<CopyFile Id="Common.Utilities.D.PCC.ChorusHost.PSC.Base.Ref" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Ref" />
+								<CopyFile Id="Common.Utilities.D.PCC.ChorusHost.Bin.PSC.Base.Ref" DestinationProperty="D.PCC.ChorusHost.Bin.PSC.Base.Ref" />
+								<CopyFile Id="Common.Utilities.D.PCC.ChorusHost.PSC.Base.Install.IntegrationTools.PSCConfigEditor" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.IntegrationTools.PSCConfigEditor" />
+								<CopyFile Id="Common.Utilities.D.PCC.ChorusHost.PSC.Base.Install.PSC" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.PSC" />
+								<CopyFile Id="Common.Utilities.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.Alerting" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.Alerting" />
+								<CopyFile Id="Common.Utilities.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.CommonServerHost" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.CommonServerHost" />
+								<CopyFile Id="Common.Utilities.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceProfileUpdate" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceProfileUpdate" />
+								<CopyFile Id="Common.Utilities.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceRegistration" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceRegistration" />
+								<CopyFile Id="Common.Utilities.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceRegistration._PublishedWebsites.DeviceRegistrationWebApi.bin" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceRegistration._PublishedWebsites.DeviceRegistrationWebApi.bin" />
+								<CopyFile Id="Common.Utilities.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DirectoryWatcher" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DirectoryWatcher" />
+								<CopyFile Id="Common.Utilities.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.FileTransfer" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.FileTransfer" />
+								<CopyFile Id="Common.Utilities.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.LogExport" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.LogExport" />
+								<CopyFile Id="Common.Utilities.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteCommandService" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteCommandService" />
+								<CopyFile Id="Common.Utilities.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteSoftwareDistribution" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteSoftwareDistribution" />
+							</File>
+						</Component>
+						<Component Id="Philips.ServicePlatform.Common.Toolkit.dll" Guid="{E268DE9A-BF7F-4C08-80ED-E772C8DFA632}" KeyPath="yes">
+							<File Id="Philips.ServicePlatform.Common.Toolkit.dll" Name="Philips.ServicePlatform.Common.Toolkit.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.ServicePlatform.Common.Toolkit.dll">
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.Bin.PSC" DestinationProperty="D.PCC.ChorusHost.Bin.PSC" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.PSC.Base.Ref" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Ref" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.Bin.PSC.Base.Ref" DestinationProperty="D.PCC.ChorusHost.Bin.PSC.Base.Ref" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.Bin.PSC.ConfigurationGenerator.ExternalDependencies" DestinationProperty="D.PCC.ChorusHost.Bin.PSC.ConfigurationGenerator.ExternalDependencies" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.PSC.Base.Install.IntegrationTools" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.IntegrationTools" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.PSC.Base.Install.IntegrationTools.PSCConfigEditor" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.IntegrationTools.PSCConfigEditor" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.PSC.Base.Install.PSC" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.PSC" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.Alerting" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.Alerting" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.CommonServerHost" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.CommonServerHost" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceProfileUpdate" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceProfileUpdate" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceRegistration" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceRegistration" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceRegistration._PublishedWebsites.DeviceRegistrationWebApi.bin" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceRegistration._PublishedWebsites.DeviceRegistrationWebApi.bin" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DirectoryWatcher" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DirectoryWatcher" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.FileTransfer" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.FileTransfer" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteCommandService" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteCommandService" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteSoftwareDistribution" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteSoftwareDistribution" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.PSC.ConfigurationGenerator.ConfigurationGenerator.bin.Debug" DestinationProperty="D.PCC.ChorusHost.PSC.ConfigurationGenerator.ConfigurationGenerator.bin.Debug" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.PSC.ConfigurationGenerator.ConfigurationGeneratorTests.bin.Debug" DestinationProperty="D.PCC.ChorusHost.PSC.ConfigurationGenerator.ConfigurationGeneratorTests.bin.Debug" />
+								<CopyFile Id="ServicePlatform.D.PCC.ChorusHost.PSC.ConfigurationGenerator.ExternalDependencies" DestinationProperty="D.PCC.ChorusHost.PSC.ConfigurationGenerator.ExternalDependencies" />
+							</File>
+						</Component>
+						<Component Id="Philips.Service.Common.TraceUtility.dll" Guid="{9935DD64-1FAA-43C3-9BC6-A1AAD09B5B81}" KeyPath="yes">
+							<File Id="Philips.Service.Common.TraceUtility.dll" Name="Philips.Service.Common.TraceUtility.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.Service.Common.TraceUtility.dll">
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.Bin.PSC" DestinationProperty="D.PCC.ChorusHost.Bin.PSC" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Ref" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Ref" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.Bin.PSC.Base.Ref" DestinationProperty="D.PCC.ChorusHost.Bin.PSC.Base.Ref" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.IntegrationTools" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.IntegrationTools" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.IntegrationTools.PSCConfigEditor" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.IntegrationTools.PSCConfigEditor" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.PSC" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.PSC" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.Alerting" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.Alerting" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.AppTunel" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.AppTunel" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.BackupAndRestore" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.BackupAndRestore" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.CommonServerHost" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.CommonServerHost" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceProfileUpdate" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceProfileUpdate" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceRegistration" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceRegistration" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceRegistration._PublishedWebsites.DeviceRegistrationWebApi.bin" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DeviceRegistration._PublishedWebsites.DeviceRegistrationWebApi.bin" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DirectoryWatcher" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.DirectoryWatcher" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.FileTransfer" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.FileTransfer" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.LogExport" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.LogExport" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.MonitoringRules" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.MonitoringRules" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.PMMode" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.PMMode" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.PropertyTransfer" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.PropertyTransfer" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteAccessConfiguration" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteAccessConfiguration" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteCommandService" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteCommandService" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteConnectionDiagnosis" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteConnectionDiagnosis" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteServiceController" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteServiceController" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteServiceHost" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteServiceHost" />
+								<CopyFile Id="TraceUtility.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteSoftwareDistribution" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteSoftwareDistribution" />
+							</File>
+						</Component>
+						<Component Id="Philips.Service.Common.LoggerToolKit.dll" Guid="{9E37B6E4-F784-401E-B8BE-AFE6657B214A}" KeyPath="yes">
+							<File Id="Philips.Service.Common.LoggerToolKit.dll" Name="Philips.Service.Common.LoggerToolKit.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.Service.Common.LoggerToolKit.dll">
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll1" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll1" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll2" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll2" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll3" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll3" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll4" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll4" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll5" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll5" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll6" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll6" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll7" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll7" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll8" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll8" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll9" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll9" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll10" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll10" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll11" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll11" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll12" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll12" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll13" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll13" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll14" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll14" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll15" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll15" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll16" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll16" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll17" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll17" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll18" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll18" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll19" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll19" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll20" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll20" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll21" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll21" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll22" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll22" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll23" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll23" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll24" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll24" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll25" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll25" />
+								<CopyFile Id="Philips.Service.Common.LoggerToolKit.dll26" DestinationProperty="Philips.Service.Common.LoggerToolKit.dll26" />
+							</File>
+						</Component>
+						<Component Id="Philips.Service.PSCUIComponents.dll" Guid="{9673B567-2A25-4BB8-A203-3F6E65A856E4}" KeyPath="yes">
+							<File Id="Philips.Service.PSCUIComponents.dll" Name="Philips.Service.PSCUIComponents.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.Service.PSCUIComponents.dll">
+								<CopyFile Id="Philips.Service.PSCUIComponents.dll1" DestinationProperty="Philips.Service.PSCUIComponents.dll1" />
+								<CopyFile Id="Philips.Service.PSCUIComponents.dll2" DestinationProperty="Philips.Service.PSCUIComponents.dll2" />
+								<CopyFile Id="Philips.Service.PSCUIComponents.dll3" DestinationProperty="Philips.Service.PSCUIComponents.dll3" />
+								<CopyFile Id="Philips.Service.PSCUIComponents.dll4" DestinationProperty="Philips.Service.PSCUIComponents.dll4" />
+								<CopyFile Id="Philips.Service.PSCUIComponents.dll5" DestinationProperty="Philips.Service.PSCUIComponents.dll5" />
+								<CopyFile Id="Philips.Service.PSCUIComponents.dll6" DestinationProperty="Philips.Service.PSCUIComponents.dll6" />
+								<CopyFile Id="Philips.Service.PSCUIComponents.dll7" DestinationProperty="Philips.Service.PSCUIComponents.dll7" />
+								<CopyFile Id="Philips.Service.PSCUIComponents.dll8" DestinationProperty="Philips.Service.PSCUIComponents.dll8" />
+								<CopyFile Id="Philips.Service.PSCUIComponents.dll9" DestinationProperty="Philips.Service.PSCUIComponents.dll9" />
+								<CopyFile Id="Philips.Service.PSCUIComponents.dll10" DestinationProperty="Philips.Service.PSCUIComponents.dll10" />
+								<CopyFile Id="Philips.Service.PSCUIComponents.dll11" DestinationProperty="Philips.Service.PSCUIComponents.dll11" />
+								<CopyFile Id="Philips.Service.PSCUIComponents.dll12" DestinationProperty="Philips.Service.PSCUIComponents.dll12" />
+							</File>
+						</Component>
+						<Component Id="Philips.ServiceTools.Rdp.Toolkit.dll" Guid="{8CA627CC-6EFB-4A9F-B114-DA2B20CBE024}" KeyPath="yes">
+							<File Id="Philips.ServiceTools.Rdp.Toolkit.dll" Name="Philips.ServiceTools.Rdp.Toolkit.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.ServiceTools.Rdp.Toolkit.dll">
+								<CopyFile Id="Philips.ServiceTools.Rdp.Toolkit.dll1" DestinationProperty="Philips.ServiceTools.Rdp.Toolkit.dll1" />
+								<CopyFile Id="Philips.ServiceTools.Rdp.Toolkit.dll2" DestinationProperty="Philips.ServiceTools.Rdp.Toolkit.dll2" />
+								<CopyFile Id="Philips.ServiceTools.Rdp.Toolkit.dll3" DestinationProperty="Philips.ServiceTools.Rdp.Toolkit.dll3" />
+								<CopyFile Id="Philips.ServiceTools.Rdp.Toolkit.dll4" DestinationProperty="Philips.ServiceTools.Rdp.Toolkit.dll4" />
+								<CopyFile Id="Philips.ServiceTools.Rdp.Toolkit.dll5" DestinationProperty="Philips.ServiceTools.Rdp.Toolkit.dll5" />
+								<CopyFile Id="Philips.ServiceTools.Rdp.Toolkit.dll6" DestinationProperty="Philips.ServiceTools.Rdp.Toolkit.dll6" />
+							</File>
+						</Component>
+						<Component Id="Philips.ServiceTools.UserAuthentication.Toolkit.dll" Guid="{280E101B-248E-432D-B3F9-60EF90CAC28A}" KeyPath="yes">
+							<File Id="Philips.ServiceTools.UserAuthentication.Toolkit.dll" Name="Philips.ServiceTools.UserAuthentication.Toolkit.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.ServiceTools.UserAuthentication.Toolkit.dll">
+								<CopyFile Id="Philips.ServiceTools.UserAuthentication.Toolkit.dll1" DestinationProperty="Philips.ServiceTools.UserAuthentication.Toolkit.dll1" />
+								<CopyFile Id="Philips.ServiceTools.UserAuthentication.Toolkit.dll2" DestinationProperty="Philips.ServiceTools.UserAuthentication.Toolkit.dll2" />
+								<CopyFile Id="Philips.ServiceTools.UserAuthentication.Toolkit.dll3" DestinationProperty="Philips.ServiceTools.UserAuthentication.Toolkit.dll3" />
+								<CopyFile Id="Philips.ServiceTools.UserAuthentication.Toolkit.dll4" DestinationProperty="Philips.ServiceTools.UserAuthentication.Toolkit.dll4" />
+								<CopyFile Id="Philips.ServiceTools.UserAuthentication.Toolkit.dll5" DestinationProperty="Philips.ServiceTools.UserAuthentication.Toolkit.dll5" />
+							</File>
+						</Component>
+						<Component Id="Philips.NxGen.UW.SPMBridge.DataModel.dll" Guid="{37526C7E-CE9C-4E93-A909-0559B027A512}" KeyPath="yes">
+							<File Id="Philips.NxGen.UW.SPMBridge.DataModel.dll" Name="Philips.NxGen.UW.SPMBridge.DataModel.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.NxGen.UW.SPMBridge.DataModel.dll">
+								<CopyFile Id="Philips.NxGen.UW.SPMBridge.DataModel.dll" DestinationProperty="Philips.NxGen.UW.SPMBridge.DataModel.dll" />
+							</File>
+						</Component>
+						<Component Id="Philips.NxGen.UW.SPMBridge.PluginContracts.dll" Guid="{B54A3911-A020-4453-8C97-EFE4E394D1C6}" KeyPath="yes">
+							<File Id="Philips.NxGen.UW.SPMBridge.PluginContracts.dll" Name="Philips.NxGen.UW.SPMBridge.PluginContracts.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.NxGen.UW.SPMBridge.PluginContracts.dll">
+								<CopyFile Id="Philips.NxGen.UW.SPMBridge.PluginContracts.dll1" DestinationProperty="Philips.NxGen.UW.SPMBridge.PluginContracts.dll1" />
+								<CopyFile Id="Philips.NxGen.UW.SPMBridge.PluginContracts.dll2" DestinationProperty="Philips.NxGen.UW.SPMBridge.PluginContracts.dll2" />
+							</File>
+						</Component>
+						<Component Id="Philips.PH.GCS.M2M.ADT.DFL.DFLConfig.xml" Guid="{D6644549-D8DA-4B41-BE88-A0DDCC69B47A}" KeyPath="yes">
+							<File Id="Philips.PH.GCS.M2M.ADT.DFL.DFLConfig.xml" Name="Philips.PH.GCS.M2M.ADT.DFL.DFLConfig.xml" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.PH.GCS.M2M.ADT.DFL.DFLConfig.xml">
+								<CopyFile Id="Philips.PH.GCS.M2M.ADT.DFL.DFLConfig.xml" DestinationProperty="Philips.PH.GCS.M2M.ADT.DFL.DFLConfig.xml" />
+							</File>
+						</Component>
+						<Directory Id="LicenseManagement" Name="LicenseManagement">
+							<Component Id="Philips.NxGen.Services.LicenseManagement.Interface.dll" Guid="{723D0FED-935B-4EDF-9923-F3FED97513CD}" KeyPath="yes">
+								<File Id="Philips.NxGen.Services.LicenseManagement.Interface.dll" Name="Philips.NxGen.Services.LicenseManagement.Interface.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.NxGen.Services.LicenseManagement.Interface.dll">
+									<CopyFile Id="Philips.NxGen.Services.LicenseManagement.Interface.dll" DestinationProperty="D.PCC.ChorusHost.Bin.LicenseManagement.Ref" />
+								</File>
+							</Component>
+							<Component Id="Philips.NxGen.Services.LicenseManagement.Proxy.dll" Guid="{B3C0346A-1554-42AD-A81D-8D13964A72F5}" KeyPath="yes">
+								<File Id="Philips.NxGen.Services.LicenseManagement.Proxy.dll" Name="Philips.NxGen.Services.LicenseManagement.Proxy.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.NxGen.Services.LicenseManagement.Proxy.dll">
+									<CopyFile Id="Philips.NxGen.Services.LicenseManagement.Proxy.dll" DestinationProperty="D.PCC.ChorusHost.Bin.LicenseManagement.Ref" />
+								</File>
+							</Component>
+							<Component Id="Philips.NxGen.Services.LicenseManagement.Proxy.dll.config" Guid="{E8049992-458A-4D45-8EDA-89B01E84A8FA}" KeyPath="yes">
+								<File Id="Philips.NxGen.Services.LicenseManagement.Proxy.dll.config" Name="Philips.NxGen.Services.LicenseManagement.Proxy.dll.config" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.NxGen.Services.LicenseManagement.Proxy.dll.config">
+									<CopyFile Id="Philips.NxGen.Services.LicenseManagement.Proxy.dll.config" DestinationProperty="D.PCC.ChorusHost.Bin.LicenseManagement.Ref" />
+								</File>
+							</Component>
+							<Component Id="Philips.NxGen.Services.LicenseSwitchManagement.Interface.dll" Guid="{23C588DB-69BF-4195-9DE6-FE605C4803DB}" KeyPath="yes">
+								<File Id="Philips.NxGen.Services.LicenseSwitchManagement.Interface.dll" Name="Philips.NxGen.Services.LicenseSwitchManagement.Interface.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.NxGen.Services.LicenseSwitchManagement.Interface.dll">
+									<CopyFile Id="Philips.NxGen.Services.LicenseSwitchManagement.Interface.dll" DestinationProperty="D.PCC.ChorusHost.Bin.LicenseManagement.Ref" />
+								</File>
+							</Component>
+							<Component Id="Philips.NxGen.Services.LicenseSwitchManagement.Proxy.dll" Guid="{7078A283-2CA4-414E-B0CE-23D5A668BDC8}" KeyPath="yes">
+								<File Id="Philips.NxGen.Services.LicenseSwitchManagement.Proxy.dll" Name="Philips.NxGen.Services.LicenseSwitchManagement.Proxy.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.NxGen.Services.LicenseSwitchManagement.Proxy.dll">
+									<CopyFile Id="Philips.NxGen.Services.LicenseSwitchManagement.Proxy.dll" DestinationProperty="D.PCC.ChorusHost.Bin.LicenseManagement.Ref" />
+								</File>
+							</Component>
+							<Component Id="Philips.NxGen.Services.LicenseSwitchManagement.Proxy.dll.config" Guid="{1E248F12-66EF-4569-A7EE-026860F20631}" KeyPath="yes">
+								<File Id="Philips.NxGen.Services.LicenseSwitchManagement.Proxy.dll.config" Name="Philips.NxGen.Services.LicenseSwitchManagement.Proxy.dll.config" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.NxGen.Services.LicenseSwitchManagement.Proxy.dll.config">
+									<CopyFile Id="Philips.NxGen.Services.LicenseSwitchManagement.Proxy.dll.config" DestinationProperty="D.PCC.ChorusHost.Bin.LicenseManagement.Ref" />
+								</File>
+							</Component>
+						</Directory>
+						<Directory Id="PreBuilt" Name="PreBuilt">
+							<Component Id="Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.Proxy.dll" Guid="{EFB7DDAE-D2B0-4372-BB1E-0C43020DAEB0}" KeyPath="yes">
+								<File Id="Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.Proxy.dll" Name="Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.Proxy.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.Proxy.dll" />
+							</Component>
+							<Component Id="Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.MessageContract.dll" Guid="{76D78948-6CC7-484E-8C83-C6E0E04BDF5E}" KeyPath="yes">
+								<File Id="Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.MessageContract.dll" Name="Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.MessageContract.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.NxGen.Serviceability.CollabLive.CollabLivePlugin.MessageContract.dll" />
+							</Component>
+							<Component Id="Philips.NxGen.Serviceability.Interfaces.CollabLivePlugin.dll" Guid="{257BDB2C-8061-43B2-840A-C8FC85B3668C}" KeyPath="yes">
+								<File Id="Philips.NxGen.Serviceability.Interfaces.CollabLivePlugin.dll" Name="Philips.NxGen.Serviceability.Interfaces.CollabLivePlugin.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.NxGen.Serviceability.Interfaces.CollabLivePlugin.dll" />
+							</Component>
+							<Component Id="Philips.NxGen.Services.FeatureManagement.FeatureDefinitionEncryptor.exe" Guid="{B7FA242B-B427-427D-BA79-448B4195B556}" KeyPath="yes">
+								<File Id="Philips.NxGen.Services.FeatureManagement.FeatureDefinitionEncryptor.exe" Name="Philips.NxGen.Services.FeatureManagement.FeatureDefinitionEncryptor.exe" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.NxGen.Services.FeatureManagement.FeatureDefinitionEncryptor.exe" />
+							</Component>
+							<Component Id="Philips.NxGen.Services.FeatureManagement.Proxy.dll" Guid="{D60AFFB6-87D1-4423-A0C8-2E85DD4C2BC8}" KeyPath="yes">
+								<File Id="Philips.NxGen.Services.FeatureManagement.Proxy.dll" Name="Philips.NxGen.Services.FeatureManagement.Proxy.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.NxGen.Services.FeatureManagement.Proxy.dll" />
+							</Component>
+							<Component Id="Philips.NxGen.Services.FeatureManagement.Utility.dll" Guid="{404749ED-0DD7-42A3-A9C8-2E3AF8BAF8E5}" KeyPath="yes">
+								<File Id="Philips.NxGen.Services.FeatureManagement.Utility.dll" Name="Philips.NxGen.Services.FeatureManagement.Utility.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.NxGen.Services.FeatureManagement.Utility.dll" />
+							</Component>
+							<Component Id="Philips.DI.Interfaces.Services.Logging.dll" Guid="{75AC0DE5-8788-4043-8678-6FA5D912E28A}" KeyPath="yes">
+								<File Id="Philips.DI.Interfaces.Services.Logging.dll" Name="Philips.DI.Interfaces.Services.Logging.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.DI.Interfaces.Services.Logging.dll" />
+							</Component>
+							<Component Id="Philips.NxGen.Services.FeatureManagement.Proxy.dll.config" Guid="{35390DE3-F4E1-435F-82E3-695D610C9632}" KeyPath="yes">
+								<File Id="Philips.NxGen.Services.FeatureManagement.Proxy.dll.config" Name="Philips.NxGen.Services.FeatureManagement.Proxy.dll.config" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.NxGen.Services.FeatureManagement.Proxy.dll.config" />
+							</Component>
+							<Component Id="Philips.DI.Interfaces.Services.Logging.dll.config" Guid="{A52704BD-C8D0-4DEB-A625-A1A5E9B3DFBA}" KeyPath="yes">
+								<File Id="Philips.DI.Interfaces.Services.Logging.dll.config" Name="Philips.DI.Interfaces.Services.Logging.dll.config" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.DI.Interfaces.Services.Logging.dll.config" />
+							</Component>							
+						</Directory>
+						<Directory Id="Bin.PSC" Name="PSC">
+							<Component Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll" Guid="{322FB2B6-F11E-4044-B516-BD88CE61322B}" KeyPath="yes">
+								<File Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll" Name="Philips.RemoteTools.DeviceRegistrationToolkit.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.RemoteTools.DeviceRegistrationToolkit.dll">
+									<CopyFile Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll" DestinationProperty="Philips.RemoteTools.DeviceRegistrationToolkit.dll" />
+									<CopyFile Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll1" DestinationProperty="Philips.RemoteTools.DeviceRegistrationToolkit.dll1" />
+									<CopyFile Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll2" DestinationProperty="Philips.RemoteTools.DeviceRegistrationToolkit.dll2" />
+									<CopyFile Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll3" DestinationProperty="Philips.RemoteTools.DeviceRegistrationToolkit.dll3" />
+									<CopyFile Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll4" DestinationProperty="Philips.RemoteTools.DeviceRegistrationToolkit.dll4" />
+									<CopyFile Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll5" DestinationProperty="Philips.RemoteTools.DeviceRegistrationToolkit.dll5" />
+									<CopyFile Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll6" DestinationProperty="Philips.RemoteTools.DeviceRegistrationToolkit.dll6" />
+									<CopyFile Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll7" DestinationProperty="Philips.RemoteTools.DeviceRegistrationToolkit.dll7" />
+									<CopyFile Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll8" DestinationProperty="Philips.RemoteTools.DeviceRegistrationToolkit.dll8" />
+									<CopyFile Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll9" DestinationProperty="Philips.RemoteTools.DeviceRegistrationToolkit.dll9" />
+									<CopyFile Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll10" DestinationProperty="Philips.RemoteTools.DeviceRegistrationToolkit.dll10" />
+									<CopyFile Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll11" DestinationProperty="Philips.RemoteTools.DeviceRegistrationToolkit.dll11" />
+									<CopyFile Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll12" DestinationProperty="Philips.RemoteTools.DeviceRegistrationToolkit.dll12" />
+									<CopyFile Id="Philips.RemoteTools.DeviceRegistrationToolkit.dll13" DestinationProperty="Philips.RemoteTools.DeviceRegistrationToolkit.dll13" />
+								</File>
+							</Component>
+							<Component Id="Philips.ServiceTools.RSD.Toolkit.dll" Guid="{9006D7EB-E24D-4B31-BF7D-CC651361E6DD}" KeyPath="yes">
+								<File Id="Philips.ServiceTools.RSD.Toolkit.dll" Name="Philips.ServiceTools.RSD.Toolkit.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.ServiceTools.RSD.Toolkit.dll">
+									<CopyFile Id="Toolkit.PCC.ChorusHost.PSC.Base.Ref" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Ref" />
+									<CopyFile Id="Toolkit.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.CommonServerHost" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.CommonServerHost" />
+									<CopyFile Id="Toolkit.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteSoftwareDistribution" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteSoftwareDistribution" />
+									<CopyFile Id="Toolkit.PCC.ChorusHost.Bin.PSC.Base.Ref" DestinationProperty="D.PCC.ChorusHost.Bin.PSC.Base.Ref" />
+								</File>
+							</Component>
+							<Component Id="Philips.Service.RemoteTools.Alerting.AlertingToolkit.dll" Guid="{79FFA204-E59B-4B2B-9292-194690FAA225}" KeyPath="yes">
+								<File Id="Philips.Service.RemoteTools.Alerting.AlertingToolkit.dll" Name="Philips.Service.RemoteTools.Alerting.AlertingToolkit.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.Service.RemoteTools.Alerting.AlertingToolkit.dll">
+									<CopyFile Id="Philips.Service.RemoteTools.Alerting.AlertingToolkit.dll1" DestinationProperty="Philips.Service.RemoteTools.Alerting.AlertingToolkit.dll1" />
+									<CopyFile Id="Philips.Service.RemoteTools.Alerting.AlertingToolkit.dll2" DestinationProperty="Philips.Service.RemoteTools.Alerting.AlertingToolkit.dll2" />
+									<CopyFile Id="Philips.Service.RemoteTools.Alerting.AlertingToolkit.dll3" DestinationProperty="Philips.Service.RemoteTools.Alerting.AlertingToolkit.dll3" />
+									<CopyFile Id="Philips.Service.RemoteTools.Alerting.AlertingToolkit.dll4" DestinationProperty="Philips.Service.RemoteTools.Alerting.AlertingToolkit.dll4" />
+								</File>
+							</Component>
+							<Component Id="Philips.Service.RemoteTools.DeviceProfileUpdate.DeviceProfileUpdateToolkit.dll" Guid="{DAC7A18E-3231-4932-BBE9-142109BBB997}" KeyPath="yes">
+								<File Id="Philips.Service.RemoteTools.DeviceProfileUpdate.DeviceProfileUpdateToolkit.dll" Name="Philips.Service.RemoteTools.DeviceProfileUpdate.DeviceProfileUpdateToolkit.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.Service.RemoteTools.DeviceProfileUpdate.DeviceProfileUpdateToolkit.dll">
+									<CopyFile Id="Philips.Service.RemoteTools.DeviceProfileUpdate.DeviceProfileUpdateToolkit.dll1" DestinationProperty="Philips.Service.RemoteTools.DeviceProfileUpdate.DeviceProfileUpdateToolkit.dll1" />
+									<CopyFile Id="Philips.Service.RemoteTools.DeviceProfileUpdate.DeviceProfileUpdateToolkit.dll2" DestinationProperty="Philips.Service.RemoteTools.DeviceProfileUpdate.DeviceProfileUpdateToolkit.dll2" />
+									<CopyFile Id="Philips.Service.RemoteTools.DeviceProfileUpdate.DeviceProfileUpdateToolkit.dll3" DestinationProperty="Philips.Service.RemoteTools.DeviceProfileUpdate.DeviceProfileUpdateToolkit.dll3" />
+								</File>
+							</Component>
+							<Component Id="Philips.Service.RemoteTools.MonitoringFrameworkToolkit.dll" Guid="{7BC5240B-AF41-454B-8444-1B22C1F38B89}" KeyPath="yes">
+								<File Id="Philips.Service.RemoteTools.MonitoringFrameworkToolkit.dll" Name="Philips.Service.RemoteTools.MonitoringFrameworkToolkit.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.Service.RemoteTools.MonitoringFrameworkToolkit.dll">
+									<CopyFile Id="Philips.Service.RemoteTools.MonitoringFrameworkToolkit.dll1" DestinationProperty="Philips.Service.RemoteTools.MonitoringFrameworkToolkit.dll1" />
+									<CopyFile Id="Philips.Service.RemoteTools.MonitoringFrameworkToolkit.dll2" DestinationProperty="Philips.Service.RemoteTools.MonitoringFrameworkToolkit.dll2" />
+									<CopyFile Id="Philips.Service.RemoteTools.MonitoringFrameworkToolkit.dll3" DestinationProperty="Philips.Service.RemoteTools.MonitoringFrameworkToolkit.dll3" />
+								</File>
+							</Component>
+							<Component Id="Philips.ServiceTools.SIDSConfiguration.dll" Guid="{7BC54716-05B2-499D-AE59-237C55C6C9CB}" KeyPath="yes">
+								<File Id="Philips.ServiceTools.SIDSConfiguration.dll" Name="Philips.ServiceTools.SIDSConfiguration.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.ServiceTools.SIDSConfiguration.dll">
+									<CopyFile Id="Philips.ServiceTools.SIDSConfiguration.dll1" DestinationProperty="Philips.ServiceTools.SIDSConfiguration.dll1" />
+									<CopyFile Id="Philips.ServiceTools.SIDSConfiguration.dll2" DestinationProperty="Philips.ServiceTools.SIDSConfiguration.dll2" />
+									<CopyFile Id="Philips.ServiceTools.SIDSConfiguration.dll3" DestinationProperty="Philips.ServiceTools.SIDSConfiguration.dll3" />
+								</File>
+							</Component>
+							<Component Id="Philips.ServiceTools.ToolKit.dll" Guid="{B1953F6F-E3DE-40D5-AF19-A02D7B896245}" KeyPath="yes">
+								<File Id="Philips.ServiceTools.ToolKit.dll" Name="Philips.ServiceTools.ToolKit.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.ServiceTools.ToolKit.dll">
+									<CopyFile Id="Philips.ServiceTools.ToolKit.dll1" DestinationProperty="Philips.ServiceTools.ToolKit.dll1" />
+									<CopyFile Id="Philips.ServiceTools.ToolKit.dll2" DestinationProperty="Philips.ServiceTools.ToolKit.dll2" />
+									<CopyFile Id="Philips.ServiceTools.ToolKit.dll3" DestinationProperty="Philips.ServiceTools.ToolKit.dll3" />
+								</File>
+							</Component>
+							<Component Id="Philips.Service.SIDSConfiguration.Toolkit.dll" Guid="{9CC1F3A6-D0D7-470B-80CA-6F8D36F49F9D}" KeyPath="yes">
+								<File Id="Philips.Service.SIDSConfiguration.Toolkit.dll" Name="Philips.Service.SIDSConfiguration.Toolkit.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.Service.SIDSConfiguration.Toolkit.dll">
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll1" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll1" />
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll2" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll2" />
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll3" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll3" />
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll4" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll4" />
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll5" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll5" />
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll6" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll6" />
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll7" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll7" />
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll8" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll8" />
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll9" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll9" />
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll10" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll10" />
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll11" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll11" />
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll12" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll12" />
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll13" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll13" />
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll14" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll14" />
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll15" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll15" />
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll16" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll16" />
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll17" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll17" />
+									<CopyFile Id="Philips.Service.SIDSConfiguration.Toolkit.dll18" DestinationProperty="Philips.Service.SIDSConfiguration.Toolkit.dll18" />
+								</File>
+							</Component>
+						</Directory>
+					</Directory>
+					<Directory Id="PSC" Name="PSC">
+						<Directory Id="Base" Name="Base">
+							<Directory Id="Install" Name="Install">
+								<Directory Id="RemoteSuite" Name="RemoteSuite">
+									<Directory Id="DeviceRegistration" Name="DeviceRegistration">
+										<Component Id="Philips.ServiceTools.RCT.ToolKit.dll" Guid="{F51063CB-83D0-46B2-B189-E5E14EBBCBF4}" KeyPath="yes">
+											<File Id="Philips.ServiceTools.RCT.ToolKit.dll" Name="Philips.ServiceTools.RCT.ToolKit.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.ServiceTools.RCT.ToolKit.dll">
+												<CopyFile Id="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteAccessConfiguration" DestinationProperty="D.PCC.ChorusHost.PSC.Base.Install.RemoteSuite.RemoteAccessConfiguration" />
+											</File>
+										</Component>
+									</Directory>
+								</Directory>
+							</Directory>
+						</Directory>
+					</Directory>
+				</Directory>
+			</Directory>
+			<Directory Id="CDrive">
+				<Component Id="Philips.NxGen.DependencyProvider.dll" Guid="{0C11D2E3-A7FD-4B96-87AA-0544E5325CA0}" KeyPath="yes">
+					<File Id="Philips.NxGen.DependencyProvider.dll" Name="Philips.NxGen.DependencyProvider.dll" Source="C:\320219077\MSIs\IAP_Temp\lib\net48\Philips.NxGen.DependencyProvider.dll" />
+				</Component>
+			</Directory>
+		</Directory>
+	</Product>
+</Wix>

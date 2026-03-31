@@ -1,0 +1,28 @@
+{
+  "ExeLocation": "Tools\\Tools.1.0.3\\Resharper\\ResharperCMDTools.2023",
+  "OutputXMLFilePath": "..\\a\\Resharper\\Test_Resharper.xml",
+  "XmlReportsPath": "..\\a\\Resharper",
+  "SettingsFilePath": "Tools\\Tools.1.0.3\\Resharper\\CTAMI_HOST_ResharperSettings.DotSettings",
+  "Severity": "SUGGESTION",
+  "SolutionListFromFile": "Build\\CI\\EGSconfigs\\conf\\solutionlist.txt",
+  "ResultCountFile": "..\\a\\Resharper\\ReSharperResultCount.txt",
+  "PushFileWiseCountToDBOnFullScan": "yes",
+  "PushTotalCountToDBOnFullScan": "yes",
+  "RunOnCsprojFiles": "no",
+  "FeatureToggleXmlFilePath": "",
+  "AnalyzeAllProjectFiles": "no",
+  "fileTypes": [
+    ".cs"
+  ],
+   "ResharperSolutionParameters": [
+		{
+			"soluntionName":"CT_ServiceabilityImpl.sln",
+			"additionalParameters":"--no-build"
+		},
+		{
+			"soluntionName":"CT_ServiceabilityInf.sln",
+			"additionalParameters":"--no-build"
+		}
+	]
+}
+

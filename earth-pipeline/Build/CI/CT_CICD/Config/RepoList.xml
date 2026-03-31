@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RepoList>
+    <Repo Name="CT_CompRegistry" PipelineId="2474" SequenceOrder="9999" />
+	<Repo Name="CT_CommunicationFramework" PipelineId="3491" SequenceOrder="1" />	
+	<Repo Name="CT_DicomDatabase" PipelineId="3517" SequenceOrder="1" />	
+	<Repo Name="CT_LoggingWrapper" PipelineId="3492" SequenceOrder="1" />	
+	<Repo Name="CT_CommonServices" PipelineId="3493" SequenceOrder="2" />	
+	<Repo Name="CT_DB20ReverseAdapters" PipelineId="3494" SequenceOrder="3" />	
+	<Repo Name="CT_ExamRecord" PipelineId="3495" SequenceOrder="3" />	
+	<Repo Name="CT_HrifReconInternalDeviceAbs" PipelineId="3737" SequenceOrder="4" />	
+	<Repo Name="CT_ImageManagement" PipelineId="3496" SequenceOrder="5" />	
+	<Repo Name="CT_CommonDeviceAbs" PipelineId="3497" SequenceOrder="5" />	
+	<Repo Name="CT_Security" PipelineId="3498" SequenceOrder="5" />	
+	<Repo Name="CT_IncisiveSystemControlInternalAbs" PipelineId="3499" SequenceOrder="5" />	
+	<Repo Name="CT_DeviceAbsServices" PipelineId="3500" SequenceOrder="6" />	
+	<Repo Name="CT_ReconDeviceAbs" PipelineId="3501" SequenceOrder="7" />	
+	<Repo Name="CT_MotionDeviceAbs" PipelineId="3502" SequenceOrder="7" />	
+	<Repo Name="CT_LaserDeviceAbs" PipelineId="3503" SequenceOrder="7" />	
+	<Repo Name="CT_AcquisitionDataBuilderDeviceAbs" PipelineId="3504" SequenceOrder="8" />	
+	<Repo Name="CT_AcquisitionControlDeviceAbs" PipelineId="3505" SequenceOrder="8" />	
+	<Repo Name="CT_AcquisitionDeviceStatusAbs" PipelineId="3506" SequenceOrder="8" />	
+	<Repo Name="CT_PipelineInfra" PipelineId="3507" SequenceOrder="8" />	
+	<Repo Name="CT_ResultPipelineStages" PipelineId="3509" SequenceOrder="9" />	
+	<Repo Name="CT_TaskManager" PipelineId="3510" SequenceOrder="9" />	
+	<Repo Name="CT_OrchDomainServices" PipelineId="3511" SequenceOrder="10" />	
+	<Repo Name="CT_RulesSystem" PipelineId="3512" SequenceOrder="11" />	
+	<Repo Name="CT_Serviceability" PipelineId="3513" SequenceOrder="12" />	
+	<Repo Name="CT_Installations" PipelineId="3514" SequenceOrder="13" />	
+	<Repo Name="CT_Calibrations" PipelineId="3515" SequenceOrder="14" />	
+    <Repo Name="CT_SmartProtocoling" PipelineId="3595" SequenceOrder="15" />	
+	<Repo Name="CT_ConsoleLocalizationStrings" PipelineId="3596" SequenceOrder="16" />	
+	<Repo Name="CT_UWF" PipelineId="3516" SequenceOrder="17" />	
+	<Repo Name="CT_RSDI_Common" PipelineId="4081" SequenceOrder="18" />
+	<Repo Name="CT_RSDI_Interop" PipelineId="4018" SequenceOrder="19" />	
+	<Repo Name="CT_RSDI_SubEngine" PipelineId="4019" SequenceOrder="20" />	
+	<Repo Name="CT_RSDI_MainEngine" PipelineId="4020" SequenceOrder="21" />	
+	<Repo Name="CT_RSDI_SuSd" PipelineId="4021" SequenceOrder="22" />	
+	<Repo Name="CT_RSDI_iStationSubEngine" PipelineId="3901" SequenceOrder="23" />
+
+
+	<Repo Name="CT_CompRegistry" PipelineId="2474" SequenceOrder="9999" />
+
+</RepoList>

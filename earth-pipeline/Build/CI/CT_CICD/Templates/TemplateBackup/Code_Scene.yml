@@ -1,0 +1,115 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+
+jobs:
+- job: Code_Scene
+  condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
+  dependsOn: ${{ parameters.dependsOn }}
+  pool:
+   name:  '$(PoolName)'
+   demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: self
+    clean: true
+    submodules: true
+
+  - task: JFrog.jfrog-artifactory-vsts-extension.artifactory-generic-download.ArtifactoryGenericDownload@3
+    displayName: 'Download Tools_Dev'
+    inputs:
+      connection: JfrogArtifactory
+      fileSpec: |
+       {
+         "files": [
+           {
+             "pattern": "ct-workspace/Tools_Dev/Tools_Dev.$(Tools_Dev_version).nupkg",
+             "target": "$(Build.SourcesDirectory)/",
+             "flat": "true"
+           }
+         ]
+       }
+    enabled: true
+
+  - script: 'nuget install Tools_Dev -Source %cd% -OutputDirectory Tools'
+    workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: 'Install Tools_Dev'
+    failOnStderr: true
+
+  - task: JFrog.jfrog-artifactory-vsts-extension.artifactory-generic-download.ArtifactoryGenericDownload@3
+    displayName: 'Download Tools'
+    inputs:
+      connection: JfrogArtifactory
+      fileSpec: |
+       {
+         "files": [
+           {
+             "pattern": "ct-workspace/Tools/Tools.$(Toolsversion).nupkg",
+             "target": "$(Build.SourcesDirectory)/",
+             "flat": "true"
+           }
+         ]
+       }
+    enabled: true
+
+  - script: 'nuget install Tools -Source %cd% -OutputDirectory Tools'
+    workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: 'Install Tools'
+    failOnStderr: true
+    
+  - powershell: |
+     $sourceBranch="$(System.PullRequest.SourceBranch)" -Replace ("refs/heads/","origin/")
+     $targetBranch="$(System.PullRequest.TargetBranch)" -Replace ("refs/heads/","origin/")
+     Write-Host "Variable TargetBranch set to:$targetBranch
+     Write-Host "Variable SourceBranch set to:$sourceBranch
+     java -jar Tools\Tools.$(Toolsversion)\codescene\codescene-ci-cd.standalone.jar --codescene-delta-analysis-url $(codesceneURL) -u $(codesceneusr) -p $(codescenepwd) --risk-threshold 7 --coupling-threshold-percent 80 --codescene-repository $(Codescene_Repo_name)  --azure-api-url "https://tfsemea1.ta.philips.com/tfs/TPC_Region26" --azure-api-token $(PAT_ing07471) --azure-project CT-GlobalSW --azure-repo $(azure-repo) --log-result --analyze-branch-diff --create-azure-comment --base-revision $targetBranch --azure-pull-request-id $(System.PullRequest.PullRequestId) --current-commit $sourceBranch --http-timeout 8000
+    workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: 'Run CodeScene'
+    continueOnError: true
+
+
+  - task: CdiscountAlm.rest-call-build-task.custom-build-task.restCallBuildTask@0
+    inputs:
+      webserviceEndpoint: RESTAPI
+      httpVerb: 'POST'
+      body: |
+          {
+          "_id":"$(Build.BuildNumber)",
+          "_BuildName":"$(Build.DefinitionName)",
+          "_PipelineType":"$(Build.DefinitionName)",
+          "_RequestedBy":"$(Build.QueuedBy)",
+          "_RequestedOn":null,
+          "_QueuedAt":null,
+          "_StartedAt":null,
+          "_SourceVersion":"$(Build.SourceVersion)",
+          "_OverallSummary":"https://tfsemea1.ta.philips.com/tfs/TPC_Region26/CT-GlobalSW/_build/index?buildId=$(Build.BuildID)&_a=summary",
+          "_DevelopersContributed":["Null", "Null"],
+          "_WhoFailed":["$(Build.QueuedBy)", "Null"],
+                         "_AgentInfo":{
+                                   "_AgentId":"$(Agent.Id)",
+                                   "_AgentName":"$(Agent.Name)",
+                                   "_AgentMachineName":"$(Agent.MachineName)",
+                                   "_Status":"Active",
+                                   "_ServiceAccount":"code1/ing07471",
+                                   "_QueErr_Info":"null"
+                         },
+                         "_Steps":{
+                                 "_SequenceId":null,
+                                 "_StepName":null,
+                                 "_Status":null,
+                                 "_BriefInfo":null,
+                                 "_StepDetailedInfo":{
+                                 }
+                         }
+          }
+      saveResponseToFile: true
+      outputFilePath: '$(Build.ArtifactStagingDirectory)\apioutini.txt'
+    condition: always()
+
+  - task: PostBuildCleanup@3
+    displayName: 'Post-Build Cleanup'
+    inputs:
+      rootFolderOrFile: $directories.split('_')
+      cleanSources: true
+    condition: always()

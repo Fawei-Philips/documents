@@ -1,0 +1,44 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+  TICS_Percentage_Gates_arg: []    
+  TICS_ABS_Count_Gates_arg: []
+
+
+
+jobs:  
+- job: TICS_gates
+  timeoutInMinutes: 0
+  condition: and(succeededOrFailed(), eq(variables['Gated_TICS'], 'true'))
+  dependsOn: ${{ parameters.dependsOn }}
+
+  variables:
+    sourcesdirectory: $[ dependencies.Build.outputs['setvarStep.sourcesdirectory'] ]
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none
+
+  - ${{ each s in parameters.TICS_Percentage_Gates_arg }}:
+      - task: PowerShell@2
+        displayName: '${{ s }}-Gates '
+        inputs:
+          targetType: filePath
+          filePath: '$(TICSPercentageGates)'
+          arguments: '${{ s }} $(Build.SourcesDirectory)'
+        continueOnError: true
+        condition: succeededOrFailed()
+
+  - ${{ each s in parameters.TICS_ABS_Count_Gates_arg }}:
+      - task: PowerShell@2
+        displayName: '${{ s }}-ABS_count_gates'
+        inputs:
+          targetType: filePath
+          filePath: '$(TICSABSCountGates)'
+          arguments: '${{ s }} $(Build.SourcesDirectory)'
+        continueOnError: true
+        condition: succeededOrFailed()
+

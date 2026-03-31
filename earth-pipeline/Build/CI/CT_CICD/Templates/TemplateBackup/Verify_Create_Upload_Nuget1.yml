@@ -1,0 +1,264 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+  Version: ''
+  ComponentName: ''
+  Solution: []
+  csproj: []
+
+jobs:
+- job: Verify_create_upload_nuget
+  dependsOn: ${{ parameters.dependsOn }}
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none  
+
+  - task: JFrog.jfrog-artifactory-vsts-extension.artifactory-generic-download.ArtifactoryGenericDownload@3
+    displayName: 'Download Tools_Dev'
+    inputs:
+      connection: JfrogArtifactory
+      fileSpec: |
+       {
+         "files": [
+           {
+             "pattern": "ct-workspace/Tools_Dev/Tools_Dev.$(Tools_Dev_version).nupkg",
+             "target": "$(Build.SourcesDirectory)/",
+             "flat": "true"
+           }
+         ]
+       }
+    enabled: true
+
+  - script: 'nuget install Tools_Dev -Source %cd% -OutputDirectory Tools'
+    workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: 'Install Tools_Dev'
+    failOnStderr: true
+    
+  - task: JFrog.jfrog-artifactory-vsts-extension.artifactory-generic-download.ArtifactoryGenericDownload@3
+    displayName: 'Download Tools'
+    inputs:
+      connection: JfrogArtifactory
+      fileSpec: |
+       {
+         "files": [
+           {
+             "pattern": "ct-workspace/Tools/Tools.$(Toolsversion).nupkg",
+             "target": "$(Build.SourcesDirectory)/",
+             "flat": "true"
+           }
+         ]
+       }
+    enabled: true
+
+  - script: 'nuget install Tools -Source %cd% -OutputDirectory Tools'
+    workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: 'Install Tools'
+    failOnStderr: true
+
+  - ${{ each sln in parameters.Solution }}:
+      - task: ArtifactoryNuGet@1
+        condition: and(succeeded(),eq(variables['dotnetcore'],''))
+        displayName: 'Restore: ${{ sln.solutionname }}'
+        inputs:
+          command: 'restore'
+          artifactoryService: '$(artifactoryService)'
+          targetResolveRepo: '$(ArtifactoryRepoName)'
+          solutionPath: ${{ sln.solutionPath }}
+          packagesDirectory: '$(3rdPartyPackagesPath)'
+        enabled: 'true'
+
+  - ${{ each proj in parameters.csproj }}:
+      - task: ArtifactoryNuGet@1
+        condition: and(succeeded(),eq(variables['dotnetcore'],True))
+        displayName: 'Nuget Restore: ${{ proj.cname }}'
+        inputs:
+          command: 'restore'
+          artifactoryService: '$(artifactoryService)'
+          targetResolveRepo: '$(ArtifactoryRepoName)'
+          solutionPath: ${{ proj.cPath }}
+          packagesDirectory: '$(3rdPartyPackagesPath)'
+        enabled: 'true'
+
+  - ${{ each sln in parameters.Solution }}:
+      - task: ArtifactoryDotnetCore@1
+        condition: and(succeeded(),eq(variables['dotnetcore'],True))
+        displayName: 'Dotnet Restore: ${{ sln.solutionname }}'
+        inputs:
+          command: 'restore'
+          artifactoryService: '$(artifactoryService)'
+          targetResolveRepo: '$(ArtifactoryRepoName)'
+          noNuGetCache: true
+          rootPath: ${{ sln.solutionPath }}
+          packagesDirectory: '$(3rdPartyPackagesPath)'
+        enabled: 'true'
+
+  - task: bleddynrichards.Assembly-Info-Task.Assembly-Info-Task.Assembly-Info-NetFramework@2
+    displayName: ' File Versioning '
+    inputs:
+      FileNames: | 
+       **\AssemblyInfo.cs
+      Title: ${{ parameters.ComponentName }}
+      Product: ${{ parameters.ComponentName }}
+      Company: Philips
+      VersionNumber: 1.0.0.0
+      FileVersionNumber: 1.0.0.0
+      InformationalVersion: 1.0.0.0'
+      Copyright: 2023
+    enabled: 'True'
+
+  # - task: CopyFiles@2
+  #   displayName: 'Copy File Directory.Build.props'
+  #   inputs:
+  #    SourceFolder: '$(build.sourcesdirectory)\Build\CI\Pipeline_Scripts\'
+  #    Contents: Directory.Build.props
+  #    TargetFolder: '$(build.sourcesdirectory)'
+  #    OverWrite: true
+  #    continueOnError: true
+
+  - task: MSBuild@1
+    displayName: 'Build solution: ${{ parameters.ComponentName }}Inf.sln'
+    condition: and(succeeded(), eq(variables['custom_build'], ''))
+    inputs:
+     solution: ExtInf/$(SolutionPath)
+     msbuildLocationMethod: location
+     msbuildLocation: 'C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\MSBuild.exe'
+     platform: $(platform)
+     configuration: $(configuration)
+     clean: false
+    enabled: 'true'
+
+  - task: MSBuild@1
+    displayName: 'Build solution: ${{ parameters.ComponentName }}Impl.sln'
+    condition: and(succeeded(), eq(variables['custom_build'], ''))
+    inputs:
+     solution: Src/$(SolutionPath)
+     msbuildLocationMethod: location
+     msbuildLocation: 'C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\MSBuild.exe'
+     platform: $(platform)
+     configuration: $(configuration)
+     clean: false
+    enabled: 'true'
+
+  - task: PowerShell@2
+    displayName: "Custom Build"
+    name: "custom_build"
+    condition: ne(variables['custom_build'], '')
+    inputs:
+      targetType: 'inline'
+      script: |
+        Write-Host "Triggering custom build: $env:CUSTOM_BUILD"
+        $scriptPath = "$env:BUILD_SOURCESDIRECTORY\$env:CUSTOM_BUILD"
+        Invoke-Expression $scriptPath
+      failOnStderr: true
+      workingDirectory: "$(Build.SourcesDirectory)"
+
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(nuspec_checker_script_path)'
+       arguments: '$(validate_artifactory_base_url) $(artifactory_reponame) $(internal_folder_name) $(state) $(user_name) $(token) $(nuspec_source_path) $(component_name)'
+    displayName: 'Check_for_new_version_in_Nuspec'
+  
+  - task: NuGetCommand@2
+    displayName: 'NuGet package creator'
+    inputs:
+      command: pack
+      packagesToPack: '$(nuspec_source_path)'
+      packDestination: '$(Build.ArtifactStagingDirectory)/$(state)'
+      verbosityPack: Detailed
+    continueOnError: false
+    condition: and(succeeded(), eq(variables['var.createnugetpackage'], 'true'))
+  
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(nuget_uploader_script_path)'
+       arguments: '$(upload_base_url) $(artifactory_reponame) $(internal_folder_name) $(state) $(user_name) $(token) $(nupkg_source_path) $(component_name)*.nupkg'
+    displayName: 'Upload_nuget_package'
+    continueOnError: false
+    condition: and(succeeded(), eq(variables['var.createnugetpackage'], 'true'))
+
+#  - task: PowerShell@2
+#    inputs:
+#       filePath: '$(build.sourcesdirectory)/Build/Pipeline_Scripts/FullBuild_Scripts/CopyNuget_Initial_to_accepted.ps1'
+#       arguments: '$(artifactory_PAT)'
+#    displayName: 'Copy_Nuget_Initial_to_accepted'
+#    continueOnError: false
+#    condition: and(succeeded(), eq(variables['ComponentTests_Run'], 'true') , eq(variables['var.createnugetpackage'], 'true'))
+
+# Component2
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(nuspec_checker_script_path)'
+       arguments: '$(validate_artifactory_base_url) $(artifactory_reponame) $(internal_folder_name) $(state2) $(user_name) $(token) $(nuspec_source_path2) $(component_name2)'
+    displayName: 'Check_for_new_version_in_Nuspec'
+  
+  - task: NuGetCommand@2
+    displayName: 'NuGet package creator'
+    inputs:
+      command: pack
+      packagesToPack: '$(nuspec_source_path2)'
+      packDestination: '$(Build.ArtifactStagingDirectory)/$(state2)'
+      verbosityPack: Detailed
+    continueOnError: false
+    condition: and(succeeded(), eq(variables['var.createnugetpackage'], 'true'))
+
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(nuget_uploader_script_path)'
+       arguments: '$(upload_base_url) $(artifactory_reponame) $(internal_folder_name) $(state2) $(user_name) $(token) $(nupkg_source_path2) $(component_name2)*.nupkg'
+    displayName: 'Upload_nuget_package'
+    continueOnError: false
+    condition: and(succeeded(), eq(variables['var.createnugetpackage'], 'true'))
+
+# Component3
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(nuspec_checker_script_path)'
+       arguments: '$(validate_artifactory_base_url) $(artifactory_reponame) $(internal_folder_name) $(state3) $(user_name) $(token) $(nuspec_source_path3) $(component_name3)'
+    displayName: 'Check_for_new_version_in_Nuspec'
+  
+  - task: NuGetCommand@2
+    displayName: 'NuGet package creator'
+    inputs:
+      command: pack
+      packagesToPack: '$(nuspec_source_path3)'
+      packDestination: '$(Build.ArtifactStagingDirectory)/$(state3)'
+      verbosityPack: Detailed
+    continueOnError: false
+    condition: and(succeeded(), eq(variables['var.createnugetpackage'], 'true'))
+
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(nuget_uploader_script_path)'
+       arguments: '$(upload_base_url) $(artifactory_reponame) $(internal_folder_name) $(state3) $(user_name) $(token) $(nupkg_source_path3) $(component_name3)*.nupkg'
+    displayName: 'Upload_nuget_package'
+    continueOnError: false
+    condition: and(succeeded(), eq(variables['var.createnugetpackage'], 'true'))
+
+# Component4
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(nuspec_checker_script_path)'
+       arguments: '$(validate_artifactory_base_url) $(artifactory_reponame) $(internal_folder_name) $(state4) $(user_name) $(token) $(nuspec_source_path4) $(component_name4)'
+    displayName: 'Check_for_new_version_in_Nuspec'
+  
+  - task: NuGetCommand@2
+    displayName: 'NuGet package creator'
+    inputs:
+      command: pack
+      packagesToPack: '$(nuspec_source_path4)'
+      packDestination: '$(Build.ArtifactStagingDirectory)/$(state4)'
+      verbosityPack: Detailed
+    continueOnError: false
+    condition: and(succeeded(), eq(variables['var.createnugetpackage'], 'true'))
+
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(nuget_uploader_script_path)'
+       arguments: '$(upload_base_url) $(artifactory_reponame) $(internal_folder_name) $(state4) $(user_name) $(token) $(nupkg_source_path4) $(component_name4)*.nupkg'
+    displayName: 'Upload_nuget_package'
+    continueOnError: false
+    condition: and(succeeded(), eq(variables['var.createnugetpackage'], 'true'))

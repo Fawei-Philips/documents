@@ -1,0 +1,76 @@
+parameters:
+  IsProductBuild: 0
+
+jobs:
+  - job: isMainOrDev
+    displayName: Check Branch
+    timeoutInMinutes: 0
+    steps:
+      - checkout: CT_CICD
+        path: 'Build\CI\CT_CICD\'
+        fetchDepth: 1
+        clean: true
+      - task: PowerShell@2
+        name: is_main_branch
+        displayName: "Check: is branch main"
+        inputs:
+          filePath: "Version_Automation/is_main_branch.ps1"
+          arguments: '-Repo "$(Build.Repository.Name)" -Branch "$(Build.SourceBranchName)"'
+      - task: PowerShell@2
+        displayName: "Result: is branch main"
+        inputs:
+          targetType: "inline"
+          script: 'Write-Host "isMain- $(is_main_branch.isMain)"'
+  - job: updateVersion
+    displayName: Update versions
+    timeoutInMinutes: 0
+    dependsOn: isMainOrDev
+    condition: eq(dependencies.isMainOrDev.outputs['is_main_branch.isMain'], 1)
+    steps:
+      - checkout: self
+        submodules: true
+        fetchDepth: 1
+        clean: true
+        condition: and(succeeded(), eq(variables['GitDownloadMethod'], ''))
+
+      - checkout: self
+        submodules: true
+        fetchDepth: 1
+        clean: true
+        condition: and(succeeded(), eq(variables['GitDownloadMethod'], 'Clone'))
+
+      - checkout: none
+        clean: true
+        condition: and(succeeded(), eq(variables['GitDownloadMethod'], 'Pull'))
+
+      - powershell: |
+          Write-Host "Src: $(ADS_Backup_Repo_Path)\$(internal_folder_name)\*"
+          Write-Host "Dest: $(Build.Repository.LocalPath)\"
+          Copy-Item -Path "$(ADS_Backup_Repo_Path)\$(internal_folder_name)\*" -Destination "$(Build.Repository.LocalPath)\" -Recurse -Force
+          Set-Location "$(Build.Repository.LocalPath)"
+          $branch = "main"
+          git reset --hard
+          git clean -xdf
+          git checkout $branch
+          git clean -xdf
+          git fetch origin $branch
+          git reset --hard origin/$branch
+          git submodule update --init --recursive
+        displayName: 'Copy code from shared path and git pull'
+        condition: and(succeeded(), eq(variables['GitDownloadMethod'], 'Pull'))
+
+
+      - task: PowerShell@2
+        name: bump_version
+        displayName: Bump Versions
+        inputs:
+          filePath: "Build/CI/CT_CICD/Version_Automation/bump_version_inf.ps1"
+          arguments: '-Auth "$(PAT_ing07471)" -BaseRepoPath "$(Build.SourcesDirectory)" -Repo "$(Build.Repository.Name)" -Branch "$(Build.SourceBranchName)" -Prefix "$(Build.Repository.Name)" -IsProductBuild ${{ parameters.IsProductBuild }}'
+          failOnStderr: true
+      - task: PowerShell@2
+        name: merge_version
+        displayName: Merge Versions
+        inputs:
+          filePath: "Build/CI/CT_CICD/scripts/create_merge_pr.ps1"
+          arguments: '-Region "TPC_Region26" -Project "CT-GlobalSW" -Repo "$(Build.Repository.Name)" -Source "automatic-version-bump" -Target "$(Build.SourceBranchName)" -Title "Update changes" -Auth "$(PAT_ing07471)" -Tag "$(bump_version.Version)"'
+          failOnStderr: true

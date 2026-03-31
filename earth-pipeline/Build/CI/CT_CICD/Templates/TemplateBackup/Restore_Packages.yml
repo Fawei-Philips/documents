@@ -1,0 +1,74 @@
+parameters:
+ dependsOn: []
+ agentDemand: []
+ agentcapability: []
+ Solution: []
+ csproj: []     
+
+jobs:
+- job: Restore_Packages
+  dependsOn: ${{ parameters.dependsOn }}
+  timeoutInMinutes: 360
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none
+  - task: JFrog.jfrog-artifactory-vsts-extension.artifactory-generic-download.ArtifactoryGenericDownload@3
+    displayName: 'Download Tools'
+    inputs:
+      connection: JfrogArtifactory
+      fileSpec: |
+       {
+         "files": [
+           {
+             "pattern": "ct-workspace/Tools/Tools.$(Toolsversion).nupkg",
+             "target": "$(Build.SourcesDirectory)/",
+             "flat": "true"
+           }
+         ]
+       }
+    enabled: true
+
+  - script: 'nuget install Tools -Source %cd% -OutputDirectory Tools'
+    workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: 'Install Tools'
+    failOnStderr: true
+
+  - ${{ each sln in parameters.Solution }}:
+      - task: ArtifactoryNuGet@1
+        condition: and(succeeded(),eq(variables['dotnetcore'],''))
+        displayName: 'Restore: ${{ sln.solutionname }}'
+        inputs:
+          command: 'restore'
+          artifactoryService: '$(artifactoryService)'
+          targetResolveRepo: '$(ArtifactoryRepoName)'
+          solutionPath: ${{ sln.solutionPath }}
+          packagesDirectory: '$(3rdPartyPackagesPath)'
+        enabled: 'true'
+
+  - ${{ each proj in parameters.csproj }}:
+      - task: ArtifactoryNuGet@1
+        condition: and(succeeded(),eq(variables['dotnetcore'],True))
+        displayName: 'Nuget Restore: ${{ proj.cname }}'
+        inputs:
+          command: 'restore'
+          artifactoryService: '$(artifactoryService)'
+          targetResolveRepo: '$(ArtifactoryRepoName)'
+          solutionPath: ${{ proj.cPath }}
+          packagesDirectory: '$(3rdPartyPackagesPath)'
+        enabled: 'true'
+
+  - ${{ each sln in parameters.Solution }}:
+      - task: ArtifactoryDotnetCore@1
+        condition: and(succeeded(),eq(variables['dotnetcore'],True))
+        displayName: 'Dotnet Restore: ${{ sln.solutionname }}'
+        inputs:
+          command: 'restore'
+          artifactoryService: '$(artifactoryService)'
+          targetResolveRepo: '$(ArtifactoryRepoName)'
+          noNuGetCache: true
+          rootPath: ${{ sln.solutionPath }}
+          packagesDirectory: '$(3rdPartyPackagesPath)'
+        enabled: 'true'

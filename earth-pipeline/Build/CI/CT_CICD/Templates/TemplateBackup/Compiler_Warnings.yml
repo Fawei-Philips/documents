@@ -1,0 +1,22 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+
+jobs:
+- job: Compiler_Warnings
+  timeoutInMinutes: 0
+  condition: and(succeeded(), eq(variables['Compiler_Warnings'], 'true'))
+  dependsOn: ${{ parameters.dependsOn }}
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none
+  - task: CmdLine@1
+    displayName: 'TICS Gate: Compiler_Warnings'
+    inputs:
+     filename: '"$(EGS.filename)" '
+     arguments: '$(EGS.MainDll) $(EGS.Config) -p $(System.PullRequest.PullRequestId) -gateon tics_cw -biu $(EGS.BIU) -w $(build.sourcesdirectory) -d'
+    enabled: 'true'

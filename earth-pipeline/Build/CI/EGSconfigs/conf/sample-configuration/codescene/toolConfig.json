@@ -1,0 +1,13 @@
+{
+  "DhttpProxyHost": "codescene.ta.philips.com",
+  "DhttpProxyPort": "443",
+  "DhttpsProxyHost": "codescene.ta.philips.com",
+  "DhttpsProxyPort": "443",
+  "DhttpNonProxyHosts": "codescene.ta.philips.com",
+  "jarFilePath": "C:\\path\\to\\codescene-ci-cd.standalone_v1.2.1.jar",
+  "codesceneDeltaAnalysisUrl": "https://codescene.ta.philips.com/projects/996/delta-analysis",
+  "botUserName": "<botUserName>",
+  "botPasswordKey": "<botPasswordKey>",
+  "codesceneRepository": "<codesceneRepository>",
+  "resultPath": "C:\\path\\to\\codesceneOutput.json"
+}

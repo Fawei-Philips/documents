@@ -1,0 +1,11 @@
+{
+  "ticsProjects": [
+    {
+      "url": "https://ticsapac1.ta.philips.com/tiobeweb",
+      "section": "CT",
+      "component": "CT_Serviceability",
+      "branch": "main",
+      "isAuthenticationRequired": true
+    }
+  ]
+}

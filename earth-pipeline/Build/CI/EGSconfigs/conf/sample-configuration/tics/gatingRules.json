@@ -1,0 +1,72 @@
+{
+  "enabled": "yes",
+  "metrics": [
+    {
+      "metricName": "Average Cyclomatic Complexity",
+      "enabled": "no",
+      "comparisonType": "static|server|softThreshold",
+      "threshold": "3"
+    },
+    {
+      "metricName": "Maximum Cyclomatic Complexity",
+      "enabled": "no",
+      "comparisonType": "static|server|softThreshold",
+      "threshold": "12"
+    },
+    {
+	  "metricName": "Function Cyclomatic Complexity",
+      "enabled": "yes",
+      "comparisonType": "server",
+      "threshold": "4"
+	  },
+    {
+      "metricName": "Compiler Warnings",
+      "enabled": "yes",
+      "comparisonType": "server",
+      "threshold": "90",
+      "levelsToConsider": [
+		{ "level": "1", "threshold": "0" },
+		{ "level": "2", "threshold": "0" },
+		{ "level": "3", "threshold": "0" },
+		{ "level": "4", "threshold": "0" }
+	  ]
+    },
+    {
+      "metricName": "Coding Standard",
+      "enabled": "yes",
+      "comparisonType": "server",
+      "threshold": "90",
+      "levelsToConsider": [
+        { "level": "1", "threshold": "0" },
+		{ "level": "2", "threshold": "0" },
+		{ "level": "3", "threshold": "0" },
+		{ "level": "4", "threshold": "0" },
+		{ "level": "5", "threshold": "0" },
+		{ "level": "6", "threshold": "0" },
+		{ "level": "7", "threshold": "0" },
+		{ "level": "8", "threshold": "0" },
+		{ "level": "9", "threshold": "0" },
+		{ "level": "10", "threshold": "0" }
+      ],
+      
+    },
+    {
+      "metricName": "Fan Out",
+      "enabled": "no",
+      "comparisonType": "static|server|softThreshold",
+      "threshold": "10"
+    },
+    {
+      "metricName": "Statement Coverage",
+      "enabled": "no",
+      "comparisonType": "static|server|softThreshold",
+      "threshold": "60"
+    },
+    {
+      "metricName": "Duplicated Code",
+      "enabled": "yes",
+      "comparisonType": "server",
+      "threshold": "0"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+  inputs : []
+  Checkout : []
+
+jobs:
+- job: Ncover
+  dependsOn: ${{ parameters.dependsOn }}
+  timeoutInMinutes: 0
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: ${{ parameters.Checkout }}
+  
+  - ${{ each i in parameters.inputs }}:
+      - script: |
+            python build/get_pac.py
+            python pac_libraries/set_pac.py
+            python pac_libraries/master_libs/ncover/ncover_console.py --json_file=${{ i.path }}
+        displayName: 'Run ncover devops lib'
+        enabled: true  

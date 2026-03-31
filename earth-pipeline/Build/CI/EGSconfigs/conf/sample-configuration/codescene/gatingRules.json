@@ -1,0 +1,10 @@
+{
+  "enabled": "no",
+  "warningsCountExceeds": 0,
+  "codesceneQualityGates": [
+    {
+      "enableDegradesInCodeHealth": true,
+      "enableViolatesGoal": false
+    }
+  ]
+}

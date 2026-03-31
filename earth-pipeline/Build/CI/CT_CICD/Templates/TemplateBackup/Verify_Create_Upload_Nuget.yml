@@ -1,0 +1,122 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+  Version: ''
+
+jobs:
+- job: Verify_create_upload_nuget
+  dependsOn: ${{ parameters.dependsOn }}
+  pool:
+    name: '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none  
+
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(nuspec_checker_script_path)'
+       arguments: '$(validate_artifactory_base_url) $(artifactory_reponame) $(internal_folder_name) $(state) $(user_name) $(token) $(nuspec_source_path) $(component_name)'
+    displayName: 'Check_for_new_version_in_Nuspec'
+  
+  - task: NuGetCommand@2
+    displayName: 'NuGet package creator'
+    inputs:
+      command: pack
+      packagesToPack: '$(nuspec_source_path)'
+      packDestination: '$(Build.ArtifactStagingDirectory)/$(state)'
+      verbosityPack: Detailed
+    continueOnError: false
+    condition: and(succeeded(), eq(variables['var.createnugetpackage'], 'true'))
+  
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(nuget_uploader_script_path)'
+       arguments: '$(upload_base_url) $(artifactory_reponame) $(internal_folder_name) $(state) $(user_name) $(token) $(nupkg_source_path) $(component_name)*.nupkg'
+    displayName: 'Upload_nuget_package'
+    continueOnError: false
+    condition: and(succeeded(), eq(variables['var.createnugetpackage'], 'true'))
+
+#  - task: PowerShell@2
+#    inputs:
+#       filePath: '$(build.sourcesdirectory)/Build/Pipeline_Scripts/FullBuild_Scripts/CopyNuget_Initial_to_accepted.ps1'
+#       arguments: '$(artifactory_PAT)'
+#    displayName: 'Copy_Nuget_Initial_to_accepted'
+#    continueOnError: false
+#    condition: and(succeeded(), eq(variables['ComponentTests_Run'], 'true') , eq(variables['var.createnugetpackage'], 'true'))
+
+# Component2
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(nuspec_checker_script_path)'
+       arguments: '$(validate_artifactory_base_url) $(artifactory_reponame) $(internal_folder_name) $(state2) $(user_name) $(token) $(nuspec_source_path2) $(component_name2)'
+    displayName: 'Check_for_new_version_in_Nuspec'
+  
+  - task: NuGetCommand@2
+    displayName: 'NuGet package creator'
+    inputs:
+      command: pack
+      packagesToPack: '$(nuspec_source_path2)'
+      packDestination: '$(Build.ArtifactStagingDirectory)/$(state2)'
+      verbosityPack: Detailed
+    continueOnError: false
+    condition: and(succeeded(), eq(variables['var.createnugetpackage'], 'true'))
+
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(nuget_uploader_script_path)'
+       arguments: '$(upload_base_url) $(artifactory_reponame) $(internal_folder_name) $(state2) $(user_name) $(token) $(nupkg_source_path2) $(component_name2)*.nupkg'
+    displayName: 'Upload_nuget_package'
+    continueOnError: false
+    condition: and(succeeded(), eq(variables['var.createnugetpackage'], 'true'))
+
+# Component3
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(nuspec_checker_script_path)'
+       arguments: '$(validate_artifactory_base_url) $(artifactory_reponame) $(internal_folder_name) $(state3) $(user_name) $(token) $(nuspec_source_path3) $(component_name3)'
+    displayName: 'Check_for_new_version_in_Nuspec'
+  
+  - task: NuGetCommand@2
+    displayName: 'NuGet package creator'
+    inputs:
+      command: pack
+      packagesToPack: '$(nuspec_source_path3)'
+      packDestination: '$(Build.ArtifactStagingDirectory)/$(state3)'
+      verbosityPack: Detailed
+    continueOnError: false
+    condition: and(succeeded(), eq(variables['var.createnugetpackage'], 'true'))
+
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(nuget_uploader_script_path)'
+       arguments: '$(upload_base_url) $(artifactory_reponame) $(internal_folder_name) $(state3) $(user_name) $(token) $(nupkg_source_path3) $(component_name3)*.nupkg'
+    displayName: 'Upload_nuget_package'
+    continueOnError: false
+    condition: and(succeeded(), eq(variables['var.createnugetpackage'], 'true'))
+
+# Component4
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(nuspec_checker_script_path)'
+       arguments: '$(validate_artifactory_base_url) $(artifactory_reponame) $(internal_folder_name) $(state4) $(user_name) $(token) $(nuspec_source_path4) $(component_name4)'
+    displayName: 'Check_for_new_version_in_Nuspec'
+  
+  - task: NuGetCommand@2
+    displayName: 'NuGet package creator'
+    inputs:
+      command: pack
+      packagesToPack: '$(nuspec_source_path4)'
+      packDestination: '$(Build.ArtifactStagingDirectory)/$(state4)'
+      verbosityPack: Detailed
+    continueOnError: false
+    condition: and(succeeded(), eq(variables['var.createnugetpackage'], 'true'))
+
+  - task: PowerShell@2
+    inputs:
+       filePath: '$(nuget_uploader_script_path)'
+       arguments: '$(upload_base_url) $(artifactory_reponame) $(internal_folder_name) $(state4) $(user_name) $(token) $(nupkg_source_path4) $(component_name4)*.nupkg'
+    displayName: 'Upload_nuget_package'
+    continueOnError: false
+    condition: and(succeeded(), eq(variables['var.createnugetpackage'], 'true'))

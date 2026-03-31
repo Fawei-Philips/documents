@@ -1,0 +1,39 @@
+parameters:
+  solution: []
+  dependsOn: []
+  agentcapability: []
+  Capabilityname: []
+  agentDemand: []
+  sourcesdirectory: ''
+  JobName: ''
+
+jobs:
+- job: ${{ parameters.JobName }}
+  condition: and(succeeded(), eq(variables['Unit_Testing'], 'true'))
+  dependsOn: ${{ parameters.dependsOn }}
+  timeoutInMinutes: 0
+  variables:
+      sourcesdirectory: ${{ parameters.sourcesdirectory}}
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none
+  - ${{ each sln in parameters.solution }}:
+    - task: VSTest@2
+      displayName: 'Test Assemblies-${{ sln.solutionname }}'
+      inputs:
+        testAssemblyVer2: '${{ sln.testAssemblyvar }}'
+        searchFolder: '$(SourcesDirectory)'
+        runOnlyImpactedTests: false
+        vsTestVersion: '$(vsVersion)'
+        pathtoCustomTestAdapters: '$(TestAdapterPath)'
+        codeCoverageEnabled: false
+        publishRunAttachments: false
+        rerunFailedTests: true
+        rerunType: basedOnTestFailureCount
+        rerunFailedTestCasesMaxLimit: 5
+        rerunMaxAttempts: 3
+      
+

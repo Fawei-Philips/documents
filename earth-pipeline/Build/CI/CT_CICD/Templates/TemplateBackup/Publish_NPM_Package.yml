@@ -1,0 +1,26 @@
+parameters:
+  Solutionpath: []
+  dependsOn: []
+  agentcapability: []
+  Capabilityname: []
+  agentDemand: [] 
+ 
+jobs:
+- job: Publish_NPM_Package
+  timeoutInMinutes: 0
+  condition: and(succeeded(), eq(variables['Publish_NPM_Package'], 'true'))
+  dependsOn: ${{ parameters.dependsOn }}
+  variables:
+    sourcesdirectory: $(build.sourcesdirectory)
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+  steps:
+  - checkout: none
+
+  - task: PowerShell@2
+    inputs:
+        filePath: '$(NPM_Publish_Script_Path)'
+        arguments: '$(validate_artifactory_base_url) $(artifactory_npm_reponame) $(Angular_Projects_Dist_Path) $(artifactory_PAT)'
+    displayName: 'Publish_NPM_Modules'

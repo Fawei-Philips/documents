@@ -1,0 +1,68 @@
+parameters:
+  dependsOn: []
+  agentcapability: []
+  agentDemand: []
+  Checkout: []
+#  SolutionPathAndVersionName: []
+
+jobs:
+- job: Fortify_Integration
+  workspace:
+    clean: all
+  timeoutInMinutes: 0
+  condition: and(succeeded(), eq(variables['Fortify'], 'true'))
+  dependsOn: ${{ parameters.dependsOn }}
+  pool:
+    name:  '$(PoolName)'
+    demands:
+    - ${{ parameters.agentDemand }} -equals ${{ parameters.agentcapability }}
+
+  steps:
+  - checkout: self
+    clean: true
+    fetchDepth: 2
+  - task: JFrog.jfrog-artifactory-vsts-extension.artifactory-generic-download.ArtifactoryGenericDownload@3
+    displayName: 'Download Tools'
+    inputs:
+      connection: JfrogArtifactory
+      fileSpec: |
+       {
+         "files": [
+           {
+             "pattern": "ct-workspace/Tools/Tools.$(Toolsversion).nupkg",
+             "target": "$(Build.SourcesDirectory)/",
+             "flat": "true"
+           }
+         ]
+       }
+    enabled: true
+
+  - script: 'nuget install Tools -Source %cd% -OutputDirectory Tools'
+    workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: 'Install Tools'
+    failOnStderr: true
+
+  - script: 'mkdir $(build.artifactstagingdirectory)\Fortify'
+    displayName: 'Create Fortify output folder'
+#  - script: '"$(FortifyInstallPath)\sourceanalyzer.exe" -b $(ApplicationVersion)Inf -clean'
+#    displayName: 'Clean Fortify Runs for $(ApplicationVersion)Inf'
+#  - script: '"$(FortifyInstallPath)\sourceanalyzer.exe" -b $(ApplicationVersion)Inf "$(MSBuild15)\MSBuild.exe" $(Build.Repository.LocalPath)\ExtInf\$(ApplicationVersion)Inf.sln /t:rebuild /p:Configuration=Release /p:Platform="Any CPU" /p:TreatWarningsAsErrors="false"'
+#    displayName: 'Fortify Translation for $(ApplicationVersion)Inf'
+#  - script: '"$(FortifyInstallPath)\sourceanalyzer.exe" -b $(ApplicationVersion)Inf "-Xmx4960m" "-Xss32M" -scan -f $(build.artifactstagingdirectory)\Fortify\$(ApplicationVersion)Inf_$(Build.BuildID).fpr'
+#    displayName: 'Fortify Analysis for $(ApplicationVersion)Inf'
+#  - script: '"$(FortifyInstallPath)\fortifyclient.bat" -url $(FortifyURL) -authtoken $(FortifyAuthToken) uploadFPR -f $(build.artifactstagingdirectory)\Fortify\$(ApplicationVersion)Inf_$(Build.BuildID).fpr -project $(FortifyProject) -version $(ApplicationVersion)'
+#    displayName: 'Fortify Upload for $(ApplicationVersion)Inf'
+
+  - script: '"$(FortifyInstallPath)\sourceanalyzer.exe" -b $(ApplicationVersion)Impl  -clean'
+    displayName: 'Clean Fortify Runs for $(ApplicationVersion)Impl'
+  - script: '"$(FortifyInstallPath)\sourceanalyzer.exe" -b $(ApplicationVersion)Impl "$(MSBuild15)\MSBuild.exe" $(Build.Repository.LocalPath)\Src\$(ApplicationVersion)Impl.sln /t:rebuild /p:Configuration=Release /p:Platform="Any CPU" /p:TreatWarningsAsErrors="false"'
+    displayName: 'Fortify Translation for $(ApplicationVersion)Impl'
+  - script: '"$(FortifyInstallPath)\sourceanalyzer.exe" -b $(ApplicationVersion)Impl "-Xmx123411345408" "-Xss16M" -scan -f $(build.artifactstagingdirectory)\Fortify\$(ApplicationVersion)Impl_$(Build.BuildID).fpr'
+#  - script: '"$(FortifyInstallPath)\sourceanalyzer.exe" -b $(ApplicationVersion)Impl "-Xmx4960m" "-Xss32M" -scan -f $(build.artifactstagingdirectory)\Fortify\$(ApplicationVersion)Impl_$(Build.BuildID).fpr'
+    displayName: 'Fortify Analysis for $(ApplicationVersion)Impl'
+  - script: '"$(FortifyInstallPath)\fortifyclient.bat" -url $(FortifyURL) -authtoken $(FortifyAuthToken) uploadFPR -f $(build.artifactstagingdirectory)\Fortify\$(ApplicationVersion)Impl_$(Build.BuildID).fpr -project $(FortifyProject) -version $(ApplicationVersion)'
+    displayName: 'Fortify Upload for $(ApplicationVersion)Impl'
+
+  - script: 'dotnet $(Build.SourcesDirectory)\Tools\Tools.1.0.0\EGS\gates_main.dll -nightly $(Build.SourcesDirectory)\Build\CI\EGSconfigs\conf\sample-configuration-nightly\nightlyConfig.json -biu $(EGSbiu) -program $(EGSprogram) -n $(EGSprojectname) -w $(Build.SourcesDirectory) -gateon fortify'
+    displayName: 'EGS FORTIFY Integration GATE'
+    failOnStderr: true
