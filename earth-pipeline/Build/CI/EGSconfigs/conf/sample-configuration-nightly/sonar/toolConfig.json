@@ -1,9 +1,0 @@
-{
-  "sonarHostUrl": "http://ingbtcpic6vw059:9000/",
-  "login": "<SonarQube-ACCESS-TOKEN>",
-  "sonarProjects": [
-    {
-      "projectKey": "<SonarQube-ProjectKey>"
-    }
-  ]
-}

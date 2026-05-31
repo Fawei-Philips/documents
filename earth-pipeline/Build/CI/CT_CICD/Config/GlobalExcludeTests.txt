@@ -1,2 +1,0 @@
-Philips.PmsCT.Logging.Tests.dll
-Philips.PH.GCS.M2M.ADT.DiagnosticTests.dll

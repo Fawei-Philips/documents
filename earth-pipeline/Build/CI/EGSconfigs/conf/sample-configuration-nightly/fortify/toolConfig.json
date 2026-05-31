@@ -1,9 +1,0 @@
-{
-  "FortifyApiUrl": "https://ingbtcpic7vw002.code1.emi.philips.com/DashboardAPI/api/Fortify?applyOptimizedFilterset=true&projectId=",
-  "services": [
-    {
-      "serviceName": "CT_Serviceability",
-      "projectId": "16832"
-    }
-  ]
-}

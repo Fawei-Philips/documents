@@ -1,2 +1,0 @@
-ExtInf\CT_ServiceabilityInf.sln
-Src\CT_ServiceabilityImpl.sln

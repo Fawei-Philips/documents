@@ -1,6 +1,0 @@
-{
-  "enabled": "no",
-  "comparisonType": "server",
-  "threshold": "0",
-  "DoDeltaBuild": "no"
-}
