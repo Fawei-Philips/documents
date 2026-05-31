@@ -10,7 +10,7 @@ namespace Messaging.Http.Ioc;
 
 public static class ClientRegistrationExt
 {
-    public static IHttpClientBuilder AddHttpApiClient(this IServiceCollection services,
+    public static IHttpClientBuilder AddHttpClient(this IServiceCollection services,
         string clientIdentifier,
         Action<IHttpApiClientOptions> configureOptions)
     {
@@ -62,7 +62,7 @@ public static class ClientRegistrationExt
         string clientIdentifier,
         Action<IHttpApiClientOptions> configureOptions)
     {
-        var clientBuilder = services.AddHttpApiClient(clientIdentifier, configureOptions)
+        var clientBuilder = services.AddHttpClient(clientIdentifier, configureOptions)
             .AddPolicyHandler((serviceProvider, request) =>
             {
                 var options = serviceProvider.GetClientOptions(clientIdentifier);
