@@ -15,6 +15,10 @@ public class HttpApiClientDemo
 
     private void InitClient()
     {
-        // HttpClientContainer.Services.AddHttpClient();
+        HttpClientContainer.Services.AddHttpClient("demoHttpClient", clientOptions =>
+        {
+            clientOptions.BaseAddress = new Uri("https://localhost:5001");
+            
+        });
     }
 }

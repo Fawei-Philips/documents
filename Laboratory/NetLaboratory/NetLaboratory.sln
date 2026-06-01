@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Core", "..\Repos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfWidgets", "..\WpfWidgets\WpfWidgets.csproj", "{FACAC19D-8795-46CC-87FE-EC34FE1AAA06}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingTest", "..\MessagingTest\MessagingTest.csproj", "{88D41DA5-F2D9-4ADC-927C-85DA730D48DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{FACAC19D-8795-46CC-87FE-EC34FE1AAA06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FACAC19D-8795-46CC-87FE-EC34FE1AAA06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FACAC19D-8795-46CC-87FE-EC34FE1AAA06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88D41DA5-F2D9-4ADC-927C-85DA730D48DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88D41DA5-F2D9-4ADC-927C-85DA730D48DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88D41DA5-F2D9-4ADC-927C-85DA730D48DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88D41DA5-F2D9-4ADC-927C-85DA730D48DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
