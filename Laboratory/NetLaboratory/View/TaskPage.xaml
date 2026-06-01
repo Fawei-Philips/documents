@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="NetLaboratory.View.TaskPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:NetLaboratory.View"
+             xmlns:localVm="clr-namespace:NetLaboratory.ViewModel">
+    <UserControl.DataContext>
+        <localVm:TaskPageViewModel />
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <Button Command="{Binding AsyncAwaitCommand}" Content="AsyncAwait" />
+            <Button Command="{Binding CounterCommand}" Content="Counter" />
+            <Button Command="{Binding SemaphoreCommand}" Content="Semaphore" />
+            <Button Command="{Binding TimeoutCommand}" Content="Timeout" />
+            <Button Command="{Binding ChannelCommand}" Content="Channel" />
+        </StackPanel>
+    </Grid>
+</UserControl>

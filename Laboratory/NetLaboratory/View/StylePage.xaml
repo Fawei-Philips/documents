@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="NetLaboratory.View.StylePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:NetLaboratory.View"
+             xmlns:localVm="clr-namespace:NetLaboratory.ViewModel"
+             xmlns:buttons="clr-namespace:WpfControls.MaterialDesign.Buttons;assembly=WpfControls">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/WpfControls;component/MaterialDesign/Buttons/themable/ThemableButtonStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <!-- 主数据上下文 -->
+    <UserControl.DataContext>
+        <localVm:StylePageViewModel />
+    </UserControl.DataContext>
+
+    <StackPanel Margin="20" Orientation="Vertical">
+        <TextBlock FontSize="18" FontWeight="Bold" Text="按钮ViewModel示例" />
+
+        <Button Style="{StaticResource BaseButtonStyle}"
+            Content="{Binding PrimaryButton}"
+            ContentTemplateSelector="{StaticResource ButtonTemplateSelector}"
+            Height="50">
+        </Button>
+
+            <!-- 按钮列表 -->
+        <ItemsControl ItemsSource="{Binding Buttons}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Style="{StaticResource BaseButtonStyle}"
+                        Margin="0,5"
+                        Content="{Binding}"
+                        ContentTemplateSelector="{StaticResource ButtonTemplateSelector}"
+                        Command="{Binding ClickCommand}"
+                        IsEnabled="{Binding IsEnabled}"
+                        Height="35"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Separator Height="2" Background="#EEEEEE"/>
+
+        <!-- 动态按钮 -->
+        <Button Style="{StaticResource BaseButtonStyle}"
+            Content="{Binding DynamicButton}"
+            ContentTemplateSelector="{StaticResource ButtonTemplateSelector}"
+            Command="{Binding DynamicButton.ClickCommand}"
+            IsEnabled="{Binding DynamicButton.IsEnabled}"
+            Height="35"/>
+
+        <!-- 切换动态按钮类型 -->
+        <Button 
+            Content="切换动态按钮类型"
+            Command="{Binding SwitchDynamicButtonTypeCommand}"
+            Style="{StaticResource BaseButtonStyle}"
+            Background="#666666"
+            Foreground="White"
+            Height="35"/>
+    </StackPanel>
+</UserControl>

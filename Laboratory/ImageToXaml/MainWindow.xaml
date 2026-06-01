@@ -1,0 +1,58 @@
+﻿<Window x:Class="ImageToXaml.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImageToXaml"
+        xmlns:vm="clr-namespace:ImageToXaml.viewmodels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button Width="100" Height="30" Content="Convert"
+                Grid.Row="0"
+                Command="{Binding ConvertCommand}">
+            
+        </Button>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Content="Select SVG/PNG File" 
+                    Command="{Binding OpenSingleFileCommand}"
+                    CommandParameter="In"
+                    Width="200" Height="30"/>
+            <TextBlock Text="{Binding InputPath}" 
+                        VerticalAlignment="Center"
+                        TextTrimming="CharacterEllipsis"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button Content="Select Output Path" 
+                    Command="{Binding OpenSingleFileCommand}"
+                    CommandParameter="Out"
+                    Width="200" Height="30"/>
+            <TextBlock Text="{Binding OutputPath}" 
+                        VerticalAlignment="Center"
+                        TextTrimming="CharacterEllipsis"/>
+        </StackPanel>
+
+
+        <!--<StackPanel>
+                <Button Content="Select Multiple SVG/PNG Files" 
+                        Command="{Binding SelectMultipleFilesCommand}"
+                        Width="180" Height="30"/>
+
+                <ListBox ItemsSource="{Binding SelectedFilePaths}" 
+                         Margin="0,10,0,0"
+                         Height="200">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" TextTrimming="CharacterEllipsis"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>-->
+    </Grid>
+</Window>

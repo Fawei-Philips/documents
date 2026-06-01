@@ -1,0 +1,53 @@
+﻿<Page x:Class="NetLaboratory.View.MainView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:view="clr-namespace:WpfControls.View;assembly=WpfControls"
+      xmlns:controls="clr-namespace:WpfControls.MaterialDesign;assembly=WpfControls"
+      xmlns:local="clr-namespace:NetLaboratory.View"
+      xmlns:customButtons="clr-namespace:WpfControls.MaterialDesign.Buttons;assembly=WpfControls"
+      MinWidth="800"
+      MinHeight="600"
+      Title="MainView">
+    <Page.Resources>
+        <ResourceDictionary>
+        </ResourceDictionary>
+    </Page.Resources>
+    <TabControl >
+        <TabItem Header="NetBasicPanel">
+            <view:BaseConsole Title="NetBasic">
+                <view:BaseConsole.ConsoleContent>
+                    <StackPanel>
+                        <local:NetBasicPage></local:NetBasicPage>
+                    </StackPanel>
+                </view:BaseConsole.ConsoleContent>
+            </view:BaseConsole>
+        </TabItem>
+        <TabItem Header="TaskPanel">
+            <view:BaseConsole Title="Test Async">
+                <view:BaseConsole.ConsoleContent>
+                    <StackPanel>
+                        <local:TaskPage></local:TaskPage>
+                    </StackPanel>
+                </view:BaseConsole.ConsoleContent>
+            </view:BaseConsole>
+        </TabItem>
+        <TabItem Header="LogConsole">
+            <view:BaseConsole Title="Console with log">
+                <view:BaseConsole.ConsoleContent>
+                    <StackPanel>
+                        <local:StylePage></local:StylePage>
+                    </StackPanel>
+                </view:BaseConsole.ConsoleContent>
+            </view:BaseConsole>
+        </TabItem>
+        <TabItem Header="Leet Code">
+            <local:LeetCodeCtrl>
+
+            </local:LeetCodeCtrl>
+        </TabItem>
+        <TabItem Header="Widgets">
+            <local:Widgets>
+            </local:Widgets>
+        </TabItem>
+    </TabControl>
+</Page>

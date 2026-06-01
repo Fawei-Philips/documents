@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="NetLaboratory.View.NetBasicPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:NetLaboratory.View"
+             xmlns:localVm="clr-namespace:NetLaboratory.ViewModel">
+    <UserControl.DataContext>
+        <localVm:NetBasicPageViewModel />
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <Button Command="{Binding RefOutCommand}" Content="RefOut" />
+        </StackPanel>
+    </Grid>
+</UserControl>

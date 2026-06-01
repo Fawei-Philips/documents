@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>Csharp.Utils.perfect2645</PackageId>
+    <Version>1.4.1</Version>
+    <Authors>Fawei</Authors>
+    <Company>Personal</Company>
+    <Product>Csharp.utils</Product>
+    <Description>.net c# utils library.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Copyright>Copyright © 2026 Fawei</Copyright>
+    <PackageProjectUrl>https://github.com/perfect2645/Laboratory/tree/main/Utils</PackageProjectUrl>
+  	<RepositoryUrl>https://github.com/perfect2645/Laboratory/tree/main/Utils</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>.net C# tools library</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="README.md" Pack="true" PackagePath="\">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="9.0.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageReference Include="net.logging.perfect2645" Version="1.1.0" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="WpfControls.View.BaseConsole"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="clr-namespace:WpfControls.LogConsole"
+      x:Name="baseConsole">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/WpfControls;component/MaterialDesign/Resouces/Material.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </UserControl.Resources>   
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="header"
+              Grid.Row="0"
+              Height="30" 
+              Background="SkyBlue">
+            <StackPanel Orientation="Horizontal" 
+                        VerticalAlignment="Center">
+                <TextBlock Text="{Binding Title, ElementName=baseConsole}" Style="{StaticResource TitleH3}" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="400"/>
+                <ColumnDefinition Width="450"/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="logs"
+                  Grid.Column="0">
+                <controls:LogPanel x:Name="logPanelCtrl">
+
+                </controls:LogPanel>
+            </Grid>
+            <Grid x:Name="console" 
+                  Grid.Column="1"
+                  HorizontalAlignment="Left">
+                <ContentControl Grid.Row="4"
+                                VerticalAlignment="Stretch"
+                                Content="{Binding ConsoleContent, ElementName=baseConsole}" >
+                </ContentControl>
+            </Grid>
+        </Grid>
+        <Grid x:Name="fotter"
+              Grid.Row="2"
+              Height="30" 
+              Background="SkyBlue">
+        </Grid>
+    </Grid>
+</UserControl>

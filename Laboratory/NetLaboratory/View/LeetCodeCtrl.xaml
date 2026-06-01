@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="NetLaboratory.View.LeetCodeCtrl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:NetLaboratory.View"
+>
+    <Grid Margin="2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" ToolTip="number">
+            <Button Content="PrimeCounter" Click="PrimeCounter_Click" />
+            <Button Content="TargetSum" Click="TargetSum_Click" />
+            <Button Content="LadderCoins" Click="LadderCoins_Click" />
+            <Button Content="FibonacciSequence" Click="FibonacciSequence_Click" />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" ToolTip="string">
+            <Button Content="MinionGame" Click="MinionGame_Click" />
+            <Button Content="KMP" Click="KMP_Click" />
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" ToolTip="array">
+            <Button Content="DuplicateRemoval" Click="DuplicateRemoval_Click" />
+            <Button Content="CenterIndex" Click="CenterIndex_Click" />
+            <Button Content="CollectionInstructions" Click="CollectionInstructions_Click" />
+            <Button Content="PhoneNumberComb" Click="PhoneNumberComb_Click" />
+        </StackPanel>
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <Button Content="ClosestRoutes" Click="ClosestRoutes_Click" />
+            <Button Content="Bomberman" Click="Bomberman_Click" />
+        </StackPanel>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" ToolTip="logic">
+            <Button Content="TurnStile" Click="TurnStile_Click" />
+        </StackPanel>
+        <StackPanel Grid.Row="5" Orientation="Horizontal">
+            <Button Content="SortTest" Click="SortTest_Click" />
+        </StackPanel>
+        <StackPanel Grid.Row="6" Orientation="Horizontal">
+            <Button Content="AsyncTest" Click="AsyncTest_Click" />
+        </StackPanel>
+        <StackPanel Grid.Row="7" Orientation="Horizontal">
+            <Button Content="Interview" Click="InterviewTest_Click" />
+        </StackPanel>
+    </Grid>
+</UserControl>

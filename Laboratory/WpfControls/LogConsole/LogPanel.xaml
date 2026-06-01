@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="WpfControls.LogConsole.LogPanel"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="clr-namespace:WpfControls.LogConsole"
+      x:Name="LogPanelCtrl">
+
+    <Grid>
+        <RichTextBox x:Name="logText" 
+                   Width="Auto"
+                   Height="Auto"
+                   MinWidth="300"
+                   MinHeight="200"
+                     VerticalContentAlignment="Top"
+                   FontSize="12"
+                   Background="AliceBlue"
+                   SelectionTextBrush="YellowGreen"
+                   SelectionBrush="SkyBlue"
+                   IsReadOnly="True"
+                   ScrollViewer.VerticalScrollBarVisibility="Auto"
+                   SelectionChanged="logText_SelectionChanged">
+            <FlowDocument LineHeight="5" x:Name="document">
+                
+            </FlowDocument>
+        </RichTextBox>
+    </Grid>
+</UserControl>

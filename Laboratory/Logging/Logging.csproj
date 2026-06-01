@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>net.logging.perfect2645</PackageId>
+    <Version>1.1.0</Version>
+    <Authors>Fawei</Authors>
+    <Company>Personal</Company>
+    <Product>net.logging</Product>
+    <Description>.net logging library.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Copyright>Copyright © 2026 Fawei</Copyright>
+    <PackageProjectUrl>https://github.com/perfect2645/Laboratory/tree/main/Utils</PackageProjectUrl>
+  	<RepositoryUrl>https://github.com/perfect2645/Laboratory/tree/main/Utils</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>.net tools library - logging</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="log4net.config" />
+    <None Remove="README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="README.md" Pack="true" PackagePath="\">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="3.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>
